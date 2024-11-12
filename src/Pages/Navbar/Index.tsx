@@ -1,10 +1,9 @@
-import { Outlet } from "react-router-dom";
-
 function Navbar() {
   return (
     <div>
-      <div></div>
-      <Outlet />
+      <div className="container">
+        <div className="pt-10 pb-4 border-b-[0.5px]"></div>
+      </div>
     </div>
   );
 }
