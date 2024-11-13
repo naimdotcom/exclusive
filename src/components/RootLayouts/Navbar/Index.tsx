@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { LuShoppingBag } from "react-icons/lu";
 import { FaRegStar } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
+import { cn } from "../../../utils/cn";
 
 function Navbar() {
   const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
@@ -63,7 +64,7 @@ function Navbar() {
                   <>
                     <li
                       key={item.id}
-                      className="cursor-pointer text-black hover:text-cs-text_black7D8184"
+                      className="text-black cursor-pointer hover:text-cs-text_black7D8184"
                     >
                       <NavLink
                         to={item.path}
@@ -86,33 +87,39 @@ function Navbar() {
 
           {/* Search and Cart */}
 
-          <div className="flex ml-auto items-center gap-3 text-black">
-            <div className="bg-cs-white_F5F5F5 flex rounded-md w-fit gap-4 items-center px-2">
+          <div className="flex items-center gap-3 ml-auto text-black">
+            <div className="flex items-center gap-4 px-2 rounded-md bg-cs-white_F5F5F5 w-fit">
               <input
                 type="text "
-                className="bg-transparent rounded-md px-3 py-2 placeholder:text-cs-text_black7D8184"
+                className={cn(
+                  "bg-transparent rounded-md px-3 py-2 placeholder:text-cs-text_black7D8184"
+                )}
                 placeholder="What are you looking for"
               />
-              <IoIosSearch className="font-bold text-3xl" />
+              <IoIosSearch className="text-3xl font-bold" />
             </div>
             <div>
-              <MdOutlineFavoriteBorder className="font-bold text-3xl" />
+              <MdOutlineFavoriteBorder className="text-3xl font-bold" />
             </div>
-            <div>
-              <IoCartOutline className="font-bold text-3xl" />
+            <div className="relative">
+              <IoCartOutline className="text-3xl font-bold" />
+              <div
+                className={cn(
+                  "absolute bottom-1/2 -right-2 bg-cs-redDB4444 w-5 h-5 rounded-full flex items-center justify-center"
+                )}
+              >
+                <h4>0</h4>
+              </div>
             </div>
 
             <div>
               <FiUser
-                className="bg-cs-redDB4444 rounded-full text-3xl p-1 text-white"
+                className="p-1 text-3xl text-white rounded-full cursor-pointer bg-cs-redDB4444"
                 onClick={handleUserModal}
               />
               <div className="relative" ref={modalRef}>
                 {isUserModalOpen && (
-                  <div
-                    className="absolute right-0 top-3  w-56
-                   bg-gradient-to-b from-gray-800/70 via-gray-900/80 to-gray-800/90 text-white backdrop-blur-sm rounded-lg shadow-lg px-5 py-4"
-                  >
+                  <div className="absolute right-0 w-56 px-5 py-4 text-white rounded-lg shadow-lg top-3 bg-gradient-to-b from-gray-800/70 via-gray-900/80 to-gray-800/90 backdrop-blur-sm">
                     {/* user modal */}
                     <div className="flex flex-col gap-3">
                       <div>
