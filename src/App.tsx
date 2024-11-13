@@ -18,7 +18,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <div className="h-6 bg-black text-white">hello</div>
     </>
   );
 }

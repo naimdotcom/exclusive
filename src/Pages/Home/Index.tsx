@@ -1,5 +1,4 @@
-import React from "react";
-import Navbar from "../Navbar/Index";
+import Navbar from "../../components/RootLayouts/Navbar/Index";
 
 function Home() {
   return (
