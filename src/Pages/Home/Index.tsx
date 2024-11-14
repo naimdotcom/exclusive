@@ -1,11 +1,5 @@
-import Navbar from "../../components/RootLayouts/Navbar/Index";
-
 function Home() {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  );
+  return <div>home</div>;
 }
 
 export default Home;

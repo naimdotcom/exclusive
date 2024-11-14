@@ -108,7 +108,9 @@ function Navbar() {
                   "absolute bottom-1/2 -right-2 bg-cs-redDB4444 w-5 h-5 rounded-full flex items-center justify-center"
                 )}
               >
-                <h4>0</h4>
+                <h4 className="text-xs text-white select-none font-poppins">
+                  0
+                </h4>
               </div>
             </div>
 
@@ -117,7 +119,7 @@ function Navbar() {
                 className="p-1 text-3xl text-white rounded-full cursor-pointer bg-cs-redDB4444"
                 onClick={handleUserModal}
               />
-              <div className="relative" ref={modalRef}>
+              <div className="relative select-none" ref={modalRef}>
                 {isUserModalOpen && (
                   <div className="absolute right-0 w-56 px-5 py-4 text-white rounded-lg shadow-lg top-3 bg-gradient-to-b from-gray-800/70 via-gray-900/80 to-gray-800/90 backdrop-blur-sm">
                     {/* user modal */}
@@ -126,8 +128,14 @@ function Navbar() {
                         <button className="flex items-center gap-2 ">
                           <span>
                             <FiUser className="text-2xl" />
-                          </span>{" "}
-                          Manage My Account
+                          </span>
+                          <span
+                            className={cn(
+                              "font-poppins text-sm leading-5 text-cs-text_whiteFAFAFA"
+                            )}
+                          >
+                            Manage My Account
+                          </span>
                         </button>
                       </div>
                       <div>
@@ -135,7 +143,13 @@ function Navbar() {
                           <span>
                             <LuShoppingBag className="text-2xl" />
                           </span>{" "}
-                          My Order
+                          <span
+                            className={cn(
+                              "font-poppins text-sm leading-5 text-cs-text_whiteFAFAFA"
+                            )}
+                          >
+                            My Order
+                          </span>
                         </button>
                       </div>
                       <div>
@@ -143,7 +157,13 @@ function Navbar() {
                           <span>
                             <MdOutlineCancel className="text-2xl" />
                           </span>{" "}
-                          My Cancellations
+                          <span
+                            className={cn(
+                              "font-poppins text-sm leading-5 text-cs-text_whiteFAFAFA"
+                            )}
+                          >
+                            My Cancellations
+                          </span>
                         </button>
                       </div>
                       <div>
@@ -151,7 +171,13 @@ function Navbar() {
                           <span>
                             <FaRegStar className="text-2xl" />
                           </span>{" "}
-                          My Review
+                          <span
+                            className={cn(
+                              "font-poppins text-sm leading-5 text-cs-text_whiteFAFAFA"
+                            )}
+                          >
+                            My Reviews
+                          </span>
                         </button>
                       </div>
                       <div>
@@ -159,7 +185,13 @@ function Navbar() {
                           <span>
                             <TbLogout2 className="text-2xl" />
                           </span>{" "}
-                          Logout
+                          <span
+                            className={cn(
+                              "font-poppins text-sm leading-5 text-cs-text_whiteFAFAFA"
+                            )}
+                          >
+                            Logout
+                          </span>
                         </button>
                       </div>
                     </div>
