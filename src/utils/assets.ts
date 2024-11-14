@@ -1,3 +1,3 @@
 import logo from "../assets/Logo.png";
-
-export { logo };
+import bannerImg from "../assets/bannerImg.jpg";
+export { logo, bannerImg };
