@@ -1,9 +1,11 @@
-import Banner from "../../components/HomeComponents/Banner";
+import Banner from "../../components/HomeComponents/Banner/Index";
+import FlashSales from "../../components/HomeComponents/FlashSales/Index";
 
 function Home() {
   return (
     <div>
       <Banner />
+      <FlashSales />
     </div>
   );
 }

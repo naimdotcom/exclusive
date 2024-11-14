@@ -1,14 +1,15 @@
-import { bannerImg } from "../../utils/assets";
-import { cn } from "../../utils/cn";
-import SideBar from "./SideBar";
+import { bannerImg } from "../../../utils/assets";
+import { cn } from "../../../utils/cn";
+import SideBar from "../../CommonComponents/SideBar";
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ReactNode, useState } from "react";
 
 function Banner() {
   const [currentSlide, setcurrentSlide] = useState<number>(0);
+
+  // css for react slick which will be set in <slider .... >
   let settings = {
     dots: true,
     infinite: true,
@@ -27,6 +28,7 @@ function Banner() {
           transform: "translateX(-50%)",
           borderRadius: "10px",
           padding: "10px",
+          color: "#000",
         }}
       >
         <ul style={{ margin: "0px" }}> {dots} </ul>
@@ -36,31 +38,25 @@ function Banner() {
       i == currentSlide ? (
         <div
           style={{
-            width: "20px",
-            height: "20px",
+            width: "15px",
+            height: "15px",
             borderRadius: "50%",
             background: "#DB4444",
             border: "3px solid #ffff",
             marginRight: "12px",
             cursor: "pointer",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
           }}
         ></div>
       ) : (
         <div
           style={{
-            width: "20px",
-            height: "20px",
+            width: "15px",
+            height: "15px",
             borderRadius: "50%",
             background: "#ffff",
             opacity: "0.5",
             marginRight: "12px",
             cursor: "pointer",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
           }}
         ></div>
       ),
@@ -68,6 +64,7 @@ function Banner() {
       setcurrentSlide(currentSlide);
     },
   };
+
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-12 mt-10">
@@ -75,17 +72,17 @@ function Banner() {
         <div className={cn("col-span-10 pl-10 flex justify-center")}>
           <div className={cn("w-full ")}>
             <div className="w-full">
-              <Slider {...settings} className="w-full mx-auto">
-                {[...new Array(5)].map((item: number, i: number) => {
+              <Slider {...settings}>
+                {[...new Array(5)].map((item: any, i: number) => {
                   return (
                     <div
-                      className={cn("w-full  flex justify-center items-center")}
+                      className={cn("w-full flex justify-center items-center")}
                       key={i}
                     >
-                      <a href="">
+                      <a href="" className="w-full">
                         <picture>
                           <img
-                            src={bannerImg}
+                            src={item?.img ? item.img : bannerImg}
                             alt={bannerImg}
                             className="object-cover w-full h-full"
                           />
