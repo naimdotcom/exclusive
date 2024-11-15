@@ -78,7 +78,7 @@ function ProductCommonComponentLayout({
       {/* Heading ENd */}
       <div className="pt-12">
         <div className="slider-container">
-          <Slider ref={slideSlickRef} {...settings}>
+          <Slider ref={slideSlickRef} {...settings} className="">
             {products?.map((item) => {
               return <ProductCard key={item.id} {...item} />;
             })}

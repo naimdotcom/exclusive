@@ -44,7 +44,7 @@ function Navbar() {
   }, [isUserModalOpen]);
 
   return (
-    <div className="border-b-[0.5px] pt-10 pb-4 border-b-cs_black">
+    <div className="border-b-[0.5px] pt-10 pb-4 border-b-cs_black sticky  bg-white z-50 w-full top-0 left-0">
       <div className="container mx-auto">
         <div className="grid grid-cols-3 ">
           <div className="cursor-pointer">
