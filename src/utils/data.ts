@@ -1,4 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
+import {
+  productImg1,
+  productImg2,
+  productImg3,
+  productImg4,
+  productImg5,
+  productImg6,
+  productImg7,
+  productImg8,
+} from "./assets";
 
 type Navigation = {
   id: string;
@@ -19,7 +29,18 @@ type sideCategory = {
   subCategory: subCategory[];
 };
 
-export type { sideCategory, subCategory };
+interface productCardsInfoType {
+  id: string;
+  name: string;
+  originalPrice: number;
+  discountedPrice: number;
+  discount: number;
+  rating: number;
+  reviews: number;
+  image: string;
+}
+
+export type { sideCategory, subCategory, productCardsInfoType };
 
 const sideCategories: sideCategory[] = [
   {
@@ -119,4 +140,87 @@ const navigationBar: Navigation[] = [
   },
 ];
 
-export { navigationBar, sideCategories };
+const productCardsInfo: productCardsInfoType[] = [
+  {
+    id: uuidv4(),
+    name: "HAVIT HV-G92 Gamepad",
+    originalPrice: 160,
+    discountedPrice: 120,
+    discount: 40,
+    rating: 4.5,
+    reviews: 88,
+    image: productImg1, // Replace with actual image path
+  },
+  {
+    id: uuidv4(),
+    name: "AK-900 Wired Keyboard",
+    originalPrice: 1160,
+    discountedPrice: 960,
+    discount: 35,
+    rating: 4.0,
+    reviews: 75,
+    image: productImg2,
+  },
+  {
+    id: uuidv4(),
+    name: "IPS LCD Gaming Monitor",
+    originalPrice: 400,
+    discountedPrice: 370,
+    discount: 30,
+    rating: 4.5,
+    reviews: 99,
+    image: productImg3, // Replace with actual image path
+  },
+  {
+    id: uuidv4(),
+    name: "S-Series Comfort Chair",
+    originalPrice: 400,
+    discountedPrice: 375,
+    discount: 25,
+    rating: 4.0,
+    reviews: 99,
+    image: productImg4, // Replace with actual image path
+  },
+  {
+    id: uuidv4(),
+    name: "The north coat",
+    originalPrice: 360,
+    discountedPrice: 260,
+    discount: 28, // Calculated as (360 - 260) / 360 * 100
+    rating: 4.5,
+    reviews: 65,
+    image: productImg5, // Placeholder image path
+  },
+  {
+    id: uuidv4(),
+    name: "Gucci duffle bag",
+    originalPrice: 1160,
+    discountedPrice: 960,
+    discount: 17, // Calculated as (1160 - 960) / 1160 * 100
+    rating: 4.5,
+    reviews: 65,
+    image: productImg6, // Placeholder image path
+  },
+  {
+    id: uuidv4(),
+    name: "RGB liquid CPU Cooler",
+    originalPrice: 170,
+    discountedPrice: 160,
+    discount: 6, // Calculated as (170 - 160) / 170 * 100
+    rating: 4.5,
+    reviews: 65,
+    image: productImg7, // Placeholder image path
+  },
+  {
+    id: uuidv4(),
+    name: "Small BookShelf",
+    originalPrice: 360,
+    discountedPrice: 360,
+    discount: 0,
+    rating: 4.5,
+    reviews: 65,
+    image: productImg8, // Placeholder image path
+  },
+];
+
+export { navigationBar, sideCategories, productCardsInfo };

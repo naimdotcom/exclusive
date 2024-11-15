@@ -13,9 +13,12 @@ function Banner() {
   let settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplaySpeed: 3000,
+    cssEase: "linear",
+    autoplay: true,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
