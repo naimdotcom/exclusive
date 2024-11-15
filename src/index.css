@@ -25,18 +25,18 @@
 
 :root {
   /* !colors */
-  --white: #ffffff;
-  --dark-charcoal: #363738;
-  --light-gray: #f5f5f5;
-  --off-white: #fefaf1;
-  --pure-white: #ffffff;
-  --light-text-gray: #fafafa;
-  --gray-medium: #7d8184;
-  --black: #000000;
-  --red-primary: #db4444;
-  --green-button: #00ff66;
-  --red-hover: #e07575;
-  --blue-hover: #a0bce0;
+  --white_color: #ffffff;
+  --black_363738: #363738;
+  --white_F5F5F5: #f5f5f5;
+  --white_FEFAF1: #fefaf1;
+  --white_FFFFFF: #ffffff;
+  --text_whiteFAFAFA: #fafafa;
+  --text_black7D8184: #7d8184;
+  --text_black000000: #000000;
+  --redDB4444: #db4444;
+  --button00FF66: #00ff66;
+  --hoverE07575: #e07575;
+  --hoverA0BCE0: #a0bce0;
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
 }
