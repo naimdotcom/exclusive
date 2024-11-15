@@ -30,7 +30,7 @@ function ProductCard({
             />
           </picture>
         </div>
-        <div className="absolute z-30 top-2 right-2">
+        <div className="absolute z-30 space-y-2 top-2 right-2">
           <h4 className="p-2 bg-white rounded-full ">
             <span className="">
               <MdOutlineFavoriteBorder className="text-2xl rounded-full " />
