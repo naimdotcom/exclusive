@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+
 import {
   productImg1,
   productImg2,
@@ -43,7 +44,7 @@ interface productCardsInfoType {
 interface categoryType {
   id: string | number;
   name: string;
-  icon: string;
+  image: string;
   isSelected?: boolean;
 }
 
@@ -53,78 +54,79 @@ const category: categoryType[] = [
   {
     id: uuidv4(),
     name: "Phones",
-    icon: "phone-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+    isSelected: true, // To indicate the currently selected item
   },
   {
     id: uuidv4(),
     name: "Computers",
-    icon: "computer-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
   },
   {
     id: uuidv4(),
     name: "SmartWatch",
-    icon: "smartwatch-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Camera",
-    icon: "camera-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
     isSelected: true, // To indicate the currently selected item
   },
   {
     id: uuidv4(),
     name: "HeadPhones",
-    icon: "headphones-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Gaming",
-    icon: "gaming-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Tablets",
-    icon: "tablet-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Accessories",
-    icon: "accessories-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Wearables",
-    icon: "wearables-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Home Appliances",
-    icon: "home-appliances-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
   },
   {
     id: uuidv4(),
     name: "Drones",
-    icon: "drone-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
   },
   {
     id: uuidv4(),
     name: "Audio Systems",
-    icon: "audio-system-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
   },
   {
     id: uuidv4(),
     name: "Virtual Reality",
-    icon: "vr-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
   },
   {
     id: uuidv4(),
     name: "Printers",
-    icon: "printer-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
   },
   {
     id: uuidv4(),
     name: "Monitors",
-    icon: "monitor-icon", // Replace with actual icon class or path
+    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
   },
 ];
 

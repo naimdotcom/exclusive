@@ -3,26 +3,39 @@ import { categoryType, productCardsInfoType } from "../../utils/data";
 import ItemsTitleAndSubTitle from "./ItemsTitleAndSubTitle";
 import Timer from "./Timer";
 import { IoArrowForward } from "react-icons/io5";
-import ProductCard from "./ProductCard";
 import Slider from "react-slick";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
 
-interface Props {
+// Consider separating the shared props into a base interface
+interface BaseLayoutProps {
   title?: string;
   description?: string;
   timeToEndOffer?: string | Date;
-  products?: productCardsInfoType[];
-  category?: categoryType[];
+  componentData: categoryType[] | productCardsInfoType[];
 }
 
+// Then extend it for specific use cases
+interface ProductLayoutProps extends BaseLayoutProps {
+  products?: productCardsInfoType[];
+  category?: never;
+  cards?: React.ComponentType<productCardsInfoType>;
+}
+
+interface CategoryLayoutProps extends BaseLayoutProps {
+  category?: categoryType[];
+  products?: never;
+  cards?: React.ComponentType<categoryType>;
+}
+
+type Props = ProductLayoutProps | CategoryLayoutProps;
 function ProductCommonComponentLayout({
   title,
   description,
   timeToEndOffer,
-  products = [],
-  category = [],
+  componentData = [],
+  cards,
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
@@ -41,19 +54,33 @@ function ProductCommonComponentLayout({
     slideSlickRef.current?.slickPrev();
   };
 
+  const renderCard = (
+    item: productCardsInfoType | categoryType,
+    index: number
+  ) => {
+    if (!cards) return null;
+
+    const Card = cards;
+    return (
+      <div key={index}>
+        <Card {...(item as any)} />
+      </div>
+    );
+  };
+
   return (
     <div>
       {/* Heading */}
       <div className="flex items-center justify-between">
         <div className="flex items-end gap-32 ">
           {title && description && (
-            <ItemsTitleAndSubTitle title="Flash Sale" description="Today's" />
+            <ItemsTitleAndSubTitle title={title} description={description} />
           )}
           {timeToEndOffer && <Timer timeToEndOffer={timeToEndOffer} />}
         </div>
 
         {/* Arrows */}
-        {products.length > 5 && (
+        {componentData.length > 5 && (
           <div className="flex items-center gap-3">
             <h1
               //   onClick={next}
@@ -81,13 +108,7 @@ function ProductCommonComponentLayout({
       <div className="pt-12">
         <div className="slider-container">
           <Slider ref={slideSlickRef} {...settings} className="">
-            {products
-              ? products?.map((item) => {
-                  return <ProductCard key={item.id} {...item} />;
-                })
-              : category?.map((_) => {
-                  return "";
-                })}
+            {componentData.map((item, index) => renderCard(item, index))}
           </Slider>
         </div>
       </div>
