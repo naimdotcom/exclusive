@@ -1,6 +1,7 @@
 import { productCardsInfo } from "../../../utils/data";
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
 import ProductCard from "../../CommonComponents/ProductCard";
+
 function FlashSales() {
   return (
     <div className="container pt-36">

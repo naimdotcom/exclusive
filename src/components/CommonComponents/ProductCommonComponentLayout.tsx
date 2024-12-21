@@ -7,13 +7,14 @@ import Slider from "react-slick";
 import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
+import ProductSkeleton from "../../helper/ProductSkeleton";
 
 // Consider separating the shared props into a base interface
 interface BaseLayoutProps {
   title?: string;
   description?: string;
   timeToEndOffer?: string | Date;
-  componentData: categoryType[] | productCardsInfoType[];
+  componentData?: categoryType[] | productCardsInfoType[] | undefined;
 }
 
 // Then extend it for specific use cases
@@ -34,7 +35,7 @@ function ProductCommonComponentLayout({
   title,
   description,
   timeToEndOffer,
-  componentData = [],
+  componentData,
   cards,
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
@@ -80,35 +81,45 @@ function ProductCommonComponentLayout({
         </div>
 
         {/* Arrows */}
-        {componentData.length > 5 && (
-          <div className="flex items-center gap-3">
-            <h1
-              //   onClick={next}
-              className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
-              onClick={previous}
-            >
-              <span className="text-xl">
-                <IoMdArrowBack />
-              </span>
-            </h1>
-            <h1
-              //   onClick={prev}
-              className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
-              onClick={next}
-            >
-              <span className="text-xl">
-                <IoArrowForward />
-              </span>
-            </h1>
-          </div>
-        )}
+        {componentData
+          ? componentData?.length > 5 && (
+              <div className="flex items-center gap-3">
+                <h1
+                  //   onClick={next}
+                  className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
+                  onClick={previous}
+                >
+                  <span className="text-xl">
+                    <IoMdArrowBack />
+                  </span>
+                </h1>
+                <h1
+                  //   onClick={prev}
+                  className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
+                  onClick={next}
+                >
+                  <span className="text-xl">
+                    <IoArrowForward />
+                  </span>
+                </h1>
+              </div>
+            )
+          : ""}
         {/* Arrows End */}
       </div>
       {/* Heading ENd */}
       <div className="pt-12">
         <div className="slider-container">
           <Slider ref={slideSlickRef} {...settings} className="">
-            {componentData.map((item, index) => renderCard(item, index))}
+            {componentData
+              ? componentData.map((item, index) => renderCard(item, index))
+              : Array(5)
+                  .fill(null)
+                  .map((_, index) => (
+                    <div key={index}>
+                      <ProductSkeleton />
+                    </div>
+                  ))}
           </Slider>
         </div>
       </div>
