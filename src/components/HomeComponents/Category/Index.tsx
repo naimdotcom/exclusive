@@ -1,4 +1,3 @@
-import React from "react";
 import { category as categoryData } from "../../../utils/data";
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
 
@@ -10,7 +9,7 @@ function Category() {
           title="Flash Sale"
           description="Today's"
           timeToEndOffer={"2024-11-31T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
-          products={categoryData}
+          category={categoryData}
         />
       </div>
     </div>

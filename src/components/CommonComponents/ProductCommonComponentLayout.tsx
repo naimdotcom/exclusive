@@ -1,5 +1,5 @@
 import { IoMdArrowBack } from "react-icons/io";
-import { productCardsInfoType } from "../../utils/data";
+import { categoryType, productCardsInfoType } from "../../utils/data";
 import ItemsTitleAndSubTitle from "./ItemsTitleAndSubTitle";
 import Timer from "./Timer";
 import { IoArrowForward } from "react-icons/io5";
@@ -14,6 +14,7 @@ interface Props {
   description?: string;
   timeToEndOffer?: string | Date;
   products?: productCardsInfoType[];
+  category?: categoryType[];
 }
 
 function ProductCommonComponentLayout({
@@ -21,6 +22,7 @@ function ProductCommonComponentLayout({
   description,
   timeToEndOffer,
   products = [],
+  category = [],
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
@@ -79,9 +81,13 @@ function ProductCommonComponentLayout({
       <div className="pt-12">
         <div className="slider-container">
           <Slider ref={slideSlickRef} {...settings} className="">
-            {products?.map((item) => {
-              return <ProductCard key={item.id} {...item} />;
-            })}
+            {products
+              ? products?.map((item) => {
+                  return <ProductCard key={item.id} {...item} />;
+                })
+              : category?.map((_) => {
+                  return "";
+                })}
           </Slider>
         </div>
       </div>
