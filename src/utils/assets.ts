@@ -22,7 +22,10 @@ import EmptyStar from "../assets/stars/emtyStar.png";
 import exprienceImg from "../assets/banner/HeadPhone_exprience.png";
 
 // arrival
-import 
+import playStation from "../assets/newArrival/ps5-slim-goedkope-playstation_large 1.png";
+import WomenCollection from "../assets/newArrival/attractive-woman-wearing-hat-posing-black-background 1.png";
+import speakers from "../assets/newArrival/speakers.png";
+import perfume from "../assets/newArrival/perfume.png";
 
 export {
   logo,
@@ -39,4 +42,8 @@ export {
   HalfStar,
   EmptyStar,
   exprienceImg,
+  playStation,
+  WomenCollection,
+  speakers,
+  perfume,
 };
