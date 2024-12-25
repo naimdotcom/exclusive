@@ -13,7 +13,7 @@ import ProductSkeleton from "../../helper/ProductSkeleton";
 interface BaseLayoutProps {
   title?: string;
   description?: string;
-  timeToEndOffer?: string | Date;
+  timeToEndOffer?: string | Date | undefined;
   componentData?: categoryType[] | productCardsInfoType[] | undefined;
 }
 
