@@ -27,6 +27,11 @@ import WomenCollection from "../assets/newArrival/attractive-woman-wearing-hat-p
 import speakers from "../assets/newArrival/speakers.png";
 import perfume from "../assets/newArrival/perfume.png";
 
+// footer
+import qrCode from "../assets/Footer/Qr Code.png";
+import googlePay from "../assets/Footer/GooglePlay.png";
+import appStore from "../assets/Footer/AppStore.png";
+
 export {
   logo,
   bannerImg,
@@ -46,4 +51,7 @@ export {
   WomenCollection,
   speakers,
   perfume,
+  qrCode,
+  googlePay,
+  appStore,
 };
