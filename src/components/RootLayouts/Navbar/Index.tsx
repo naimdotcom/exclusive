@@ -59,25 +59,23 @@ function Navbar() {
 
           <div>
             <ul className="flex gap-11">
-              {navigationBar.map((item, _) => {
+              {navigationBar.map((item, index) => {
                 return (
-                  <>
-                    <li
-                      key={item.id}
-                      className="text-black cursor-pointer hover:text-cs-text_black7D8184"
+                  <li
+                    key={item.id || index}
+                    className="text-black cursor-pointer hover:text-cs-text_black7D8184"
+                  >
+                    <NavLink
+                      to={item.path}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-center  font-poppins border-b-[1px] border-b-black"
+                          : "text-center font-poppins"
+                      }
                     >
-                      <NavLink
-                        to={item.path}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "text-center  font-poppins border-b-[1px] border-b-black"
-                            : "text-center font-poppins"
-                        }
-                      >
-                        {item.title}{" "}
-                      </NavLink>
-                    </li>
-                  </>
+                      {item.title}{" "}
+                    </NavLink>
+                  </li>
                 );
               })}
             </ul>

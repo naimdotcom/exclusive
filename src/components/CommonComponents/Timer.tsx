@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
 
-function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
+function Timer({
+  timeToEndOffer = "2024-12-31T23:59:59",
+}: {
+  timeToEndOffer?: string | Date;
+}) {
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
@@ -10,14 +14,15 @@ function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
   } | null>(null);
 
   useEffect(() => {
-    const targetDate = new Date(
-      timeToEndOffer ? timeToEndOffer : "2024-12-31T23:59:59"
-    ).getTime(); // Set your target date here
+    const parsedDate = new Date(timeToEndOffer).getTime(); // Set your target date here
+
+    console.log(parsedDate);
+
     const worker = new Worker(
       new URL("../../CountDownWorker.ts", import.meta.url)
     );
 
-    worker.postMessage({ targetDate });
+    worker.postMessage({ parsedDate });
 
     worker.onmessage = (e) => {
       const { finished, days, hours, minutes, seconds } = e.data;
@@ -35,18 +40,20 @@ function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
     };
   }, []);
 
-  if (timeLeft === null) return <div></div>;
+  // if (timeLeft === null) return <div></div>;
 
   return (
     <div>
       <div className={cn("flex items-center justify-center gap-4")}>
         {/* // days */}
         <div className="flex flex-col gap-2">
-          <h3 className="text-black text-xs font-medium font-['Poppins'] leading-none">
+          <h3 className="text-xs font-medium leading-none text-black font-poppins">
             Days
           </h3>
           <p className="text-3xl font-black tracking-wider text-black font-inter">
-            {timeLeft?.days}
+            {timeLeft && timeLeft?.days < 10
+              ? `0${timeLeft?.days}`
+              : timeLeft?.days}
           </p>
         </div>
         {/* semiclone */}
@@ -56,11 +63,13 @@ function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h3 className="text-black text-xs font-medium font-['Poppins'] leading-none">
+          <h3 className="text-xs font-medium leading-none text-black font-poppins">
             Hours
           </h3>
           <p className="text-3xl font-black tracking-wider text-black font-inter">
-            {timeLeft?.hours}
+            {timeLeft && timeLeft?.hours < 10
+              ? `0${timeLeft?.hours}`
+              : timeLeft?.hours}
           </p>
         </div>
 
@@ -70,11 +79,13 @@ function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
           <div className="w-1 h-1 bg-[#e07575] rounded-full" />
         </div>
         <div className="flex flex-col gap-2">
-          <h3 className="text-black text-xs font-medium font-['Poppins'] leading-none">
+          <h3 className="text-xs font-medium leading-none text-black font-poppins">
             Minutes
           </h3>
           <p className="text-3xl font-black tracking-wider text-black font-inter">
-            {timeLeft?.minutes}
+            {timeLeft && timeLeft?.minutes < 10
+              ? `0${timeLeft?.minutes}`
+              : timeLeft?.minutes}
           </p>
         </div>
 
@@ -84,11 +95,13 @@ function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
           <div className="w-1 h-1 bg-[#e07575] rounded-full" />
         </div>
         <div className="flex flex-col gap-2">
-          <h3 className="text-black text-xs font-medium font-['Poppins'] leading-none">
+          <h3 className="text-xs font-medium leading-none text-black font-poppins">
             Seconds
           </h3>
           <p className="text-3xl font-black tracking-wider text-black font-inter">
-            {timeLeft?.seconds}
+            {timeLeft && timeLeft?.seconds < 10
+              ? `0${timeLeft?.seconds}`
+              : timeLeft?.seconds}
           </p>
         </div>
       </div>

@@ -1,16 +1,16 @@
-import React from "react";
 import { category as categoryData } from "../../../utils/data";
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
-
+import CategoryCard from "../../CommonComponents/categoryCard";
 function Category() {
   return (
     <div>
       <div className="container pt-36">
         <ProductCommonComponentLayout
-          title="Flash Sale"
-          description="Today's"
-          timeToEndOffer={"2024-11-31T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
-          products={categoryData}
+          title="Browse By Category"
+          description="Categories"
+          cards={CategoryCard}
+          componentData={categoryData}
+          isArrow={true}
         />
       </div>
     </div>

@@ -1,26 +1,46 @@
 import { IoMdArrowBack } from "react-icons/io";
-import { productCardsInfoType } from "../../utils/data";
+import { categoryType, productCardsInfoType } from "../../utils/data";
 import ItemsTitleAndSubTitle from "./ItemsTitleAndSubTitle";
 import Timer from "./Timer";
 import { IoArrowForward } from "react-icons/io5";
-import ProductCard from "./ProductCard";
 import Slider from "react-slick";
-import { useRef } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useRef } from "react";
+import { NavLink, Route } from "react-router-dom";
 import { cn } from "../../utils/cn";
+import ProductSkeleton from "../../helper/ProductSkeleton";
 
-interface Props {
+// Consider separating the shared props into a base interface
+interface BaseLayoutProps {
   title?: string;
   description?: string;
-  timeToEndOffer?: string | Date;
-  products?: productCardsInfoType[];
+  timeToEndOffer?: string | Date | undefined;
+  componentData?: categoryType[] | productCardsInfoType[] | undefined;
+  isArrow?: boolean;
+  rows?: number;
 }
 
+// Then extend it for specific use cases
+interface ProductLayoutProps extends BaseLayoutProps {
+  products?: productCardsInfoType[];
+  category?: never;
+  cards?: React.ComponentType<productCardsInfoType>;
+}
+
+interface CategoryLayoutProps extends BaseLayoutProps {
+  category?: categoryType[];
+  products?: never;
+  cards?: React.ComponentType<categoryType>;
+}
+
+type Props = ProductLayoutProps | CategoryLayoutProps;
 function ProductCommonComponentLayout({
   title,
   description,
   timeToEndOffer,
-  products = [],
+  componentData,
+  cards,
+  isArrow,
+  rows = 1,
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
@@ -30,6 +50,7 @@ function ProductCommonComponentLayout({
     slidesToShow: 5,
     slidesToScroll: 5,
     swipeToSlide: true,
+    rows: rows,
   };
 
   const next = (): void => {
@@ -39,19 +60,33 @@ function ProductCommonComponentLayout({
     slideSlickRef.current?.slickPrev();
   };
 
+  const renderCard = (
+    item: productCardsInfoType | categoryType,
+    index: number
+  ) => {
+    if (!cards) return null;
+
+    const Card = cards;
+    return (
+      <div key={index}>
+        <Card {...(item as any)} />
+      </div>
+    );
+  };
+
   return (
     <div>
       {/* Heading */}
       <div className="flex items-center justify-between">
         <div className="flex items-end gap-32 ">
           {title && description && (
-            <ItemsTitleAndSubTitle title="Flash Sale" description="Today's" />
+            <ItemsTitleAndSubTitle title={title} description={description} />
           )}
           {timeToEndOffer && <Timer timeToEndOffer={timeToEndOffer} />}
         </div>
 
         {/* Arrows */}
-        {products.length > 5 && (
+        {componentData && isArrow ? (
           <div className="flex items-center gap-3">
             <h1
               //   onClick={next}
@@ -72,6 +107,23 @@ function ProductCommonComponentLayout({
               </span>
             </h1>
           </div>
+        ) : (
+          <div className="flex items-center justify-end mt-16 w-fit">
+            <NavLink
+              to={"/products"}
+              className={cn(
+                "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
+              )}
+            >
+              <span
+                className={cn(
+                  "text-[#f9f9f9] text-base font-medium font-poppins leading-normal"
+                )}
+              >
+                View All
+              </span>
+            </NavLink>
+          </div>
         )}
         {/* Arrows End */}
       </div>
@@ -79,29 +131,37 @@ function ProductCommonComponentLayout({
       <div className="pt-12">
         <div className="slider-container">
           <Slider ref={slideSlickRef} {...settings} className="">
-            {products?.map((item) => {
-              return <ProductCard key={item.id} {...item} />;
-            })}
+            {componentData && componentData?.length > 0
+              ? componentData?.map((item, index) => renderCard(item, index))
+              : [...Array(5)].map((_, index) => (
+                  <div key={index}>
+                    <ProductSkeleton />
+                  </div>
+                ))}
           </Slider>
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-full mt-16">
-        <NavLink
-          to={"/products"}
-          className={cn(
-            "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
-          )}
-        >
-          <span
+      {isArrow ? (
+        <div className="flex items-center justify-center w-full mt-16">
+          <NavLink
+            to={"/products"}
             className={cn(
-              "text-[#f9f9f9] text-base font-medium font-poppins leading-normal"
+              "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
             )}
           >
-            View All Products
-          </span>
-        </NavLink>
-      </div>
+            <span
+              className={cn(
+                "text-[#f9f9f9] text-base font-medium font-poppins leading-normal"
+              )}
+            >
+              View All Products
+            </span>
+          </NavLink>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

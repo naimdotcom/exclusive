@@ -18,6 +18,20 @@ import FullStar from "../assets/stars/fullstar.png";
 import HalfStar from "../assets/stars/star-half-filled.png";
 import EmptyStar from "../assets/stars/emtyStar.png";
 
+// banner
+import exprienceImg from "../assets/banner/HeadPhone_exprience.png";
+
+// arrival
+import playStation from "../assets/newArrival/ps5-slim-goedkope-playstation_large 1.png";
+import WomenCollection from "../assets/newArrival/attractive-woman-wearing-hat-posing-black-background 1.png";
+import speakers from "../assets/newArrival/speakers.png";
+import perfume from "../assets/newArrival/perfume.png";
+
+// footer
+import qrCode from "../assets/Footer/Qr Code.png";
+import googlePay from "../assets/Footer/GooglePlay.png";
+import appStore from "../assets/Footer/AppStore.png";
+
 export {
   logo,
   bannerImg,
@@ -32,4 +46,12 @@ export {
   FullStar,
   HalfStar,
   EmptyStar,
+  exprienceImg,
+  playStation,
+  WomenCollection,
+  speakers,
+  perfume,
+  qrCode,
+  googlePay,
+  appStore,
 };
