@@ -4,12 +4,15 @@ const ProductApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com" }),
   endpoints: (builder) => ({
-    GetAllProducts: builder.query({
+    GetAllProducts: builder.query<any, void>({
       query: () => "/products",
+    }),
+    BestSelling: builder.query<any, void>({
+      query: () => "/products/category/smartphones",
     }),
   }),
 });
 
-const { useGetAllProductsQuery } = ProductApi;
+const { useGetAllProductsQuery, useBestSellingQuery } = ProductApi;
 
-export { ProductApi, useGetAllProductsQuery };
+export { ProductApi, useGetAllProductsQuery, useBestSellingQuery };

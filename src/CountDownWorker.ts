@@ -1,9 +1,11 @@
 // countdownWorker.ts
 self.onmessage = (event) => {
-  let targetDate = event.data.targetDate;
+  let targetDate = event.data.parsedDate;
+
   let timerId = setInterval(() => {
     const now = new Date().getTime();
     let distance = targetDate - now;
+    // console.log(distance);
 
     if (distance <= 0) {
       clearInterval(timerId);

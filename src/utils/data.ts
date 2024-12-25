@@ -31,14 +31,15 @@ type sideCategory = {
 };
 
 interface productCardsInfoType {
-  id: string;
-  name: string;
-  originalPrice: number;
-  discountedPrice: number;
-  discount: number;
-  rating: number;
-  reviews: number;
-  image: string;
+  id?: string;
+  title?: string;
+  price?: number;
+  // discountedPrice: number;
+  discountPercentage?: number;
+  rating?: number;
+  reviews?: [];
+  isArrow?: boolean;
+  thumbnail?: string;
 }
 
 interface categoryType {
@@ -231,17 +232,16 @@ const navigationBar: Navigation[] = [
 const productCardsInfo: productCardsInfoType[] = [
   {
     id: uuidv4(),
-    name: "HAVIT HV-G92 Gamepad",
-    originalPrice: 160,
-    discountedPrice: 120,
-    discount: 40,
+    title: "HAVIT HV-G92 Gamepad",
+    price: 160,
+    discountPercentage: 120,
     rating: 4.5,
-    reviews: 88,
-    image: productImg1, // Replace with actual image path
+    reviews: [],
+    thumbnail: productImg1, // Replace with actual image path
   },
   {
     id: uuidv4(),
-    name: "AK-900 Wired Keyboard",
+    title: "AK-900 Wired Keyboard",
     originalPrice: 1160,
     discountedPrice: 960,
     discount: 35,

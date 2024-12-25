@@ -1,9 +1,9 @@
-import { productCardsInfo } from "../../../utils/data";
-import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
-import ProductCard from "../../CommonComponents/ProductCard";
 import { useGetAllProductsQuery } from "../../../Features/AllSlices/Api/productApi";
+import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
+import { productCardsInfo } from "../../../utils/data";
+import ProductCard from "../../CommonComponents/ProductCard";
 
-function FlashSales() {
+function ExploreProducts() {
   const { data, isLoading, error } = useGetAllProductsQuery();
 
   console.log("error occur in flash sales while fetching data from api", error);
@@ -11,16 +11,16 @@ function FlashSales() {
   return (
     <div className="pt-36">
       <ProductCommonComponentLayout
-        title="Flash Sale"
-        description="Today's"
-        timeToEndOffer={"2025-02-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
+        title="Explore Our Products"
+        description="Our Products"
         products={productCardsInfo}
         componentData={data?.products ? data?.products : []}
         cards={ProductCard}
         isArrow={true}
+        rows={2}
       />
     </div>
   );
 }
 
-export default FlashSales;
+export default ExploreProducts;

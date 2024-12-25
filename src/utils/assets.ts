@@ -18,6 +18,12 @@ import FullStar from "../assets/stars/fullstar.png";
 import HalfStar from "../assets/stars/star-half-filled.png";
 import EmptyStar from "../assets/stars/emtyStar.png";
 
+// banner
+import exprienceImg from "../assets/banner/HeadPhone_exprience.png";
+
+// arrival
+import 
+
 export {
   logo,
   bannerImg,
@@ -32,4 +38,5 @@ export {
   FullStar,
   HalfStar,
   EmptyStar,
+  exprienceImg,
 };

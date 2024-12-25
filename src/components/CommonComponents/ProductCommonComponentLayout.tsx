@@ -5,7 +5,7 @@ import Timer from "./Timer";
 import { IoArrowForward } from "react-icons/io5";
 import Slider from "react-slick";
 import React, { useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
 import { cn } from "../../utils/cn";
 import ProductSkeleton from "../../helper/ProductSkeleton";
 
@@ -15,6 +15,8 @@ interface BaseLayoutProps {
   description?: string;
   timeToEndOffer?: string | Date | undefined;
   componentData?: categoryType[] | productCardsInfoType[] | undefined;
+  isArrow?: boolean;
+  rows?: number;
 }
 
 // Then extend it for specific use cases
@@ -37,6 +39,8 @@ function ProductCommonComponentLayout({
   timeToEndOffer,
   componentData,
   cards,
+  isArrow,
+  rows = 1,
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
@@ -46,6 +50,7 @@ function ProductCommonComponentLayout({
     slidesToShow: 5,
     slidesToScroll: 5,
     swipeToSlide: true,
+    rows: rows,
   };
 
   const next = (): void => {
@@ -81,65 +86,82 @@ function ProductCommonComponentLayout({
         </div>
 
         {/* Arrows */}
-        {componentData
-          ? componentData?.length > 5 && (
-              <div className="flex items-center gap-3">
-                <h1
-                  //   onClick={next}
-                  className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
-                  onClick={previous}
-                >
-                  <span className="text-xl">
-                    <IoMdArrowBack />
-                  </span>
-                </h1>
-                <h1
-                  //   onClick={prev}
-                  className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
-                  onClick={next}
-                >
-                  <span className="text-xl">
-                    <IoArrowForward />
-                  </span>
-                </h1>
-              </div>
-            )
-          : ""}
+        {componentData && isArrow ? (
+          <div className="flex items-center gap-3">
+            <h1
+              //   onClick={next}
+              className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
+              onClick={previous}
+            >
+              <span className="text-xl">
+                <IoMdArrowBack />
+              </span>
+            </h1>
+            <h1
+              //   onClick={prev}
+              className="cursor-pointer w-[46px] h-[46px] bg-white_F5F5F5 rounded-full flex items-center justify-center hover:bg-black_363738 hover:text-white_FFFFFF transition"
+              onClick={next}
+            >
+              <span className="text-xl">
+                <IoArrowForward />
+              </span>
+            </h1>
+          </div>
+        ) : (
+          <div className="flex items-center justify-end mt-16 w-fit">
+            <NavLink
+              to={"/products"}
+              className={cn(
+                "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
+              )}
+            >
+              <span
+                className={cn(
+                  "text-[#f9f9f9] text-base font-medium font-poppins leading-normal"
+                )}
+              >
+                View All
+              </span>
+            </NavLink>
+          </div>
+        )}
         {/* Arrows End */}
       </div>
       {/* Heading ENd */}
       <div className="pt-12">
         <div className="slider-container">
           <Slider ref={slideSlickRef} {...settings} className="">
-            {componentData
-              ? componentData.map((item, index) => renderCard(item, index))
-              : Array(5)
-                  .fill(null)
-                  .map((_, index) => (
-                    <div key={index}>
-                      <ProductSkeleton />
-                    </div>
-                  ))}
+            {componentData && componentData?.length > 0
+              ? componentData?.map((item, index) => renderCard(item, index))
+              : [...Array(5)].map((_, index) => (
+                  <div key={index}>
+                    <ProductSkeleton />
+                  </div>
+                ))}
           </Slider>
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-full mt-16">
-        <NavLink
-          to={"/products"}
-          className={cn(
-            "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
-          )}
-        >
-          <span
+      {isArrow ? (
+        <div className="flex items-center justify-center w-full mt-16">
+          <NavLink
+            to={"/products"}
             className={cn(
-              "text-[#f9f9f9] text-base font-medium font-poppins leading-normal"
+              "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
             )}
           >
-            View All Products
-          </span>
-        </NavLink>
-      </div>
+            <span
+              className={cn(
+                "text-[#f9f9f9] text-base font-medium font-poppins leading-normal"
+              )}
+            >
+              View All Products
+            </span>
+          </NavLink>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
