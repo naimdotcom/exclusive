@@ -12,6 +12,7 @@ export default {
         "cs-text_whiteFAFAFA": "var(--text_whiteFAFAFA)",
         "cs-text_black7D8184": "var(--text_black7D8184)",
         "cs-text_black000000": "var(--text_black000000)",
+        "cs-text_whitef9f9f9": "var(--text_whitef9f9f9)",
         "cs-redDB4444": "var(--redDB4444)",
         "cs-button00FF66": "var(--button00FF66)",
         "cs-hoverE07575": "var(--hoverE07575)",
