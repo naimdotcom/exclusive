@@ -10,6 +10,9 @@ const ProductApi = createApi({
     GetProductByLimit: builder.query<any, number>({
       query: (limit: number = 30) => `products?limit=${limit}`,
     }),
+    GetProductById: builder.query<any, number>({
+      query: (id: number) => `/products/${id}`,
+    }),
     BestSelling: builder.query<any, void>({
       query: () => "/products/category/smartphones",
     }),
@@ -24,6 +27,7 @@ const {
   useBestSellingQuery,
   useGetAllCategoryListQuery,
   useGetProductByLimitQuery,
+  useGetProductByIdQuery,
 } = ProductApi;
 
 export {
@@ -32,4 +36,5 @@ export {
   useBestSellingQuery,
   useGetAllCategoryListQuery,
   useGetProductByLimitQuery,
+  useGetProductByIdQuery,
 };

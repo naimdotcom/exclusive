@@ -100,7 +100,7 @@ function ProductsShowCase() {
                   className={cn(
                     "flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100",
                     page === num
-                      ? "bg-gray-100 text-gray-700"
+                      ? "bg-cs-redDB4444 text-cs-white_color"
                       : "bg-white text-gray-500"
                   )}
                 >
