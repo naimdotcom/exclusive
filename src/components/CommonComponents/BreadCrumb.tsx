@@ -13,33 +13,31 @@ function BreadCrumb() {
         // if (index === pathSlice.length - 1) return null;
         BreadCrumbPath += `/${item}`;
         return (
-          <>
-            <div>
-              {index !== pathSlice.length - 1 ? (
-                <>
-                  <Link
-                    className={cn("text-black/60", {
-                      "text-black": index === pathSlice.length - 1,
-                    })}
-                    key={index}
-                    to={BreadCrumbPath}
-                  >
-                    {item}
-                  </Link>
-                  <span className="mx-2">/</span>
-                </>
-              ) : (
-                <p
+          <div key={index}>
+            {index !== pathSlice.length - 1 ? (
+              <>
+                <Link
                   className={cn("text-black/60", {
                     "text-black": index === pathSlice.length - 1,
                   })}
                   key={index}
+                  to={BreadCrumbPath}
                 >
                   {item}
-                </p>
-              )}
-            </div>
-          </>
+                </Link>
+                <span className="mx-2">/</span>
+              </>
+            ) : (
+              <p
+                className={cn("text-black/60", {
+                  "text-black": index === pathSlice.length - 1,
+                })}
+                key={index}
+              >
+                {item}
+              </p>
+            )}
+          </div>
         );
       })}
     </div>

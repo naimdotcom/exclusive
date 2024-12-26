@@ -13,12 +13,12 @@ function ProductCategories({
   );
 
   return (
-    <div className="w-[15%]">
+    <div className="w-[25%] h-[15%] space-y-4 border-r-2">
       <h1 className="font-popins font-bold text-[20px] text-text_black000000 mb-4 cursor-pointer">
         Shop By Category
       </h1>
       {/* <SideBar data={data} classes="" /> */}
-      <ul className="overflow-y-scroll h-[40%] scroll">
+      <ul className="mr-20 overflow-y-scroll max-h-96 scroll">
         {isLoading
           ? Array(10)
               .fill("")
