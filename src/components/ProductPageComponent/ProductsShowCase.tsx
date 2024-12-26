@@ -1,5 +1,3 @@
-import React from "react";
-
 function ProductsShowCase() {
   return <div>ProductsShowCase</div>;
 }
