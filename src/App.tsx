@@ -7,6 +7,7 @@ import {
 import Home from "./Pages/Home/Index";
 import NavOutletFooter from "./components/RootLayouts/Nav&Footer/Index";
 import Error from "./Pages/Error/Index";
+import ProductPage from "./Pages/Products/Index";
 
 function App() {
   const router = createBrowserRouter(
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<NavOutletFooter />}>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/products" element={""} />
+          <Route path="/products" element={<ProductPage />} />
           <Route path="/*" element={<Error />} />
         </Route>
       </>

@@ -21,6 +21,9 @@
   ol {
     list-style: none;
   }
+  .scrollbar-gutter-stable {
+    scrollbar-gutter: none;
+  }
 }
 
 :root {
