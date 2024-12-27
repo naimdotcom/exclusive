@@ -13,7 +13,7 @@ function Button({
     <div>
       <div
         className={cn(
-          " px-12 py-4 bg-[#00ff66] rounded justify-center items-center gap-2.5 inline-flex",
+          "px-12 py-4 bg-[#00ff66] rounded justify-center items-center gap-2.5 inline-flex",
           BgCss
         )}
       >

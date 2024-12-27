@@ -19,6 +19,9 @@ const ProductApi = createApi({
     GetAllCategoryList: builder.query<any, void>({
       query: () => "/products/category-list",
     }),
+    GetProductByCategory: builder.query<any, string>({
+      query: (category: string) => `/products/category/${category}`,
+    }),
   }),
 });
 
@@ -28,6 +31,7 @@ const {
   useGetAllCategoryListQuery,
   useGetProductByLimitQuery,
   useGetProductByIdQuery,
+  useGetProductByCategoryQuery,
 } = ProductApi;
 
 export {
@@ -37,4 +41,5 @@ export {
   useGetAllCategoryListQuery,
   useGetProductByLimitQuery,
   useGetProductByIdQuery,
+  useGetProductByCategoryQuery,
 };

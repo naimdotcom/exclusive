@@ -20,7 +20,7 @@ function ItemsTitleAndSubTitle({ title, description }: Props) {
           />
         </div>
         <h2 className="text-[#db4444] text-base font-semibold font-poppins">
-          {description ? description : "Today's"}
+          {description ? description : ""}
         </h2>
       </div>
 
@@ -29,7 +29,7 @@ function ItemsTitleAndSubTitle({ title, description }: Props) {
           "text-black text-4xl font-semibold font-inter leading-10 tracking-wider"
         )}
       >
-        <h1>{title ? title : "Flash Sale"}</h1>
+        <h1>{title ? title : ""}</h1>
       </div>
     </div>
   );
