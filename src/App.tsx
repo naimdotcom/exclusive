@@ -10,6 +10,7 @@ import Error from "./Pages/Error/Index";
 import ProductPage from "./Pages/Products/Index";
 import ProductDetails from "./Pages/ProductDetails/Index";
 import Login from "./Pages/Auth/Login/Index";
+import WishList from "./Pages/WishList/Index";
 
 function App() {
   const router = createBrowserRouter(
@@ -22,6 +23,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/product/" element={<ProductPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/wishlist" element={<WishList />} />
           <Route path="/*" element={<Error />} />
         </Route>
       </>

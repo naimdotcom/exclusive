@@ -59,7 +59,7 @@ function ProductCard({
           >
             <h3 className="text-white text-base font-medium font-['Poppins'] leading-normal">
               Add to Cart
-            </h3>
+            </h3>{" "}
           </div>
         </div>
       </div>
