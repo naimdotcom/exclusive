@@ -4,6 +4,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import Star from "./star";
 import { productCardsInfoType } from "../../utils/data";
 import useCalculateDiscount from "../../hooks/useCalculateDiscount";
+import { NavLink } from "react-router-dom";
 
 function ProductCard({
   id,
@@ -36,10 +37,16 @@ function ProductCard({
               <MdOutlineFavoriteBorder className="text-2xl rounded-full " />
             </span>
           </h4>
+          {/* show the product in detail */}
           <h4 className="p-2 bg-white rounded-full ">
-            <span className="">
-              <IoEyeOutline className="text-2xl rounded-full " />
-            </span>
+            <NavLink to={`/product/${id}`}>
+              <span className="">
+                <IoEyeOutline
+                  className="text-2xl rounded-full "
+                  onClick={() => {}}
+                />
+              </span>
+            </NavLink>
           </h4>
         </div>
 

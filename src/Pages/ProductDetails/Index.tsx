@@ -19,9 +19,6 @@ function ProductDetails({}: Props) {
   const { data: relatedProducts } = useGetProductByCategoryQuery(
     data?.category
   );
-  console.log("====================================");
-  console.log(relatedProducts);
-  console.log("====================================");
 
   const [mainThumbail, setMainThumbail] = useState<string>("");
   const [productData, setProductData] = useState<any>({});
