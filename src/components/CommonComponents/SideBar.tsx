@@ -4,7 +4,7 @@ import { sideCategories, sideCategory, subCategory } from "../../utils/data";
 
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-function SideBar({ classes }: { classes: string }) {
+function SideBar({ data, classes }: { data: string[]; classes: string }) {
   const [openCategories, setOpenCategories] = useState<{
     [key: string | number]: boolean;
   }>({});

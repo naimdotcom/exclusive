@@ -5,7 +5,7 @@ import Timer from "./Timer";
 import { IoArrowForward } from "react-icons/io5";
 import Slider from "react-slick";
 import React, { useRef } from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
 import ProductSkeleton from "../../helper/ProductSkeleton";
 
@@ -79,7 +79,7 @@ function ProductCommonComponentLayout({
       {/* Heading */}
       <div className="flex items-center justify-between">
         <div className="flex items-end gap-32 ">
-          {title && description && (
+          {(title || description) && (
             <ItemsTitleAndSubTitle title={title} description={description} />
           )}
           {timeToEndOffer && <Timer timeToEndOffer={timeToEndOffer} />}
