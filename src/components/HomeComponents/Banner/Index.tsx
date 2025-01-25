@@ -4,15 +4,17 @@ import SideBar from "../../CommonComponents/SideBar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { useGetBannerQuery } from "../../../Features/AllSlices/Api/productApi";
 
 function Banner() {
+  const [bannerData, setBannerData] = useState([]);
   const [currentSlide, setcurrentSlide] = useState<number>(0);
-
+  const { data, isLoading } = useGetBannerQuery();
   // css for react slick which will be set in <slider .... >
   let settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -68,24 +70,33 @@ function Banner() {
     },
   };
 
+  useEffect(() => {
+    if (!isLoading) {
+      setBannerData(data?.data);
+      console.log("data from banner ", data);
+    }
+  }, [isLoading]);
+
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-12 mt-10">
-        <SideBar classes="col-span-2" />
+        <SideBar data={[]} classes="col-span-2" />
         <div className={cn("col-span-10 pl-10 flex justify-center")}>
           <div className={cn("w-full ")}>
             <div className="w-full">
               <Slider {...settings}>
-                {[...new Array(5)].map((item: any, i: number) => {
+                {bannerData.map((item: any) => {
+                  console.log(item);
+
                   return (
                     <div
                       className={cn("w-full flex justify-center items-center")}
-                      key={i}
+                      key={item._id}
                     >
-                      <a href="" className="w-full">
+                      <a href="/" className="w-full">
                         <picture>
                           <img
-                            src={item?.img ? item.img : bannerImg}
+                            src={item?.image ? item.image : bannerImg}
                             alt={bannerImg}
                             className="object-cover w-full h-full"
                           />

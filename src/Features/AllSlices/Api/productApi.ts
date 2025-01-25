@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const ProductApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1" }),
   endpoints: (builder) => ({
     GetAllProducts: builder.query<any, void>({
       query: () => "/products",
@@ -22,6 +22,9 @@ const ProductApi = createApi({
     GetProductByCategory: builder.query<any, string>({
       query: (category: string) => `/products/category/${category}`,
     }),
+    GetBanner: builder.query<any, number>({
+      query: () => `/banner`,
+    }),
   }),
 });
 
@@ -32,6 +35,7 @@ const {
   useGetProductByLimitQuery,
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
+  useGetBannerQuery,
 } = ProductApi;
 
 export {
@@ -42,4 +46,5 @@ export {
   useGetProductByLimitQuery,
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
+  useGetBannerQuery,
 };
