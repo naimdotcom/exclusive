@@ -1,15 +1,21 @@
 import ProductCard from "../CommonComponents/ProductCard";
-import { useGetProductByLimitQuery } from "../../Features/AllSlices/Api/productApi";
-import { useState } from "react";
+import { useGetAllProductsQuery } from "../../Features/AllSlices/Api/productApi";
+import { useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
 import ProductSkeleton from "../../helper/ProductSkeleton";
+import { productCardsInfoType } from "../../utils/data";
+import { processApiResponse } from "../../hooks/IsSpecialRoute";
 
 function ProductsShowCase() {
-  const { data, isLoading } = useGetProductByLimitQuery(60);
+  const [productData, setProductData] = useState<productCardsInfoType[] | []>(
+    []
+  );
+  const [errorQuery, setErrorQuery] = useState<string | null>(null);
+  const { data, isLoading, error } = useGetAllProductsQuery();
   const [page, setPage] = useState<number>(1);
   const [showPerPage, setShowPerPage] = useState<number>(9);
 
-  const totalPages = Math.ceil((data?.products?.length || 0) / showPerPage);
+  const totalPages = Math.ceil((productData.length || 0) / showPerPage);
   const maxVisible = 5;
   const halfVisible = Math.floor(maxVisible / 2);
 
@@ -49,6 +55,18 @@ function ProductsShowCase() {
       }
     }
   };
+  useEffect(() => {
+    console.log("products page :", data, productData);
+
+    if (data) {
+      setProductData(processApiResponse(data));
+    }
+
+    if (error) {
+      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      console.error("Error in flash sales:", errorQuery);
+    }
+  }, [data, isLoading]);
 
   return (
     <div className="flex flex-col items-center w-full px-10 space-y-10">
@@ -72,7 +90,7 @@ function ProductsShowCase() {
           ? Array(9)
               .fill("")
               .map((_, index) => <ProductSkeleton key={index} />)
-          : data?.products
+          : productData
               ?.slice(page * 9 - 9, page * showPerPage)
               .map((item: any, index: number) => (
                 <ProductCard key={index} {...item} />

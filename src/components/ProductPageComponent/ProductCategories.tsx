@@ -1,12 +1,12 @@
-function ProductCategories({
-  data = [],
-  isLoading,
-  error,
-}: {
-  data: string[] | undefined;
+import { categoryType } from "../../utils/data";
+
+interface productCatgoriesProps {
   isLoading: boolean;
+  data: categoryType[];
   error: any;
-}) {
+}
+
+function ProductCategories({ isLoading, error, data }: productCatgoriesProps) {
   console.log(
     "error occur in product page categories while fetching data from api",
     error
@@ -36,7 +36,7 @@ function ProductCategories({
                 key={index}
               >
                 <li className="py-2 pl-2 font-normal capitalize transition-all cursor-pointer font-popins hover:px-5 text-md text-text_black000000">
-                  {item}
+                  {item.name}
                 </li>
               </div>
             ))}
