@@ -58,13 +58,13 @@ interface categoryType {
   subCategory: string;
   products: productCardsInfoType[];
 }
-enum size {
-  "XS",
-  "S",
-  "L",
-  "M",
-  "XL",
-  "XXL",
+enum Size {
+  XS = "XS",
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
+  XXL = "XXL",
 }
 
 interface flashSaleInterface {
@@ -73,12 +73,28 @@ interface flashSaleInterface {
   description: string;
   price: number;
   rating: number;
-  size: size;
+  size: Size;
   color: string;
   category: string;
   subcategory: string;
   image: [string];
 }
+
+type ProductApiResponse = {
+  data: productCardsInfoType[];
+  status: number;
+  message?: string;
+};
+
+type SpecialApiResponse = {
+  data: {
+    product: productCardsInfoType;
+    title: string;
+  }[];
+  status: number;
+  message?: string;
+};
+type ApiResponse = ProductApiResponse | SpecialApiResponse;
 
 export type {
   sideCategory,
@@ -86,6 +102,9 @@ export type {
   productCardsInfoType,
   categoryType,
   flashSaleInterface,
+  ApiResponse,
+  ProductApiResponse,
+  SpecialApiResponse,
 };
 
 const category: categoryType[] = [

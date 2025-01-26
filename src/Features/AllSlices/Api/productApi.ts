@@ -28,6 +28,9 @@ const ProductApi = createApi({
     GetFlashSales: builder.query<any, void>({
       query: () => `/flashsales`,
     }),
+    GetCategory: builder.query<any, void>({
+      query: () => `category`,
+    }),
   }),
 });
 
@@ -40,6 +43,7 @@ const {
   useGetProductByCategoryQuery,
   useGetBannerQuery,
   useGetFlashSalesQuery,
+  useGetCategoryQuery,
 } = ProductApi;
 
 export {
@@ -52,4 +56,5 @@ export {
   useGetProductByCategoryQuery,
   useGetBannerQuery,
   useGetFlashSalesQuery,
+  useGetCategoryQuery,
 };

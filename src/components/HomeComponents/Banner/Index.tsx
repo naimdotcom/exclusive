@@ -85,8 +85,6 @@ function Banner() {
             <div className="w-full">
               <Slider {...settings}>
                 {bannerData.map((item: any) => {
-                  console.log(item);
-
                   return (
                     <div
                       className={cn("w-full flex justify-center items-center")}

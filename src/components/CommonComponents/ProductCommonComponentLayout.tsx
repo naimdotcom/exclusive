@@ -56,8 +56,8 @@ function ProductCommonComponentLayout({
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
-    // dots: true,
-    infinite: true,
+    dots: componentData && componentData?.length >= 5,
+    infinite: componentData && componentData?.length >= 5,
     speed: 500,
     // componentData && componentData?.length >= 5 ? 5 : 2
     slidesToShow: 5,
@@ -134,7 +134,7 @@ function ProductCommonComponentLayout({
               BgCss={cn("bg-cs-redDB4444", buttonBgCss)}
             />
 
-            {/* <NavLink
+            <NavLink
               to={"/products"}
               className={cn(
                 "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
@@ -147,7 +147,7 @@ function ProductCommonComponentLayout({
               >
                 View All
               </span>
-            </NavLink> */}
+            </NavLink>
           </div>
         )}
         {/* Arrows End */}

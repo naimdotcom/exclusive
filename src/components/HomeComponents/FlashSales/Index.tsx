@@ -4,23 +4,24 @@ import ProductCard from "../../CommonComponents/ProductCard";
 import { useGetFlashSalesQuery } from "../../../Features/AllSlices/Api/productApi";
 
 import { useEffect, useState } from "react";
+import { processApiResponse } from "../../../hooks/IsSpecialRoute";
 
 function FlashSales() {
   const [productData, setProductData] = useState<productCardsInfoType[] | []>(
     []
   );
+  const [errorQuery, setErrorQuery] = useState<string | null>(null);
   const { data, isLoading, error } = useGetFlashSalesQuery();
+  console.log("flash data;", productData);
 
   useEffect(() => {
     if (data) {
-      setProductData(data.data); // TypeScript now knows `data` has the expected structure
+      setProductData(processApiResponse(data));
     }
 
     if (error) {
-      console.error(
-        "Error occurred in flash sales while fetching data from API:",
-        error
-      );
+      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      console.error("Error in flash sales:", errorQuery);
     }
   }, [data, isLoading]);
 
