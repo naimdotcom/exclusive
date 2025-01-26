@@ -5,7 +5,7 @@ const ProductApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1" }),
   endpoints: (builder) => ({
     GetAllProducts: builder.query<any, void>({
-      query: () => "/products",
+      query: () => "/product",
     }),
     GetProductByLimit: builder.query<any, number>({
       query: (limit: number = 30) => `products?limit=${limit}`,
@@ -22,8 +22,11 @@ const ProductApi = createApi({
     GetProductByCategory: builder.query<any, string>({
       query: (category: string) => `/products/category/${category}`,
     }),
-    GetBanner: builder.query<any, number>({
+    GetBanner: builder.query<any, void>({
       query: () => `/banner`,
+    }),
+    GetFlashSales: builder.query<any, void>({
+      query: () => `/flashsales`,
     }),
   }),
 });
@@ -36,6 +39,7 @@ const {
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
   useGetBannerQuery,
+  useGetFlashSalesQuery,
 } = ProductApi;
 
 export {
@@ -47,4 +51,5 @@ export {
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
   useGetBannerQuery,
+  useGetFlashSalesQuery,
 };

@@ -10,7 +10,7 @@ import { useGetBannerQuery } from "../../../Features/AllSlices/Api/productApi";
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
   const [currentSlide, setcurrentSlide] = useState<number>(0);
-  const { data, isLoading } = useGetBannerQuery();
+  const { data, isLoading, error } = useGetBannerQuery();
   // css for react slick which will be set in <slider .... >
   let settings = {
     dots: true,
@@ -73,7 +73,6 @@ function Banner() {
   useEffect(() => {
     if (!isLoading) {
       setBannerData(data?.data);
-      console.log("data from banner ", data);
     }
   }, [isLoading]);
 

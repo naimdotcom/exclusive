@@ -5,29 +5,40 @@ import Star from "./star";
 import { productCardsInfoType } from "../../utils/data";
 import useCalculateDiscount from "../../hooks/useCalculateDiscount";
 import { NavLink } from "react-router-dom";
+import { cn } from "../../utils/cn";
+
+export interface productCardWitClass extends productCardsInfoType {
+  className: string;
+}
 
 function ProductCard({
-  id,
-  title,
+  _id,
+  name,
+  description,
   price,
-  discountPercentage,
   rating,
-  reviews = [],
-  thumbnail,
-}: productCardsInfoType) {
+  size,
+  color,
+  category,
+  subcategory,
+  discount = 0,
+  review,
+  images,
+  className,
+}: productCardWitClass) {
   return (
-    <div key={id}>
+    <div key={_id} className={cn(`${className}`)}>
       <div className="relative px-16 py-16 rounded bg-cs-white_F5F5F5 w-72 h-72 max-w-72 max-h-72 group">
         <div className="px-3 py-[6px] rounded bg-cs-redDB4444 w-fit absolute top-2 left-2">
           <h4 className="text-xs font-normal leading-none text-center text-cs-white_FFFFFF font-poppins">
-            -{discountPercentage ? discountPercentage : 0}%
+            -{discount ? discount : 0}%
           </h4>
         </div>
-        <div>
+        <div className="flex items-center justify-center w-full h-full">
           <picture>
             <img
-              src={thumbnail ? thumbnail : productImg2}
-              alt={thumbnail ? thumbnail : productImg2}
+              src={images[0] ? images[0] : productImg2}
+              alt={images[0] ? images[0] : productImg2}
             />
           </picture>
         </div>
@@ -39,7 +50,7 @@ function ProductCard({
           </h4>
           {/* show the product in detail */}
           <h4 className="p-2 bg-white rounded-full ">
-            <NavLink to={`/product/${id}`}>
+            <NavLink to={`/product/${_id}`}>
               <span className="">
                 <IoEyeOutline
                   className="text-2xl rounded-full "
@@ -65,11 +76,11 @@ function ProductCard({
       </div>
       <div className="space-y-2">
         <h1 className="pt-2 text-base font-medium text-black font-poppins">
-          {title ? title : ""}
+          {name ? name : ""}
         </h1>
         <h4 className="flex items-start justify-start h-6 gap-3">
           <span className="text-base font-medium leading-normal text-cs-redDB4444 font-poppins">
-            ${useCalculateDiscount(price, discountPercentage).toFixed(2)}
+            ${useCalculateDiscount(price, discount).toFixed(2)}
           </span>
           <span className="text-base font-medium leading-normal text-black line-through opacity-50 font-poppins">
             ${price ? price : 0}
@@ -78,7 +89,7 @@ function ProductCard({
         <div className="flex items-center gap-2">
           {rating ? <Star rating={rating} /> : ""}
           <h4 className="w-8 h-5 text-sm font-semibold text-black opacity-50 font-poppins">
-            {reviews ? `(${reviews.length})` : ""}
+            {review.length > 0 ? `(${review.length})` : 0}
           </h4>
         </div>
       </div>

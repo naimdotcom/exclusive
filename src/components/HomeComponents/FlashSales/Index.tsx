@@ -1,12 +1,28 @@
-import { productCardsInfo } from "../../../utils/data";
+import { productCardsInfoType } from "../../../utils/data";
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
 import ProductCard from "../../CommonComponents/ProductCard";
-import { useGetAllProductsQuery } from "../../../Features/AllSlices/Api/productApi";
+import { useGetFlashSalesQuery } from "../../../Features/AllSlices/Api/productApi";
+
+import { useEffect, useState } from "react";
 
 function FlashSales() {
-  const { data, isLoading, error } = useGetAllProductsQuery();
+  const [productData, setProductData] = useState<productCardsInfoType[] | []>(
+    []
+  );
+  const { data, isLoading, error } = useGetFlashSalesQuery();
 
-  console.log("error occur in flash sales while fetching data from api", error);
+  useEffect(() => {
+    if (data) {
+      setProductData(data.data); // TypeScript now knows `data` has the expected structure
+    }
+
+    if (error) {
+      console.error(
+        "Error occurred in flash sales while fetching data from API:",
+        error
+      );
+    }
+  }, [data, isLoading]);
 
   return (
     <div className="pt-36">
@@ -14,8 +30,8 @@ function FlashSales() {
         title="Flash Sale"
         description="Today's"
         timeToEndOffer={"2025-02-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
-        products={productCardsInfo}
-        componentData={data?.products ? data?.products : []}
+        products={productData}
+        componentData={productData.length > 0 ? productData : []}
         cards={ProductCard}
         isArrow={true}
       />

@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
 import ProductSkeleton from "../../helper/ProductSkeleton";
 import Button from "./Button";
+import { productCardWitClass } from "./ProductCard";
 
 // Consider separating the shared props into a base interface
 interface BaseLayoutProps {
@@ -29,7 +30,7 @@ interface BaseLayoutProps {
 interface ProductLayoutProps extends BaseLayoutProps {
   products?: productCardsInfoType[];
   category?: never;
-  cards?: React.ComponentType<productCardsInfoType>;
+  cards?: React.ComponentType<productCardWitClass>;
 }
 
 interface CategoryLayoutProps extends BaseLayoutProps {
@@ -58,6 +59,7 @@ function ProductCommonComponentLayout({
     // dots: true,
     infinite: true,
     speed: 500,
+    // componentData && componentData?.length >= 5 ? 5 : 2
     slidesToShow: 5,
     slidesToScroll: 5,
     swipeToSlide: true,

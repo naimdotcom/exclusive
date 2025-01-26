@@ -29,27 +29,64 @@ type sideCategory = {
   path: string;
   subCategory: subCategory[];
 };
+interface reviewInterface {
+  user: string;
+  comment: string;
+  rating: number;
+}
 
 interface productCardsInfoType {
-  id?: string;
-  title?: string;
-  price?: number;
-  // discountedPrice: number;
-  discountPercentage?: number;
-  rating?: number;
-  reviews?: [];
-  isArrow?: boolean;
-  thumbnail?: string;
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  rating: number;
+  size: size;
+  color: string;
+  category: string;
+  subcategory: string;
+  discount: number;
+  review: reviewInterface[];
+  images: [string];
 }
 
 interface categoryType {
-  id: string | number;
+  _id: string | number;
   name: string;
   image: string;
   isSelected?: boolean;
+  subCategory: string;
+  products: productCardsInfoType[];
+}
+enum size {
+  "XS",
+  "S",
+  "L",
+  "M",
+  "XL",
+  "XXL",
 }
 
-export type { sideCategory, subCategory, productCardsInfoType, categoryType };
+interface flashSaleInterface {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  rating: number;
+  size: size;
+  color: string;
+  category: string;
+  subcategory: string;
+  image: [string];
+}
+
+export type {
+  sideCategory,
+  subCategory,
+  productCardsInfoType,
+  categoryType,
+  flashSaleInterface,
+};
 
 const category: categoryType[] = [
   {
