@@ -15,8 +15,8 @@ function Home() {
       <BestSeller />
       <Exprience />
       <ExploreProducts />
-      {/*<NewArrival />
-      <Services /> */}
+      <NewArrival />
+      <Services />
     </div>
   );
 }

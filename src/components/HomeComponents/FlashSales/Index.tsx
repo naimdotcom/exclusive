@@ -25,7 +25,7 @@ function FlashSales() {
   }, [data, isLoading]);
 
   return (
-    <div className="pt-36">
+    <div className="pt-24">
       <ProductCommonComponentLayout
         title="Flash Sale"
         description="Today's"
