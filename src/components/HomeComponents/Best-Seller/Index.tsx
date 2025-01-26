@@ -1,5 +1,5 @@
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
-import { useGetCategoryByIdOrNameQuery } from "../../../Features/AllSlices/Api/productApi";
+import { useGetBestSallingProductQuery } from "../../../Features/AllSlices/Api/productApi";
 import ProductCard from "../../CommonComponents/ProductCard";
 import { useEffect, useState } from "react";
 import { productCardsInfoType } from "../../../utils/data";
@@ -7,7 +7,7 @@ import { productCardsInfoType } from "../../../utils/data";
 function BestSeller() {
   const [productData, setProductData] = useState<productCardsInfoType[]>([]);
   const [errorQuery, setErrorQuery] = useState<string | null>(null);
-  const { data, isLoading, error } = useGetCategoryByIdOrNameQuery();
+  const { data, isLoading, error } = useGetBestSallingProductQuery();
   useEffect(() => {
     if (data) {
       setProductData(data?.data?.product);

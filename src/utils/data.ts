@@ -1,16 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  productImg1,
-  productImg2,
-  productImg3,
-  productImg4,
-  productImg5,
-  productImg6,
-  productImg7,
-  productImg8,
-} from "./assets";
-
 type Navigation = {
   id: string;
   title: string;

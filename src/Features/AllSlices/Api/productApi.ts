@@ -31,7 +31,7 @@ const ProductApi = createApi({
     GetCategory: builder.query<any, void>({
       query: () => `category`,
     }),
-    GetCategoryByIdOrName: builder.query<any, void>({
+    GetBestSallingProduct: builder.query<any, void>({
       query: () => `category/mobile`,
     }),
   }),
@@ -47,7 +47,7 @@ const {
   useGetBannerQuery,
   useGetFlashSalesQuery,
   useGetCategoryQuery,
-  useGetCategoryByIdOrNameQuery,
+  useGetBestSallingProductQuery,
 } = ProductApi;
 
 export {
@@ -61,5 +61,5 @@ export {
   useGetBannerQuery,
   useGetFlashSalesQuery,
   useGetCategoryQuery,
-  useGetCategoryByIdOrNameQuery,
+  useGetBestSallingProductQuery,
 };
