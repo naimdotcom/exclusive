@@ -20,7 +20,7 @@ const ProductApi = createApi({
       query: () => "/category",
     }),
     GetProductByCategory: builder.query<any, string>({
-      query: (category: string) => `/products/category/${category}`,
+      query: (category: string) => `/category/${category}`,
     }),
     GetBanner: builder.query<any, void>({
       query: () => `/banner`,
