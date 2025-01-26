@@ -134,7 +134,7 @@ function ProductCommonComponentLayout({
               BgCss={cn("bg-cs-redDB4444", buttonBgCss)}
             />
 
-            <NavLink
+            {/* <NavLink
               to={"/products"}
               className={cn(
                 "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
@@ -147,7 +147,7 @@ function ProductCommonComponentLayout({
               >
                 View All
               </span>
-            </NavLink>
+            </NavLink> */}
           </div>
         )}
         {/* Arrows End */}

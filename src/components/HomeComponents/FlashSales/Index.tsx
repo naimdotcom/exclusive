@@ -12,7 +12,6 @@ function FlashSales() {
   );
   const [errorQuery, setErrorQuery] = useState<string | null>(null);
   const { data, isLoading, error } = useGetFlashSalesQuery();
-  console.log("flash data;", productData);
 
   useEffect(() => {
     if (data) {
@@ -30,7 +29,7 @@ function FlashSales() {
       <ProductCommonComponentLayout
         title="Flash Sale"
         description="Today's"
-        timeToEndOffer={"2025-02-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
+        timeToEndOffer={"2025-03-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
         products={productData}
         componentData={productData.length > 0 ? productData : []}
         cards={ProductCard}

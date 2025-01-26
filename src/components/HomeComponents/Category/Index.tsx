@@ -5,9 +5,7 @@ import CategoryCard from "../../CommonComponents/categoryCard";
 import { useGetCategoryQuery } from "../../../Features/AllSlices/Api/productApi";
 function Category() {
   const [categoryData, setCategoryData] = useState<categoryType[]>([]);
-
   const { data, isLoading, error } = useGetCategoryQuery();
-  console.log("category data;", data);
 
   useEffect(() => {
     if (data) {

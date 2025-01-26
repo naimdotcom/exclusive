@@ -31,5 +31,4 @@ function processApiResponse(response: ApiResponse): productCardsInfoType[] {
   }
   return response.data.map((item) => item.product);
 }
-
 export { isProductApiResponse, isSpecialRouteResponse, processApiResponse };

@@ -12,10 +12,10 @@ function Home() {
       <Banner />
       <FlashSales />
       <Category />
-      {/*<BestSeller />
+      <BestSeller />
       <Exprience />
       <ExploreProducts />
-      <NewArrival />
+      {/*<NewArrival />
       <Services /> */}
     </div>
   );
