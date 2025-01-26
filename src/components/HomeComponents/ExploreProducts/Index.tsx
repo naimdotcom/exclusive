@@ -1,6 +1,6 @@
 import { useGetAllProductsQuery } from "../../../Features/AllSlices/Api/productApi";
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
-import { productCardsInfo, productCardsInfoType } from "../../../utils/data";
+import { productCardsInfoType } from "../../../utils/data";
 import ProductCard from "../../CommonComponents/ProductCard";
 import { useEffect, useState } from "react";
 import { processApiResponse } from "../../../hooks/IsSpecialRoute";
@@ -29,7 +29,6 @@ function ExploreProducts() {
       <ProductCommonComponentLayout
         title="Explore Our Products"
         description="Our Products"
-        products={productCardsInfo}
         componentData={productData ? productData : []}
         cards={ProductCard}
         isArrow={true}

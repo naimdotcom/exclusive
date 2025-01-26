@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { cn } from "../../utils/cn";
-import { sideCategories, sideCategory, subCategory } from "../../utils/data";
+import { categoryType } from "../../utils/data";
 
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-function SideBar({ data, classes }: { data: string[]; classes: string }) {
+function SideBar({ data, classes }: { data: categoryType[]; classes: string }) {
   const [openCategories, setOpenCategories] = useState<{
     [key: string | number]: boolean;
   }>({});
@@ -24,28 +24,28 @@ function SideBar({ data, classes }: { data: string[]; classes: string }) {
       )}
     >
       <ul className={cn("space-y-4 mr-10")}>
-        {sideCategories.map((item: sideCategory) => {
-          const isOpen = openCategories[item.id] || false;
+        {data.map((item) => {
+          const isOpen = openCategories[item._id] || false;
           return (
             <li
               className={cn("flex flex-col items-center justify-between")}
-              key={item.id}
+              key={item._id}
             >
               <div className="flex items-center justify-between w-full">
-                <a href={item.path}>
-                  <h2>{item.title}</h2>
+                <a href={item.name}>
+                  <h2>{item.name}</h2>
                 </a>
                 {item.subCategory.length > 0 && (
-                  <span onClick={() => toggleCategory(item.id)}>
+                  <span onClick={() => toggleCategory(item._id)}>
                     <MdOutlineKeyboardArrowRight className={cn("text-xl ")} />
                   </span>
                 )}
               </div>
               {isOpen && item.subCategory && (
                 <ul className="border-l-[0.8px] -ml-16 mt-3 mb-1 pl-3 space-y-2">
-                  {item.subCategory.map((subItem: subCategory) => (
-                    <li key={subItem.id}>
-                      <a href={subItem.path}>{subItem.title}</a>
+                  {item.subCategory.map((subItem) => (
+                    <li key={subItem._id}>
+                      <a href={subItem.name}>{subItem.name}</a>
                     </li>
                   ))}
                 </ul>

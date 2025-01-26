@@ -39,14 +39,14 @@ function ProductDetailsContainer({
           <h3 className="text-2xl font-semibold leading-normal tracking-wide text-black font-inter">
             {
               // Product name
-              productData?.title
+              productData?.name
             }
           </h3>
           <div className="flex items-center mt-2 space-x-1">
             <Star rating={productData?.rating} />
 
             <p className="text-sm font-normal leading-tight text-black opacity-50 font-poppins">
-              <span>{`(${productData?.reviews?.length} Reviews)`} </span>|{" "}
+              <span>{`(${productData?.review?.length} Reviews)`} </span>|{" "}
               <span
                 className={cn(
                   "text-sm font-normal font-poppins  leading-tight",

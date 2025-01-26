@@ -5,12 +5,32 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ReactNode, useEffect, useState } from "react";
-import { useGetBannerQuery } from "../../../Features/AllSlices/Api/productApi";
+import {
+  useGetAllCategoryListQuery,
+  useGetBannerQuery,
+} from "../../../Features/AllSlices/Api/productApi";
+import { categoryType } from "../../../utils/data";
 
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
   const [currentSlide, setcurrentSlide] = useState<number>(0);
   const { data, isLoading, error } = useGetBannerQuery();
+
+  const [categoryData, setCategoryData] = useState<categoryType[] | null>([]);
+  const [errorQuery, setErrorQuery] = useState<string | null>();
+  const { data: category, isLoading: isLoadingCategory } =
+    useGetAllCategoryListQuery();
+
+  useEffect(() => {
+    if (category) {
+      setCategoryData(category.data);
+    }
+    if (error) {
+      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      console.error("Error in flash sales:", errorQuery);
+    }
+  }, [category, isLoadingCategory]);
+
   // css for react slick which will be set in <slider .... >
   let settings = {
     dots: true,
@@ -79,7 +99,7 @@ function Banner() {
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-12 mt-10">
-        <SideBar data={[]} classes="col-span-2" />
+        <SideBar data={categoryData ? categoryData : []} classes="col-span-2" />
         <div className={cn("col-span-10 pl-10 flex justify-center")}>
           <div className={cn("w-full ")}>
             <div className="w-full">

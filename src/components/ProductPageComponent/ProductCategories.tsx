@@ -1,35 +1,37 @@
 import { categoryType } from "../../utils/data";
+import SideBar from "../CommonComponents/SideBar";
 
 interface productCatgoriesProps {
   isLoading: boolean;
   data: categoryType[];
-  error: any;
+  error?: any;
 }
 
-function ProductCategories({ isLoading, error, data }: productCatgoriesProps) {
-  console.log(
-    "error occur in product page categories while fetching data from api",
-    error
-  );
+function ProductCategories({ isLoading, data }: productCatgoriesProps) {
+  console.log(data);
 
   return (
     <div className="w-[25%] h-[15%] space-y-4 border-r-2">
       <h1 className="font-popins font-bold text-[20px] text-text_black000000 mb-4 cursor-pointer">
         Shop By Category
       </h1>
-      {/* <SideBar data={data} classes="" /> */}
-      <ul className="mr-20 overflow-y-scroll max-h-96 scroll">
-        {isLoading
-          ? Array(10)
-              .fill("")
-              .map((_, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between transition-all hover:bg-gray-200"
-                >
-                  <li className="flex w-full py-4 my-3 bg-gray-300 rounded animate-pulse"></li>
-                </div>
-              ))
+      {isLoading ? (
+        Array(10)
+          .fill("")
+          .map((_, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between transition-all hover:bg-gray-200"
+            >
+              <li className="flex w-full py-4 my-3 bg-gray-300 rounded animate-pulse"></li>
+            </div>
+          ))
+      ) : (
+        <SideBar data={data} classes="" />
+      )}
+
+      {/* <ul className="mr-20 overflow-y-scroll max-h-96 scroll">
+        {
           : data?.map((item, index) => (
               <div
                 className="flex items-center justify-between transition-all hover:bg-gray-200"
@@ -40,7 +42,7 @@ function ProductCategories({ isLoading, error, data }: productCatgoriesProps) {
                 </li>
               </div>
             ))}
-      </ul>
+      </ul> */}
 
       <div>
         <div>

@@ -10,18 +10,19 @@ import ProductCard from "../../components/CommonComponents/ProductCard";
 import ProductDetailsSkeleton from "../../helper/ProductDetailsSkeleton";
 import ProductDetailsImages from "../../components/ProductDetailsComponets/ProductDetailsImages";
 import ProductDetailsContainer from "../../components/ProductDetailsComponets/ProductDetailsContainer";
+import { productCardsInfoType } from "../../utils/data";
 
 type Props = {};
 
 function ProductDetails({}: Props) {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetProductByIdQuery(Number(id));
+  const { data, isLoading } = useGetProductByIdQuery(String(id));
   const { data: relatedProducts } = useGetProductByCategoryQuery(
     data?.category
   );
 
   const [mainThumbail, setMainThumbail] = useState<string>("");
-  const [productData, setProductData] = useState<any>({});
+  const [productData, setProductData] = useState<productCardsInfoType>();
   const [selectedColor, setSelectedColor] = useState<string>("purple");
   const [selectedSize, setSelectedSize] = useState<string>("M");
   const [count, setCount] = useState<number>(1);
@@ -46,16 +47,12 @@ function ProductDetails({}: Props) {
   useEffect(() => {
     if (data) {
       setProductData({
-        ...data,
-        images: [
-          ...data?.images,
-          data?.thumbnail,
-          "https://readymadeui.com/images/product6.webp",
-        ],
+        ...data?.data,
       });
-      setMainThumbail(data?.thumbnail);
+      setMainThumbail(data.data?.images[0]);
     }
-  }, [data]);
+    console.log("productData: product", productData, data?.data);
+  }, [data, isLoading]);
 
   return (
     <div className="container mt-16 space-y-20">

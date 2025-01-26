@@ -34,14 +34,21 @@ interface reviewInterface {
   comment: string;
   rating: number;
 }
-
+enum Size {
+  XS = "XS",
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
+  XXL = "XXL",
+}
 interface productCardsInfoType {
   _id: string;
   name: string;
   description: string;
   price: number;
   rating: number;
-  size: size;
+  size: Size;
   color: string;
   category: string;
   subcategory: string;
@@ -55,16 +62,15 @@ interface categoryType {
   name: string;
   image: string;
   isSelected?: boolean;
-  subCategory: string;
+  subCategory: subcategoryInterface[];
   products: productCardsInfoType[];
 }
-enum Size {
-  XS = "XS",
-  S = "S",
-  M = "M",
-  L = "L",
-  XL = "XL",
-  XXL = "XXL",
+
+interface subcategoryInterface {
+  _id: string;
+  name: string;
+  category: string;
+  products: productCardsInfoType;
 }
 
 interface flashSaleInterface {
@@ -105,87 +111,88 @@ export type {
   ApiResponse,
   ProductApiResponse,
   SpecialApiResponse,
+  subcategoryInterface,
 };
 
-const category: categoryType[] = [
-  {
-    id: uuidv4(),
-    name: "Phones",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-    isSelected: true, // To indicate the currently selected item
-  },
-  {
-    id: uuidv4(),
-    name: "Computers",
-    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
-  },
-  {
-    id: uuidv4(),
-    name: "SmartWatch",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Camera",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-    isSelected: true, // To indicate the currently selected item
-  },
-  {
-    id: uuidv4(),
-    name: "HeadPhones",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Gaming",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Tablets",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Accessories",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Wearables",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Home Appliances",
-    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Drones",
-    image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Audio Systems",
-    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Virtual Reality",
-    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Printers",
-    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
-  },
-  {
-    id: uuidv4(),
-    name: "Monitors",
-    image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
-  },
-];
+// const category: categoryType[] = [
+//   {
+//     id: uuidv4(),
+//     name: "Phones",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//     isSelected: true, // To indicate the currently selected item
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Computers",
+//     image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "SmartWatch",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Camera",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//     isSelected: true, // To indicate the currently selected item
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "HeadPhones",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Gaming",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Tablets",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Accessories",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Wearables",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Home Appliances",
+//     image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Drones",
+//     image: "https://cdn-icons-png.flaticon.com/512/114/114734.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Audio Systems",
+//     image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Virtual Reality",
+//     image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Printers",
+//     image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Monitors",
+//     image: "https://cdn-icons-png.flaticon.com/512/2990/2990890.png",
+//   },
+// ];
 
 const sideCategories: sideCategory[] = [
   {
@@ -285,86 +292,86 @@ const navigationBar: Navigation[] = [
   },
 ];
 
-const productCardsInfo: productCardsInfoType[] = [
-  {
-    id: uuidv4(),
-    title: "HAVIT HV-G92 Gamepad",
-    price: 160,
-    discountPercentage: 120,
-    rating: 4.5,
-    reviews: [],
-    thumbnail: productImg1, // Replace with actual image path
-  },
-  {
-    id: uuidv4(),
-    title: "AK-900 Wired Keyboard",
-    originalPrice: 1160,
-    discountedPrice: 960,
-    discount: 35,
-    rating: 4.0,
-    reviews: 75,
-    image: productImg2,
-  },
-  {
-    id: uuidv4(),
-    name: "IPS LCD Gaming Monitor",
-    originalPrice: 400,
-    discountedPrice: 370,
-    discount: 30,
-    rating: 4.5,
-    reviews: 99,
-    image: productImg3, // Replace with actual image path
-  },
-  {
-    id: uuidv4(),
-    name: "S-Series Comfort Chair",
-    originalPrice: 400,
-    discountedPrice: 375,
-    discount: 25,
-    rating: 4.0,
-    reviews: 99,
-    image: productImg4, // Replace with actual image path
-  },
-  {
-    id: uuidv4(),
-    name: "The north coat",
-    originalPrice: 360,
-    discountedPrice: 260,
-    discount: 28, // Calculated as (360 - 260) / 360 * 100
-    rating: 4.5,
-    reviews: 65,
-    image: productImg5, // Placeholder image path
-  },
-  {
-    id: uuidv4(),
-    name: "Gucci duffle bag",
-    originalPrice: 1160,
-    discountedPrice: 960,
-    discount: 17, // Calculated as (1160 - 960) / 1160 * 100
-    rating: 4.5,
-    reviews: 65,
-    image: productImg6, // Placeholder image path
-  },
-  {
-    id: uuidv4(),
-    name: "RGB liquid CPU Cooler",
-    originalPrice: 170,
-    discountedPrice: 160,
-    discount: 6, // Calculated as (170 - 160) / 170 * 100
-    rating: 4.5,
-    reviews: 65,
-    image: productImg7, // Placeholder image path
-  },
-  {
-    id: uuidv4(),
-    name: "Small BookShelf",
-    originalPrice: 360,
-    discountedPrice: 360,
-    discount: 0,
-    rating: 4.5,
-    reviews: 65,
-    image: productImg8, // Placeholder image path
-  },
-];
+// const productCardsInfo: productCardsInfoType[] = [
+//   {
+//     id: uuidv4(),
+//     title: "HAVIT HV-G92 Gamepad",
+//     price: 160,
+//     discountPercentage: 120,
+//     rating: 4.5,
+//     reviews: [],
+//     thumbnail: productImg1, // Replace with actual image path
+//   },
+//   {
+//     id: uuidv4(),
+//     title: "AK-900 Wired Keyboard",
+//     originalPrice: 1160,
+//     discountedPrice: 960,
+//     discount: 35,
+//     rating: 4.0,
+//     reviews: 75,
+//     image: productImg2,
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "IPS LCD Gaming Monitor",
+//     originalPrice: 400,
+//     discountedPrice: 370,
+//     discount: 30,
+//     rating: 4.5,
+//     reviews: 99,
+//     image: productImg3, // Replace with actual image path
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "S-Series Comfort Chair",
+//     originalPrice: 400,
+//     discountedPrice: 375,
+//     discount: 25,
+//     rating: 4.0,
+//     reviews: 99,
+//     image: productImg4, // Replace with actual image path
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "The north coat",
+//     originalPrice: 360,
+//     discountedPrice: 260,
+//     discount: 28, // Calculated as (360 - 260) / 360 * 100
+//     rating: 4.5,
+//     reviews: 65,
+//     image: productImg5, // Placeholder image path
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Gucci duffle bag",
+//     originalPrice: 1160,
+//     discountedPrice: 960,
+//     discount: 17, // Calculated as (1160 - 960) / 1160 * 100
+//     rating: 4.5,
+//     reviews: 65,
+//     image: productImg6, // Placeholder image path
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "RGB liquid CPU Cooler",
+//     originalPrice: 170,
+//     discountedPrice: 160,
+//     discount: 6, // Calculated as (170 - 160) / 170 * 100
+//     rating: 4.5,
+//     reviews: 65,
+//     image: productImg7, // Placeholder image path
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "Small BookShelf",
+//     originalPrice: 360,
+//     discountedPrice: 360,
+//     discount: 0,
+//     rating: 4.5,
+//     reviews: 65,
+//     image: productImg8, // Placeholder image path
+//   },
+// ];
 
-export { navigationBar, sideCategories, productCardsInfo, category };
+export { navigationBar, sideCategories };
