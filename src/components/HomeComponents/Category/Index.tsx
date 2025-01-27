@@ -19,6 +19,7 @@ function Category() {
       );
     }
   }, [data, isLoading]);
+  console.log("categoryData", categoryData);
 
   return (
     <div>

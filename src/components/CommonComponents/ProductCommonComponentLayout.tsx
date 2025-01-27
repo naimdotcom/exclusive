@@ -57,7 +57,7 @@ function ProductCommonComponentLayout({
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
     dots: componentData && componentData?.length >= 5,
-    infinite: componentData && componentData?.length >= 5,
+    infinite: componentData && componentData?.length >= 5 ? true : false,
     speed: 500,
     // componentData && componentData?.length >= 5 ? 5 : 2
     slidesToShow: 5,
