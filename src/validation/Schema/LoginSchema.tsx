@@ -14,5 +14,16 @@ const LoginSchema = Yup.object({
     .min(6)
     .required("Password is required"),
 });
+const SignupSchema = Yup.object({
+  emailOrPhone: Yup.string()
+    .matches(mailFormat, "Email or Phone is invalid")
+    .required("Email or phone number is required"),
+  password: Yup.string()
+    .matches(passwordFormat, "Password is invalid")
+    .max(20)
+    .min(6)
+    .required("Password is required"),
+  name: Yup.string().required("Name is required").min(3).max(50),
+});
 
-export { LoginSchema };
+export { LoginSchema, SignupSchema };

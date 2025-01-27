@@ -85,6 +85,7 @@ function Login({}: Props) {
                 type="submit"
                 title="Log in"
                 BgCss="bg-cs-redDB4444 py-3"
+                navigateTo=""
               />
               <button className="text-base font-normal leading-normal text-cs-redDB4444 font-poppins">
                 Forgot Password?
