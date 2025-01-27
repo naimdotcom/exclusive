@@ -2,25 +2,37 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const ProductApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1" }),
   endpoints: (builder) => ({
     GetAllProducts: builder.query<any, void>({
-      query: () => "/products",
+      query: () => "/product",
     }),
     GetProductByLimit: builder.query<any, number>({
       query: (limit: number = 30) => `products?limit=${limit}`,
     }),
-    GetProductById: builder.query<any, number>({
-      query: (id: number) => `/products/${id}`,
+    GetProductById: builder.query<any, string>({
+      query: (id: string) => `/product/${id}`,
     }),
     BestSelling: builder.query<any, void>({
       query: () => "/products/category/smartphones",
     }),
     GetAllCategoryList: builder.query<any, void>({
-      query: () => "/products/category-list",
+      query: () => "/category",
     }),
     GetProductByCategory: builder.query<any, string>({
-      query: (category: string) => `/products/category/${category}`,
+      query: (category: string) => `/category/${category}`,
+    }),
+    GetBanner: builder.query<any, void>({
+      query: () => `/banner`,
+    }),
+    GetFlashSales: builder.query<any, void>({
+      query: () => `/flashsales`,
+    }),
+    GetCategory: builder.query<any, void>({
+      query: () => `category`,
+    }),
+    GetBestSallingProduct: builder.query<any, void>({
+      query: () => `category/mobile`,
     }),
   }),
 });
@@ -32,6 +44,10 @@ const {
   useGetProductByLimitQuery,
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
+  useGetBannerQuery,
+  useGetFlashSalesQuery,
+  useGetCategoryQuery,
+  useGetBestSallingProductQuery,
 } = ProductApi;
 
 export {
@@ -42,4 +58,8 @@ export {
   useGetProductByLimitQuery,
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
+  useGetBannerQuery,
+  useGetFlashSalesQuery,
+  useGetCategoryQuery,
+  useGetBestSallingProductQuery,
 };

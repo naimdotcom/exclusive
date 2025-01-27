@@ -32,6 +32,9 @@ import qrCode from "../assets/Footer/Qr Code.png";
 import googlePay from "../assets/Footer/GooglePlay.png";
 import appStore from "../assets/Footer/AppStore.png";
 
+// login
+import loginImg from "../assets/Login/Side Image.png";
+
 export {
   logo,
   bannerImg,
@@ -54,4 +57,5 @@ export {
   qrCode,
   googlePay,
   appStore,
+  loginImg,
 };

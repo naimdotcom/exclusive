@@ -10,25 +10,29 @@ import ProductCard from "../../components/CommonComponents/ProductCard";
 import ProductDetailsSkeleton from "../../helper/ProductDetailsSkeleton";
 import ProductDetailsImages from "../../components/ProductDetailsComponets/ProductDetailsImages";
 import ProductDetailsContainer from "../../components/ProductDetailsComponets/ProductDetailsContainer";
+import { productCardsInfoType } from "../../utils/data";
 
 type Props = {};
 
 function ProductDetails({}: Props) {
-  const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetProductByIdQuery(Number(id));
-  const { data: relatedProducts } = useGetProductByCategoryQuery(
-    data?.category
-  );
-  console.log("====================================");
-  console.log(relatedProducts);
-  console.log("====================================");
-
   const [mainThumbail, setMainThumbail] = useState<string>("");
-  const [productData, setProductData] = useState<any>({});
+  const [productData, setProductData] = useState<productCardsInfoType>();
+  const [relatedProductData, setRelatedProductData] = useState<
+    productCardsInfoType[] | []
+  >([]);
   const [selectedColor, setSelectedColor] = useState<string>("purple");
   const [selectedSize, setSelectedSize] = useState<string>("M");
   const [count, setCount] = useState<number>(1);
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading } = useGetProductByIdQuery(String(id));
 
+  // the product category query was not working because of productdata.category was unavailable while i was quering. so i used skip..
+  const { data: relatedProducts } = useGetProductByCategoryQuery(
+    productData?.category || "",
+    {
+      skip: !productData?.category,
+    }
+  );
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
   };
@@ -49,16 +53,21 @@ function ProductDetails({}: Props) {
   useEffect(() => {
     if (data) {
       setProductData({
-        ...data,
-        images: [
-          ...data?.images,
-          data?.thumbnail,
-          "https://readymadeui.com/images/product6.webp",
-        ],
+        ...data?.data,
       });
-      setMainThumbail(data?.thumbnail);
+      setMainThumbail(data.data?.images[0]);
     }
-  }, [data]);
+
+    // console.log("productData: product", productData, data?.data);
+  }, [data, isLoading]);
+
+  useEffect(() => {
+    if (relatedProducts) {
+      // Set related product data
+      setRelatedProductData(relatedProducts.data.product);
+      console.log("related: product", relatedProductData, relatedProducts.data);
+    }
+  }, [relatedProducts]);
 
   return (
     <div className="container mt-16 space-y-20">
@@ -113,7 +122,7 @@ function ProductDetails({}: Props) {
           description="Related Products"
           title={""}
           cards={ProductCard}
-          componentData={relatedProducts?.products}
+          componentData={relatedProductData}
           isArrow={true}
         />
       </div>

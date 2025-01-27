@@ -9,6 +9,10 @@ import NavOutletFooter from "./components/RootLayouts/Nav&Footer/Index";
 import Error from "./Pages/Error/Index";
 import ProductPage from "./Pages/Products/Index";
 import ProductDetails from "./Pages/ProductDetails/Index";
+import Login from "./Pages/Auth/Login/Index";
+import WishList from "./Pages/WishList/Index";
+import AddToCart from "./Pages/AddToCart/Index";
+import SignupPage from "./Pages/Auth/signup/Index";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,7 +23,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/product/" element={<ProductPage />} />
+          <Route path="/product/" element={<ProductDetails />} />
+          <Route path="/login" element={<Login />} />{" "}
+          <Route path="/sign-up" element={<SignupPage />} />{" "}
+          <Route path="/wishlist" element={<WishList />} />
+          <Route path="/cart" element={<AddToCart />} />
           <Route path="/*" element={<Error />} />
         </Route>
       </>

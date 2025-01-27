@@ -3,7 +3,7 @@ import { exprienceImg } from "../../../utils/assets";
 import Button from "../../CommonComponents/Button";
 
 function Exprience({
-  timeToEndOffer = "2024-12-31T23:59:59",
+  timeToEndOffer = "2025-03-01T23:59:59",
 }: {
   timeToEndOffer?: string | Date;
 }) {

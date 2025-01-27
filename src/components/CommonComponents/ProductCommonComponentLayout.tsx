@@ -8,6 +8,8 @@ import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
 import ProductSkeleton from "../../helper/ProductSkeleton";
+import Button from "./Button";
+import { productCardWitClass } from "./ProductCard";
 
 // Consider separating the shared props into a base interface
 interface BaseLayoutProps {
@@ -17,13 +19,18 @@ interface BaseLayoutProps {
   componentData?: categoryType[] | productCardsInfoType[] | undefined;
   isArrow?: boolean;
   rows?: number;
+  buttonTitle?: string;
+  buttonBgCss?: string;
+  descriptionCss?: string;
+  wishList?: string;
+  topButtonNavigateTo?: string;
 }
 
 // Then extend it for specific use cases
 interface ProductLayoutProps extends BaseLayoutProps {
   products?: productCardsInfoType[];
   category?: never;
-  cards?: React.ComponentType<productCardsInfoType>;
+  cards?: React.ComponentType<productCardWitClass>;
 }
 
 interface CategoryLayoutProps extends BaseLayoutProps {
@@ -41,12 +48,18 @@ function ProductCommonComponentLayout({
   cards,
   isArrow,
   rows = 1,
+  buttonTitle,
+  buttonBgCss,
+  descriptionCss = "",
+  wishList = "",
+  topButtonNavigateTo = "",
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
   const settings = {
-    // dots: true,
-    infinite: true,
+    dots: componentData && componentData?.length >= 5,
+    infinite: componentData && componentData?.length >= 5,
     speed: 500,
+    // componentData && componentData?.length >= 5 ? 5 : 2
     slidesToShow: 5,
     slidesToScroll: 5,
     swipeToSlide: true,
@@ -77,10 +90,15 @@ function ProductCommonComponentLayout({
   return (
     <div>
       {/* Heading */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-end justify-between">
         <div className="flex items-end gap-32 ">
-          {(title || description) && (
-            <ItemsTitleAndSubTitle title={title} description={description} />
+          {(title || description || wishList) && (
+            <ItemsTitleAndSubTitle
+              title={title}
+              description={description}
+              descriptionCss={descriptionCss}
+              wishList={wishList}
+            />
           )}
           {timeToEndOffer && <Timer timeToEndOffer={timeToEndOffer} />}
         </div>
@@ -108,8 +126,15 @@ function ProductCommonComponentLayout({
             </h1>
           </div>
         ) : (
-          <div className="flex items-center justify-end mt-16 w-fit">
-            <NavLink
+          <div className="flex items-center justify-end w-fit">
+            <Button
+              title={buttonTitle || "View All"}
+              type="button"
+              navigateTo={topButtonNavigateTo}
+              BgCss={cn("bg-cs-redDB4444", buttonBgCss)}
+            />
+
+            {/* <NavLink
               to={"/products"}
               className={cn(
                 "px-12 py-4 bg-cs-redDB4444 rounded justify-center items-center "
@@ -122,7 +147,7 @@ function ProductCommonComponentLayout({
               >
                 View All
               </span>
-            </NavLink>
+            </NavLink> */}
           </div>
         )}
         {/* Arrows End */}

@@ -4,15 +4,37 @@ import SideBar from "../../CommonComponents/SideBar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import {
+  useGetAllCategoryListQuery,
+  useGetBannerQuery,
+} from "../../../Features/AllSlices/Api/productApi";
+import { categoryType } from "../../../utils/data";
 
 function Banner() {
+  const [bannerData, setBannerData] = useState([]);
   const [currentSlide, setcurrentSlide] = useState<number>(0);
+  const { data, isLoading, error } = useGetBannerQuery();
+
+  const [categoryData, setCategoryData] = useState<categoryType[] | null>([]);
+  const [errorQuery, setErrorQuery] = useState<string | null>();
+  const { data: category, isLoading: isLoadingCategory } =
+    useGetAllCategoryListQuery();
+
+  useEffect(() => {
+    if (category) {
+      setCategoryData(category.data);
+    }
+    if (error) {
+      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      console.error("Error in flash sales:", errorQuery);
+    }
+  }, [category, isLoadingCategory]);
 
   // css for react slick which will be set in <slider .... >
   let settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -68,24 +90,30 @@ function Banner() {
     },
   };
 
+  useEffect(() => {
+    if (!isLoading) {
+      setBannerData(data?.data);
+    }
+  }, [isLoading]);
+
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-12 mt-10">
-        <SideBar classes="col-span-2" />
+        <SideBar data={categoryData ? categoryData : []} classes="col-span-2" />
         <div className={cn("col-span-10 pl-10 flex justify-center")}>
           <div className={cn("w-full ")}>
             <div className="w-full">
               <Slider {...settings}>
-                {[...new Array(5)].map((item: any, i: number) => {
+                {bannerData.map((item: any) => {
                   return (
                     <div
                       className={cn("w-full flex justify-center items-center")}
-                      key={i}
+                      key={item._id}
                     >
-                      <a href="" className="w-full">
+                      <a href="/" className="w-full">
                         <picture>
                           <img
-                            src={item?.img ? item.img : bannerImg}
+                            src={item?.image ? item.image : bannerImg}
                             alt={bannerImg}
                             className="object-cover w-full h-full"
                           />

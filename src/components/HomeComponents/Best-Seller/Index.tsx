@@ -1,15 +1,22 @@
 import ProductCommonComponentLayout from "../../CommonComponents/ProductCommonComponentLayout";
-import { useBestSellingQuery } from "../../../Features/AllSlices/Api/productApi";
+import { useGetBestSallingProductQuery } from "../../../Features/AllSlices/Api/productApi";
 import ProductCard from "../../CommonComponents/ProductCard";
+import { useEffect, useState } from "react";
+import { productCardsInfoType } from "../../../utils/data";
 
 function BestSeller() {
-  const { data, isLoading, error } = useBestSellingQuery();
-
-  console.log(
-    "error occur in flash sales while fetching data from api",
-    error,
-    isLoading
-  );
+  const [productData, setProductData] = useState<productCardsInfoType[]>([]);
+  const [errorQuery, setErrorQuery] = useState<string | null>(null);
+  const { data, isLoading, error } = useGetBestSallingProductQuery();
+  useEffect(() => {
+    if (data) {
+      setProductData(data?.data?.product);
+    }
+    if (error) {
+      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      console.error("Error in flash sales:", errorQuery);
+    }
+  }, [data, isLoading]);
 
   return (
     <div className=" pt-36">
@@ -17,7 +24,7 @@ function BestSeller() {
         title="Best Selling Products"
         description="This Month"
         // products={productCardsInfo}
-        componentData={data?.products ? data?.products : []}
+        componentData={productData.length > 0 ? productData : []}
         cards={ProductCard}
         isArrow={false}
       />
