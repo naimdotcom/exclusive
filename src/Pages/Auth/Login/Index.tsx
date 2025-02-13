@@ -4,6 +4,8 @@ import { loginImg } from "../../../utils/assets";
 import { cn } from "../../../utils/cn";
 import { LoginSchema } from "../../../validation/Schema/LoginSchema";
 import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosinstance } from "../../../helper/axios";
 
 type Props = {};
 
@@ -15,12 +17,33 @@ function Login({}: Props) {
     emailOrPhone: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: loginInfo,
     validationSchema: LoginSchema,
     onSubmit: (values) => {
       console.log(values);
+
+      const response = axiosinstance.post(
+        "/auth/signup",
+        {
+          email: values.emailOrPhone,
+          password: values.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      response
+        .then((res) => {
+          console.log(res);
+          // navigate("/")
+        })
+        .catch((err) => {
+          console.log("something went wrong in login:", err);
+        });
     },
   });
 
@@ -92,6 +115,16 @@ function Login({}: Props) {
               </button>
             </div>
           </form>
+          <div className="text-base font-light leading-normal text-center font-poppins">
+            <h1>
+              Already have an Account?{" "}
+              <span>
+                <Link to={"/sign-up"} className="font-medium underline">
+                  Sign up
+                </Link>
+              </span>
+            </h1>
+          </div>
         </div>
       </div>
     </div>
