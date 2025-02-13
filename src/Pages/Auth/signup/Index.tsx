@@ -6,6 +6,7 @@ import { cn } from "../../../utils/cn";
 import Button from "../../../components/CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";
+import { errorToast, successToast } from "../../../utils/toast";
 
 type Props = {};
 
@@ -55,9 +56,11 @@ function SignupPage({}: Props) {
       response
         .then((res) => {
           console.log(res);
+          successToast("signup successfull");
           navigate("/login");
         })
         .catch((err) => {
+          errorToast(`something went wrong`);
           console.log("signup error", err);
         });
     },

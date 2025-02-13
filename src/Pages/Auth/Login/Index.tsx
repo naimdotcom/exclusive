@@ -6,6 +6,7 @@ import { LoginSchema } from "../../../validation/Schema/LoginSchema";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";
+import { errorToast, successToast } from "../../../utils/toast";
 
 type Props = {};
 
@@ -40,10 +41,12 @@ function Login({}: Props) {
         .then((res) => {
           console.log(res);
           if (res.statusText == "OK") {
+            successToast("login successful");
             navigate("/");
           }
         })
         .catch((err) => {
+          errorToast("something went wrong");
           console.log("something went wrong in login:", err);
         });
     },
