@@ -9,8 +9,8 @@ const LoginSchema = Yup.object({
     .matches(mailFormat, "Email or Phone is invalid")
     .required("Email or phone number is required"),
   password: Yup.string()
-    .matches(passwordFormat, "Password is invalid")
-    .max(20)
+    .matches(mailFormat, "Password is invalid")
+    .max(30)
     .min(6)
     .required("Password is required"),
 });
