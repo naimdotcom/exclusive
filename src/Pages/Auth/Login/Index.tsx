@@ -26,7 +26,7 @@ function Login({}: Props) {
       console.log(values);
 
       const response = axiosinstance.post(
-        "/auth/signup",
+        "/auth/login",
         {
           email: values.emailOrPhone,
           password: values.password,
