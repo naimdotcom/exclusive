@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { axiosinstance } from "../../../helper/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { errorToast, successToast } from "../../../utils/toast";
-import { Link } from "react-router-dom";
 
 type Props = {};
 
