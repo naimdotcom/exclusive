@@ -26,28 +26,32 @@ function Login({}: Props) {
     onSubmit: (values) => {
       console.log(values);
 
-      const response = axiosinstance.post(
-        "/auth/login",
-        {
-          email: values.emailOrPhone,
-          password: values.password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = axiosinstance.post("/auth/login", {
+        email: values.emailOrPhone,
+        password: values.password,
+      });
 
       response
         .then((res) => {
           console.log(res);
+
           if (res.statusText == "OK") {
             successToast("login successful");
             navigate("/");
           }
         })
         .catch((err) => {
-          errorToast("something went wrong");
+          errorToast(err.response.data.message);
           console.log("something went wrong in login:", err);
+          if (err.response.data.redirectUrl) {
+            const redirectUrl = err.response.data.redirectUrl.split("/");
+            const url = `/${redirectUrl[redirectUrl.length - 2]}/${
+              redirectUrl[redirectUrl.length - 1]
+            }`;
+            console.log(url);
+
+            navigate(url);
+          }
         });
     },
   });

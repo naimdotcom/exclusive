@@ -13,6 +13,7 @@ import Login from "./Pages/Auth/Login/Index";
 import WishList from "./Pages/WishList/Index";
 import AddToCart from "./Pages/AddToCart/Index";
 import SignupPage from "./Pages/Auth/signup/Index";
+import Otp from "./Pages/Auth/otp/Otp";
 
 function App() {
   const router = createBrowserRouter(
@@ -25,7 +26,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/product/" element={<ProductDetails />} />
           <Route path="/login" element={<Login />} />{" "}
-          <Route path="/sign-up" element={<SignupPage />} />{" "}
+          <Route path="/sign-up" element={<SignupPage />} />
+          <Route path="/otp/:email" element={<Otp />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/cart" element={<AddToCart />} />
           <Route path="/*" element={<Error />} />
