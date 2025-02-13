@@ -27,7 +27,7 @@ function ProductCard({
   className,
 }: productCardWitClass) {
   return (
-    <div key={_id} className={cn(`${className}`)}>
+    <div key={_id} className={cn(`${className} `)}>
       <div className="relative px-16 py-16 rounded bg-cs-white_F5F5F5 w-72 h-72 max-w-72 max-h-72 group">
         <div className="px-3 py-[6px] rounded bg-cs-redDB4444 w-fit absolute top-2 left-2">
           <h4 className="text-xs font-normal leading-none text-center text-cs-white_FFFFFF font-poppins">

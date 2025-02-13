@@ -99,7 +99,7 @@ function Navbar() {
             <div>
               <MdOutlineFavoriteBorder className="text-3xl font-bold" />
             </div>
-            <div className="relative">
+            <div className="relative" onClick={() => {}}>
               <IoCartOutline className="text-3xl font-bold" />
               <div
                 className={cn(

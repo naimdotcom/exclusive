@@ -60,8 +60,10 @@ function ProductCommonComponentLayout({
     infinite: componentData && componentData?.length >= 5 ? true : false,
     speed: 500,
     // componentData && componentData?.length >= 5 ? 5 : 2
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow:
+      componentData && componentData?.length >= 5 ? 5 : componentData?.length,
+    slidesToScroll:
+      componentData && componentData?.length >= 5 ? 5 : componentData?.length,
     swipeToSlide: true,
     rows: rows,
   };
