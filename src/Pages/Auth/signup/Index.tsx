@@ -4,26 +4,62 @@ import { SignupSchema } from "../../../validation/Schema/LoginSchema";
 import { loginImg } from "../../../utils/assets";
 import { cn } from "../../../utils/cn";
 import Button from "../../../components/CommonComponents/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosinstance } from "../../../helper/axios";
 
 type Props = {};
 
 function SignupPage({}: Props) {
   const [signupInfo, setSignInfo] = useState<{
-    name: string;
-    emailOrPhone: string;
+    firstname: string;
+    lastname: string;
+    emailOrPhone?: string;
+    email: string;
+    phone: string;
     password: string;
+    address1: string;
+    address2: string;
   }>({
-    name: "",
-    emailOrPhone: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
     password: "",
+    address1: "",
+    address2: "",
   });
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: signupInfo,
     validationSchema: SignupSchema,
     onSubmit: (values) => {
       console.log(values);
+
+      const response = axiosinstance.post(
+        "/auth/signup",
+        {
+          firstName: values.firstname,
+          lastName: values.lastname,
+          email: values.email,
+          phone: values.phone,
+          address1: values.address1,
+          address2: values.address2,
+          password: values.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      response
+        .then((res) => {
+          console.log(res);
+          navigate("/login");
+        })
+        .catch((err) => {
+          console.log("signup error", err);
+        });
     },
   });
 
@@ -53,41 +89,82 @@ function SignupPage({}: Props) {
               <div>
                 <input
                   type="text"
-                  name="name"
-                  id="name"
+                  name="firstname"
+                  id="firstname"
                   className={cn(
                     "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
                     "border-b-2 border-black py-3 px-4"
                   )}
-                  placeholder="Name"
-                  value={formik.values.name}
+                  placeholder="Firstname"
+                  value={formik.values.firstname}
                   onChange={formik.handleChange}
                 />
-                {formik.touched.name && formik.errors.name && (
+                {formik.touched.firstname && formik.errors.firstname && (
                   <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
-                    {formik.errors.name}
+                    {formik.errors.firstname}
                   </p>
                 )}
               </div>
               <div>
                 <input
                   type="text"
-                  name="emailOrPhone"
-                  id="emailOrPhone"
+                  name="lastname"
+                  id="lastname"
                   className={cn(
                     "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
                     "border-b-2 border-black py-3 px-4"
                   )}
-                  placeholder="Email or Phone Number"
-                  value={formik.values.emailOrPhone}
+                  placeholder="Lastname"
+                  value={formik.values.lastname}
                   onChange={formik.handleChange}
                 />
-                {formik.touched.emailOrPhone && formik.errors.emailOrPhone && (
+                {formik.touched.lastname && formik.errors.lastname && (
                   <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
-                    {formik.errors.emailOrPhone}
+                    {formik.errors.lastname}
                   </p>
                 )}
               </div>
+              {/* email */}
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className={cn(
+                    "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
+                    "border-b-2 border-black py-3 px-4"
+                  )}
+                  placeholder="Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
+                    {formik.errors.email}
+                  </p>
+                )}
+              </div>
+              {/* phone */}
+              <div>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  className={cn(
+                    "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
+                    "border-b-2 border-black py-3 px-4"
+                  )}
+                  placeholder="phone number"
+                  value={formik.values.phone}
+                  onChange={formik.handleChange}
+                />
+                {formik.touched.phone && formik.errors.phone && (
+                  <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
+                    {formik.errors.phone}
+                  </p>
+                )}
+              </div>
+              {/* password */}
               <div>
                 <input
                   name="password"
@@ -107,6 +184,50 @@ function SignupPage({}: Props) {
                   </p>
                 )}
               </div>
+              {/* address */}
+              <div className="flex gap-2">
+                {/* address1 */}
+                <div>
+                  <input
+                    name="address1"
+                    id="address1"
+                    type="text"
+                    value={formik.values.address1}
+                    className={cn(
+                      "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
+                      "border-b-2 border-black py-3 px-4"
+                    )}
+                    placeholder="address-1"
+                    onChange={formik.handleChange}
+                  />
+                  {formik.touched.address1 && formik.errors.address1 && (
+                    <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
+                      {formik.errors.address1}
+                    </p>
+                  )}
+                </div>
+                {/* address2 */}
+                <div>
+                  <input
+                    name="address2"
+                    id="address2"
+                    type="text"
+                    value={formik.values.address2}
+                    className={cn(
+                      "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
+                      "border-b-2 border-black py-3 px-4"
+                    )}
+                    placeholder="address-2"
+                    onChange={formik.handleChange}
+                  />
+                  {formik.touched.address2 && formik.errors.address2 && (
+                    <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
+                      {formik.errors.address2}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {/* submit button */}
               <div className="flex flex-col w-full gap-7">
                 <Button
                   type="submit"

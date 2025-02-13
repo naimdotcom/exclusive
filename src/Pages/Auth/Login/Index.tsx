@@ -39,7 +39,9 @@ function Login({}: Props) {
       response
         .then((res) => {
           console.log(res);
-          // navigate("/")
+          if (res.statusText == "OK") {
+            navigate("/");
+          }
         })
         .catch((err) => {
           console.log("something went wrong in login:", err);
