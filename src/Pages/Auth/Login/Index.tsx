@@ -18,6 +18,7 @@ function Login({}: Props) {
     emailOrPhone: "",
     password: "",
   });
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -25,7 +26,7 @@ function Login({}: Props) {
     validationSchema: LoginSchema,
     onSubmit: (values) => {
       console.log(values);
-
+      setLoading(true);
       const response = axiosinstance.post("/auth/login", {
         email: values.emailOrPhone,
         password: values.password,
@@ -52,6 +53,9 @@ function Login({}: Props) {
 
             navigate(url);
           }
+        })
+        .finally(() => {
+          setLoading(false);
         });
     },
   });
@@ -113,12 +117,21 @@ function Login({}: Props) {
               )}
             </div>
             <div className="flex items-center justify-between">
-              <Button
-                type="submit"
-                title="Log in"
-                BgCss="bg-cs-redDB4444 py-3"
-                navigateTo=""
-              />
+              {loading ? (
+                <Button
+                  type="submit"
+                  title="loading...."
+                  BgCss="bg-cs-redDB4444 py-3"
+                  navigateTo=""
+                />
+              ) : (
+                <Button
+                  type="submit"
+                  title="Log in"
+                  BgCss="bg-cs-redDB4444 py-3"
+                  navigateTo=""
+                />
+              )}
               <button className="text-base font-normal leading-normal text-cs-redDB4444 font-poppins">
                 Forgot Password?
               </button>

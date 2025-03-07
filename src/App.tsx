@@ -14,6 +14,7 @@ import WishList from "./Pages/WishList/Index";
 import AddToCart from "./Pages/AddToCart/Index";
 import SignupPage from "./Pages/Auth/signup/Index";
 import Otp from "./Pages/Auth/otp/Otp";
+import Account from "./Pages/Auth/Account/Index";
 
 function App() {
   const router = createBrowserRouter(
@@ -30,6 +31,7 @@ function App() {
           <Route path="/otp/:email" element={<Otp />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/cart" element={<AddToCart />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/*" element={<Error />} />
         </Route>
       </>

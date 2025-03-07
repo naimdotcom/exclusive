@@ -92,7 +92,7 @@ function Banner() {
 
   useEffect(() => {
     if (!isLoading) {
-      setBannerData(data?.data);
+      setBannerData(data?.data ? data?.data : [{ image: bannerImg }]);
     }
   }, [isLoading]);
 
