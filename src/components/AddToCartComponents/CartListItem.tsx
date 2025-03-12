@@ -63,6 +63,10 @@ function CartListItem({ data, setCart }: Props) {
   useEffect(() => {
     setQuantity(data?.quantity);
   }, [data]);
+
+  useEffect(() => {
+    setTotalPrice(data?.product?.price * quantity);
+  }, [quantity]);
   return (
     <div>
       <div className="grid grid-cols-12 items-center mx-auto mt-14 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.15)] py-6 px-10 rounded-lg relative">
@@ -88,43 +92,23 @@ function CartListItem({ data, setCart }: Props) {
           </h2>
         </div>
         <div className="flex items-center justify-center col-span-3">
-          {/* <input
-            value={quantity}
-            min={1}
-            type="number"
-            className="text-black mx-auto text-center text-base  w-1/5 border-2 border-black/40 px-2 py-2 rounded-md font-normal font-['Poppins'] leading-normal"
-            onChange={(e) => {
-              if (Number(e.target.value) >= 1) {
-                setQuantity(Number(e.target.value));
-                setTotalPrice(
-                  useCalculateDiscount(data?.product?.price) *
-                    Number(e.target.value)
-                );
-              }
-              quantityChangeHandler(e, '');
-            }}
-          /> */}
           <div className="flex items-center gap-3 px-3 py-1 text-black border-2 rounded-md border-cs-black_363738">
             <p className="text-lg">{quantity}</p>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-1">
               <MdKeyboardArrowUp
                 size={18}
+                className="cursor-pointer hover:bg-zinc-200 active:bg-zinc-400"
                 onClick={() => {
                   setQuantity(quantity + 1);
-                  setTotalPrice(
-                    useCalculateDiscount(data?.product?.price) * quantity
-                  );
                   quantityChangeHandler("increment");
                 }}
               />
               <MdKeyboardArrowDown
                 size={18}
+                className="cursor-pointer hover:bg-zinc-200 active:bg-zinc-400"
                 onClick={() => {
                   if (quantity > 1) {
                     setQuantity(quantity - 1);
-                    setTotalPrice(
-                      useCalculateDiscount(data?.product?.price) * quantity
-                    );
                     quantityChangeHandler("decrement");
                   }
                 }}
