@@ -7,7 +7,7 @@ import { axiosinstance } from "../../helper/axios";
 type Props = {};
 
 function AddToCart({}: Props) {
-  const [cart, setCart] = useState<any>([]);
+  const [cart, setCart] = useState<any[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const fetchCartData = () => {
@@ -27,16 +27,19 @@ function AddToCart({}: Props) {
   useEffect(() => {
     if (!cart) return;
     setTotalPrice(
-      cart
-        ?.reduce(
-          (acc: number, item: any) => acc + item?.product.price * item.quantity,
-          0
-        )
-        .toFixed(2)
+      Number(
+        cart
+          ?.reduce(
+            (acc: number, item: any) =>
+              acc + item?.product.price * item.quantity,
+            0
+          )
+          .toFixed(2)
+      )
     );
   }, [cart]);
 
-  console.log(totalPrice);
+  console.log(cart);
 
   return (
     <div className="container mt-16">
@@ -73,6 +76,8 @@ function AddToCart({}: Props) {
             data={{
               ...item,
             }}
+            cart={cart}
+            setCart={setCart}
           />
         ))}
       </div>

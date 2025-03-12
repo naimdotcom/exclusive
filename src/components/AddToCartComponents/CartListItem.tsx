@@ -3,8 +3,9 @@ import { cn } from "../../utils/cn";
 import { product } from "../../utils/data";
 import useCalculateDiscount from "../../hooks/useCalculateDiscount";
 import { axiosinstance } from "../../helper/axios";
-import { number } from "yup";
 import { IoIosCloseCircle } from "react-icons/io";
+import { errorToast, infoToast, successToast } from "../../utils/toast";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 type Props = {
   data: {
@@ -15,19 +16,19 @@ type Props = {
     product: product;
     _id?: string;
   };
+  cart?: any[];
+  setCart?: any;
 };
 
-function CartListItem({ data }: Props) {
+function CartListItem({ data, setCart }: Props) {
   const [quantity, setQuantity] = useState<number>(1);
   const [totalPrice, setTotalPrice] = useState<number>(
     data?.product?.price * data?.quantity
   );
-  const quantityChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const quantityChangeHandler = (action: string) => {
     try {
       const res = axiosinstance.post(
-        `cart/action?id=${data._id}&action=${
-          Number(e.target.value) > quantity ? "increment" : "decrement"
-        }`
+        `cart/action?id=${data._id}&action=${action}`
       );
       console.log(
         "res",
@@ -38,11 +39,30 @@ function CartListItem({ data }: Props) {
     }
   };
 
+  const deleteCartHandler = () => {
+    try {
+      const res = axiosinstance.delete(`cart/${data._id}`);
+      res
+        .then((res) => {
+          console.log(res);
+          setCart((prev: any) =>
+            prev.filter((item: any) => item._id !== data._id)
+          );
+          infoToast("Please Update Cart");
+        })
+        .catch((err) => {
+          errorToast(err?.response?.data?.message);
+          infoToast("Please Update Cart");
+        });
+    } catch (error) {
+      errorToast("something went wrong");
+      console.log("error in delete cart handler", error);
+    }
+  };
+
   useEffect(() => {
     setQuantity(data?.quantity);
-    // setTotalPrice(data?.price * quantity);
   }, [data]);
-  console.log(data);
   return (
     <div>
       <div className="grid grid-cols-12 items-center mx-auto mt-14 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.15)] py-6 px-10 rounded-lg relative">
@@ -67,8 +87,8 @@ function CartListItem({ data }: Props) {
             ${useCalculateDiscount(data?.product?.price)}
           </h2>
         </div>
-        <div className="flex justify-center col-span-3">
-          <input
+        <div className="flex items-center justify-center col-span-3">
+          {/* <input
             value={quantity}
             min={1}
             type="number"
@@ -81,9 +101,36 @@ function CartListItem({ data }: Props) {
                     Number(e.target.value)
                 );
               }
-              quantityChangeHandler(e);
+              quantityChangeHandler(e, '');
             }}
-          />
+          /> */}
+          <div className="flex items-center gap-3 px-3 py-1 text-black border-2 rounded-md border-cs-black_363738">
+            <p className="text-lg">{quantity}</p>
+            <div className="flex flex-col">
+              <MdKeyboardArrowUp
+                size={18}
+                onClick={() => {
+                  setQuantity(quantity + 1);
+                  setTotalPrice(
+                    useCalculateDiscount(data?.product?.price) * quantity
+                  );
+                  quantityChangeHandler("increment");
+                }}
+              />
+              <MdKeyboardArrowDown
+                size={18}
+                onClick={() => {
+                  if (quantity > 1) {
+                    setQuantity(quantity - 1);
+                    setTotalPrice(
+                      useCalculateDiscount(data?.product?.price) * quantity
+                    );
+                    quantityChangeHandler("decrement");
+                  }
+                }}
+              />
+            </div>
+          </div>
         </div>
         <div className="col-span-2 text-center">
           <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
@@ -91,7 +138,7 @@ function CartListItem({ data }: Props) {
           </h2>
         </div>
         <div className="absolute right-2 -top-2">
-          <IoIosCloseCircle size={24} />
+          <IoIosCloseCircle size={24} onClick={deleteCartHandler} />
         </div>
       </div>
     </div>
