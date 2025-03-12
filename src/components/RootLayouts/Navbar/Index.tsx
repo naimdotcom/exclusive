@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logo } from "../../../utils/assets";
 import { navigationBar } from "../../../utils/data";
 import { IoIosSearch } from "react-icons/io";
@@ -25,6 +25,7 @@ function Navbar() {
   const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const [userInfo, setUserInfo] = useState<userI | null>();
+  const navigate = useNavigate();
 
   // todo: handle the click of userProfile
   const handleUserModal = () => {
@@ -68,7 +69,7 @@ function Navbar() {
   }, [isUserModalOpen]);
 
   useEffect(() => {
-    const res = axiosinstance.get("/auth/verify");
+    const res = axiosinstance.get("/auth/");
 
     res.then((res) => {
       setUserInfo(res.data?.data);
@@ -131,7 +132,12 @@ function Navbar() {
             <div>
               <MdOutlineFavoriteBorder className="text-3xl font-bold" />
             </div>
-            <div className="relative" onClick={() => {}}>
+            <div
+              className="relative"
+              onClick={() => {
+                navigate("/cart");
+              }}
+            >
               <IoCartOutline className="text-3xl font-bold" />
               <div
                 className={cn(
@@ -157,7 +163,10 @@ function Navbar() {
                       {/* user modal */}
                       <div className="flex flex-col gap-3">
                         <div>
-                          <button className="flex items-center gap-2 ">
+                          <a
+                            href="account"
+                            className="flex items-center gap-2 "
+                          >
                             <span>
                               <FiUser className="text-2xl" />
                             </span>
@@ -168,7 +177,7 @@ function Navbar() {
                             >
                               Manage My Account
                             </span>
-                          </button>
+                          </a>
                         </div>
                         <div>
                           <button className="flex items-center gap-2 ">

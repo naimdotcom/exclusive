@@ -4,6 +4,7 @@ const AuthApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api/v1",
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     GetAuth: builder.query<any, void>({

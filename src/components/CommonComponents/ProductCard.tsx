@@ -6,6 +6,8 @@ import { productCardsInfoType } from "../../utils/data";
 import useCalculateDiscount from "../../hooks/useCalculateDiscount";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
+import { axiosinstance } from "../../helper/axios";
+import { errorToast, successToast } from "../../utils/toast";
 
 export interface productCardWitClass extends productCardsInfoType {
   className: string;
@@ -26,6 +28,19 @@ function ProductCard({
   images,
   className,
 }: productCardWitClass) {
+  const handleAddToCart = () => {
+    const res = axiosinstance.post("/cart", { product: _id, quantity: 1 });
+
+    res
+      .then((res) => {
+        console.log(res.data?.data);
+        successToast(res.data.message);
+      })
+      .catch((err) => {
+        console.log("error in add to cart: ", err);
+        errorToast(err?.response?.data?.message);
+      });
+  };
   return (
     <div key={_id} className={cn(`${className} `)}>
       <div className="relative px-16 py-16 rounded bg-cs-white_F5F5F5 w-72 h-72 max-w-72 max-h-72 group">
@@ -64,9 +79,7 @@ function ProductCard({
         <div className="absolute bottom-0 left-0 z-30 w-full space-y-2 text-center duration-500 opacity-0 group-hover:opacity-100">
           <div
             className="w-full py-3 bg-black rounded-bl rounded-br "
-            onClick={() => {
-              console.log("add to cart");
-            }}
+            onClick={handleAddToCart}
           >
             <h3 className="text-white text-base font-medium font-['Poppins'] leading-normal">
               Add to Cart

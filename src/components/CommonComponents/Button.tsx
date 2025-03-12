@@ -1,19 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { cn } from "../../utils/cn";
 
+type Props = {
+  title: string;
+  BgCss?: string;
+  textCss?: string;
+  type?: "button" | "submit" | "reset" | undefined;
+  navigateTo?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
 function Button({
   title,
   BgCss,
   textCss,
   type = "button",
   navigateTo = "/products",
-}: {
-  title: string;
-  BgCss?: string;
-  textCss?: string;
-  type?: "button" | "submit" | "reset" | undefined;
-  navigateTo?: string;
-}) {
+  ...props
+}: Props) {
   const navigate = useNavigate();
   return (
     <div>
@@ -26,6 +29,7 @@ function Button({
         onClick={() => {
           navigate(navigateTo);
         }}
+        {...props}
       >
         <div
           className={cn(

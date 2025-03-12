@@ -1,48 +1,49 @@
 import { useEffect, useState } from "react";
 import CartListItem from "../../components/AddToCartComponents/CartListItem";
 import BreadCrumb from "../../components/CommonComponents/BreadCrumb";
-import { useGetProductByLimitQuery } from "../../Features/AllSlices/Api/productApi";
 import Button from "../../components/CommonComponents/Button";
+import { axiosinstance } from "../../helper/axios";
 
 type Props = {};
 
 function AddToCart({}: Props) {
-  const { data } = useGetProductByLimitQuery(5);
   const [cart, setCart] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  useEffect(() => {
-    if (!data) return;
-    setCart([]);
-    setCart((prev: Array<any>) => {
-      prev.splice(0, prev.length);
-      data?.products.forEach((item: any) => {
-        prev.push({
-          ...item,
-          quantity: Math.floor(Math.random() * 10 + 1),
-          shipping: Math.floor(Math.random() * 1),
-        });
+  const fetchCartData = () => {
+    try {
+      axiosinstance.get("/cart").then((res) => {
+        console.log(res.data?.data);
+        setCart(res.data?.data);
       });
-      return prev;
-    });
+    } catch (error) {
+      console.log("error in fetching cart data", error);
+    }
+  };
+  useEffect(() => {
+    fetchCartData();
+  }, []);
+
+  useEffect(() => {
+    if (!cart) return;
     setTotalPrice(
       cart
         ?.reduce(
-          (acc: number, item: any) => acc + item.price * item.quantity,
+          (acc: number, item: any) => acc + item?.product.price * item.quantity,
           0
         )
         .toFixed(2)
     );
-  }, [data]);
+  }, [cart]);
 
-  console.log(cart);
+  console.log(totalPrice);
 
   return (
     <div className="container mt-16">
       <div>
         <BreadCrumb />
       </div>
-      <div className="grid grid-cols-12 mx-auto mt-14 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.05)] py-6 px-10 rounded-lg">
+      <div className="grid grid-cols-12 mx-auto mt-14 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.10)] py-6 px-10 rounded-lg">
         <div className="col-span-5 ">
           <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
             Product
@@ -68,7 +69,7 @@ function AddToCart({}: Props) {
       <div className="max-h-[60vh] overflow-y-scroll my-6 py-4 ">
         {cart?.map((item: any) => (
           <CartListItem
-            key={item.id}
+            key={item._id}
             data={{
               ...item,
             }}
@@ -91,6 +92,7 @@ function AddToCart({}: Props) {
             BgCss="bg-transparent border-2 border-black text-black "
             navigateTo="/cart"
             textCss="text-black"
+            onClick={fetchCartData}
           />
         </div>
       </div>
