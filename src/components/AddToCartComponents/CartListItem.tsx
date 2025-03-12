@@ -4,7 +4,7 @@ import { product } from "../../utils/data";
 import useCalculateDiscount from "../../hooks/useCalculateDiscount";
 import { axiosinstance } from "../../helper/axios";
 import { IoIosCloseCircle } from "react-icons/io";
-import { errorToast, infoToast, successToast } from "../../utils/toast";
+import { errorToast, infoToast } from "../../utils/toast";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 type Props = {
