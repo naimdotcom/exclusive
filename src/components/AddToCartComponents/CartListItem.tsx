@@ -30,10 +30,9 @@ function CartListItem({ data, setCart }: Props) {
       const res = axiosinstance.post(
         `cart/action?id=${data._id}&action=${action}`
       );
-      console.log(
-        "res",
-        res.then((res) => res.data)
-      );
+      res.then((res) => {
+        console.log("quantity change handler", res.data.data);
+      });
     } catch (error) {
       console.log("error in quantity change handler", error);
     }
@@ -45,9 +44,7 @@ function CartListItem({ data, setCart }: Props) {
       res
         .then((res) => {
           console.log(res);
-          setCart((prev: any) =>
-            prev.filter((item: any) => item._id !== data._id)
-          );
+          setCart(data._id);
           infoToast("Please Update Cart");
         })
         .catch((err) => {

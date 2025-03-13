@@ -4,18 +4,21 @@ import BreadCrumb from "../../components/CommonComponents/BreadCrumb";
 import Button from "../../components/CommonComponents/Button";
 import { axiosinstance } from "../../helper/axios";
 import { cart } from "../../utils/data";
+import { addToCart, filterCart } from "../../Features/Cart/Cart";
+import { useDispatch, useSelector } from "react-redux";
 
 type Props = {};
 
 function AddToCart({}: Props) {
   const [cart, setCart] = useState<cart[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-
+  const cartR = useSelector((state: any) => state.cart);
+  const dispatch = useDispatch();
   const fetchCartData = () => {
     try {
       axiosinstance.get("/cart").then((res) => {
-        console.log(res.data?.data);
         setCart(res.data?.data);
+        dispatch(addToCart(res.data?.data));
       });
     } catch (error) {
       console.log("error in fetching cart data", error);
@@ -26,10 +29,10 @@ function AddToCart({}: Props) {
   }, []);
 
   useEffect(() => {
-    if (!cart) return;
+    if (!cartR) return;
     setTotalPrice(
       Number(
-        cart
+        cartR
           ?.reduce(
             (acc: number, item: any) =>
               acc + item?.product.price * item.quantity,
@@ -38,7 +41,8 @@ function AddToCart({}: Props) {
           .toFixed(2)
       )
     );
-  }, [cart]);
+    console.log("total");
+  }, [cartR]);
 
   return (
     <div className="container mt-16">
@@ -69,13 +73,15 @@ function AddToCart({}: Props) {
       </div>
 
       <div className="max-h-[60vh] overflow-y-scroll my-6 py-4 ">
-        {cart?.map((item: any) => (
+        {cartR?.map((item: any) => (
           <CartListItem
             key={item._id}
             data={{
               ...item,
             }}
-            setCart={setCart}
+            setCart={(e: string) => {
+              dispatch(filterCart(e));
+            }}
           />
         ))}
       </div>

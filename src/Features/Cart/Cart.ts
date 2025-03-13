@@ -7,14 +7,18 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<cart>) => {
-      state.push(action.payload);
+    addToCart: (state, action: PayloadAction<cart[]>) => {
+      state.splice(0, state.length);
+      action.payload.map((item) => {
+        state.push(item);
+      });
     },
     filterCart: (state, action) => {
-      const index = state.findIndex((item) => item._id === action.payload);
-      if (index !== -1) {
-        state.splice(index, 1);
-      }
+      state.forEach((item, index) => {
+        if (item._id === action.payload) {
+          state.splice(index, 1);
+        }
+      });
     },
   },
 });

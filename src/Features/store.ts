@@ -3,6 +3,7 @@ import { ProductApi } from "./AllSlices/Api/productApi";
 import { AuthApi } from "./AllSlices/Api/AuthApi";
 import { OrderApi } from "./AllSlices/Api/OrderApi";
 import AuthReducer from "./Auth/Auth";
+import CartReducer from "./Cart/Cart";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     [OrderApi.reducerPath]: OrderApi.reducer,
     // redux toolkit
     auth: AuthReducer,
+    cart: CartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(ProductApi.middleware, AuthApi.middleware),

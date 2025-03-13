@@ -15,15 +15,16 @@ import Button from "../../CommonComponents/Button";
 import { errorToast } from "../../../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../../../Features/Auth/Auth";
-import { useGetCartQuery } from "../../../Features/AllSlices/Api/OrderApi";
+import { addToCart } from "../../../Features/Cart/Cart";
 
 function Navbar() {
   const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
-  const [cart, setCart] = useState<any[]>([]);
+  // const [cart, setCart] = useState<any[]>([]);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const navigate = useNavigate();
   const auth = useSelector((state: any) => state.auth);
+  const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
   // todo: handle the click of userProfile
@@ -46,13 +47,9 @@ function Navbar() {
 
   const fetchCartData = () => {
     try {
-      // const { data, isLoading, isError } = useGetCartQuery();
       axiosinstance.get("/cart").then((res) => {
-        console.log(res.data?.data);
-        setCart(res.data?.data);
+        dispatch(addToCart(res.data?.data));
       });
-
-      // setCart(data.data);
     } catch (error) {
       console.log("error in fetching cart data", error);
     }
@@ -88,7 +85,7 @@ function Navbar() {
       dispatch(login(res.data?.data));
     });
     fetchCartData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="border-b-[0.5px] pt-10 pb-4 border-b-cs_black sticky  bg-white z-50 w-full top-0 left-0">

@@ -8,6 +8,8 @@ import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
 import { axiosinstance } from "../../helper/axios";
 import { errorToast, successToast } from "../../utils/toast";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Features/Cart/Cart";
 
 export interface productCardWitClass extends productCardsInfoType {
   className: string;
@@ -28,12 +30,24 @@ function ProductCard({
   images,
   className,
 }: productCardWitClass) {
+  const dispatch = useDispatch();
+
+  const fetchCartData = () => {
+    try {
+      axiosinstance.get("/cart").then((res) => {
+        dispatch(addToCart(res.data?.data));
+      });
+    } catch (error) {
+      console.log("error in fetching cart data", error);
+    }
+  };
+
   const handleAddToCart = () => {
     const res = axiosinstance.post("/cart", { product: _id, quantity: 1 });
 
     res
       .then((res) => {
-        console.log(res.data?.data);
+        fetchCartData();
         successToast(res.data.message);
       })
       .catch((err) => {
@@ -41,6 +55,7 @@ function ProductCard({
         errorToast(err?.response?.data?.message);
       });
   };
+
   return (
     <div key={_id} className={cn(`${className} `)}>
       <div className="relative px-16 py-16 rounded bg-cs-white_F5F5F5 w-72 h-72 max-w-72 max-h-72 group">
