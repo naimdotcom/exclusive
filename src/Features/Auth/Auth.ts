@@ -4,17 +4,19 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface AuthState {
   value: boolean;
   _id: string;
-  name: string;
+  firstName: string;
   email: string;
   password: string;
+  isVerified: boolean;
 }
 
 const initialState: AuthState = {
   value: false,
   _id: "",
-  name: "",
+  firstName: "",
   email: "",
   password: "",
+  isVerified: false,
 };
 
 export const authSlice = createSlice({
@@ -24,16 +26,18 @@ export const authSlice = createSlice({
     login: (state, action: PayloadAction<AuthState>) => {
       state.value = true;
       state._id = action.payload._id;
-      state.name = action.payload.name;
+      state.firstName = action.payload.firstName;
       state.email = action.payload.email;
       state.password = action.payload.password;
+      state.isVerified = action.payload.isVerified;
     },
     logout: (state) => {
       state.value = false;
       state._id = "";
-      state.name = "";
+      state.firstName = "";
       state.email = "";
       state.password = "";
+      state.isVerified = false;
     },
   },
 });

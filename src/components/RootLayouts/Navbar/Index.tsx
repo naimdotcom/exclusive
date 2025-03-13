@@ -13,19 +13,17 @@ import { cn } from "../../../utils/cn";
 import { axiosinstance } from "../../../helper/axios";
 import Button from "../../CommonComponents/Button";
 import { errorToast } from "../../../utils/toast";
-
-interface userI {
-  email: string;
-  _id: string;
-  firstName: string;
-  role: string;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "../../../Features/Auth/Auth";
 
 function Navbar() {
   const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
+  const [cart, setCart] = useState<any[]>([]);
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const [userInfo, setUserInfo] = useState<userI | null>();
+
   const navigate = useNavigate();
+  const auth = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
 
   // todo: handle the click of userProfile
   const handleUserModal = () => {
@@ -36,13 +34,24 @@ function Navbar() {
     const res = axiosinstance.get("/auth/logout");
     res
       .then((res) => {
-        setUserInfo(null);
+        dispatch(logout());
         console.log(res.data?.data);
       })
       .catch((e) => {
         errorToast("something went wrong whill loggin out");
         console.log(e.message);
       });
+  };
+
+  const fetchCartData = () => {
+    try {
+      axiosinstance.get("/cart").then((res) => {
+        console.log(res.data?.data);
+        setCart(res.data?.data);
+      });
+    } catch (error) {
+      console.log("error in fetching cart data", error);
+    }
   };
 
   // todo: handle the click of outside
@@ -69,11 +78,13 @@ function Navbar() {
   }, [isUserModalOpen]);
 
   useEffect(() => {
-    const res = axiosinstance.get("/auth/");
-
+    const res = axiosinstance.get("/auth/verify");
     res.then((res) => {
-      setUserInfo(res.data?.data);
+      console.log("response of auth", res.data?.data);
+      dispatch(login(res.data?.data));
     });
+
+    fetchCartData();
   }, []);
 
   return (
@@ -145,13 +156,13 @@ function Navbar() {
                 )}
               >
                 <h4 className="text-xs text-white select-none font-poppins">
-                  0
+                  {cart.length}
                 </h4>
               </div>
             </div>
 
             {/* user */}
-            {userInfo?._id ? (
+            {auth._id && auth.email ? (
               <div>
                 <FiUser
                   className="p-1 text-3xl text-white rounded-full cursor-pointer bg-cs-redDB4444"

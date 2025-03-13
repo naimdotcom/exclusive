@@ -7,11 +7,13 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";
 import { errorToast, successToast } from "../../../utils/toast";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../../Features/Auth/Auth";
 
 type Props = {};
 
 function Login({}: Props) {
-  const [loginInfo, setLoginInfo] = useState<{
+  const [loginInfo, _] = useState<{
     emailOrPhone: string;
     password: string;
   }>({
@@ -20,6 +22,8 @@ function Login({}: Props) {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const auth = useSelector((state: any) => state.auth);
+  const dispath = useDispatch();
 
   const formik = useFormik({
     initialValues: loginInfo,
@@ -34,9 +38,10 @@ function Login({}: Props) {
 
       response
         .then((res) => {
-          console.log(res);
+          console.log(res.data?.data);
 
           if (res.statusText == "OK") {
+            dispath(login(res.data?.data?.user));
             successToast("login successful");
             navigate("/");
           }
@@ -59,6 +64,8 @@ function Login({}: Props) {
         });
     },
   });
+
+  console.log(auth);
 
   return (
     <div className="container pl-0 ml-0 mt-14">

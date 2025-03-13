@@ -76,7 +76,6 @@ function AddToCart({}: Props) {
             data={{
               ...item,
             }}
-            cart={cart}
             setCart={setCart}
           />
         ))}
