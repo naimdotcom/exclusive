@@ -3,11 +3,12 @@ import CartListItem from "../../components/AddToCartComponents/CartListItem";
 import BreadCrumb from "../../components/CommonComponents/BreadCrumb";
 import Button from "../../components/CommonComponents/Button";
 import { axiosinstance } from "../../helper/axios";
+import { cart } from "../../utils/data";
 
 type Props = {};
 
 function AddToCart({}: Props) {
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<cart[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const fetchCartData = () => {
@@ -38,8 +39,6 @@ function AddToCart({}: Props) {
       )
     );
   }, [cart]);
-
-  console.log(cart);
 
   return (
     <div className="container mt-16">

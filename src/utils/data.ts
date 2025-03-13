@@ -23,6 +23,24 @@ interface product {
   images: string[];
 }
 
+interface user {
+  _id: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  role: string;
+  isVerified: boolean;
+}
+
+interface cart {
+  user: user;
+  _id: string;
+  product: product;
+  quantity: number;
+}
+
 type sideCategory = {
   id: string | number;
   title: string;
@@ -113,6 +131,8 @@ export type {
   SpecialApiResponse,
   subcategoryInterface,
   product,
+  cart,
+  user,
 };
 
 // const category: categoryType[] = [

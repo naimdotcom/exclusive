@@ -15,6 +15,7 @@ import Button from "../../CommonComponents/Button";
 import { errorToast } from "../../../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../../../Features/Auth/Auth";
+import { useGetCartQuery } from "../../../Features/AllSlices/Api/OrderApi";
 
 function Navbar() {
   const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
@@ -45,10 +46,13 @@ function Navbar() {
 
   const fetchCartData = () => {
     try {
+      // const { data, isLoading, isError } = useGetCartQuery();
       axiosinstance.get("/cart").then((res) => {
         console.log(res.data?.data);
         setCart(res.data?.data);
       });
+
+      // setCart(data.data);
     } catch (error) {
       console.log("error in fetching cart data", error);
     }
@@ -83,7 +87,6 @@ function Navbar() {
       console.log("response of auth", res.data?.data);
       dispatch(login(res.data?.data));
     });
-
     fetchCartData();
   }, []);
 
