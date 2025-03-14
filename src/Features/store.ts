@@ -4,12 +4,14 @@ import { AuthApi } from "./AllSlices/Api/AuthApi";
 import { OrderApi } from "./AllSlices/Api/OrderApi";
 import AuthReducer from "./Auth/Auth";
 import CartReducer from "./Cart/Cart";
+import ExclusiveApi from "./AllSlices/exclusiveApi/exclusive.api";
 
 export const store = configureStore({
   reducer: {
     [ProductApi.reducerPath]: ProductApi.reducer,
     [AuthApi.reducerPath]: AuthApi.reducer,
     [OrderApi.reducerPath]: OrderApi.reducer,
+    [ExclusiveApi.reducerPath]: ExclusiveApi.reducer,
     // redux toolkit
     auth: AuthReducer,
     cart: CartReducer,
