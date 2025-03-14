@@ -3,11 +3,16 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";
 import { successToast } from "../../../utils/toast";
+import { useGetCartQuery } from "../../../Features/AllSlices/exclusiveApi/exclusiveApi";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../Features/Cart/Cart";
 
 type Props = {};
 
 const PaymentSuccess = (props: Props) => {
   const navigate = useNavigate();
+  const { data, refetch } = useGetCartQuery();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axiosinstance
@@ -15,11 +20,19 @@ const PaymentSuccess = (props: Props) => {
       .then((res) => {
         console.log(res.data.message);
         successToast(res.data.message);
+        refetch();
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(addToCart(data?.data));
+    }
+    console.log(data);
+  }, [data]);
 
   return (
     <div className="container py-16 -mb-8">

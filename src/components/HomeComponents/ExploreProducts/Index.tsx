@@ -12,8 +12,6 @@ function ExploreProducts() {
   const [errorQuery, setErrorQuery] = useState<string | null>(null);
   const { data, isLoading, error } = useGetAllProductsQuery();
   useEffect(() => {
-    console.log("explore product", productData);
-
     if (data) {
       setProductData(processApiResponse(data));
     }

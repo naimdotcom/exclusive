@@ -6,13 +6,10 @@ type Props = {
 
 const CheckoutCart = ({ cart }: Props) => {
   return (
-    <div>
-      <ul className="">
+    <div className="">
+      <ul className="pr-4 space-y-4 overflow-y-scroll rounded max-h-60">
         {cart?.map((item) => (
-          <li
-            key={item._id}
-            className="grid items-center grid-cols-5 gap-4 py-3 "
-          >
+          <li key={item._id} className="grid items-center grid-cols-5 gap-4">
             <picture className="col-span-1">
               <img
                 className="w-14"

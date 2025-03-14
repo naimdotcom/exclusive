@@ -4,7 +4,7 @@ import { AuthApi } from "./AllSlices/Api/AuthApi";
 import { OrderApi } from "./AllSlices/Api/OrderApi";
 import AuthReducer from "./Auth/Auth";
 import CartReducer from "./Cart/Cart";
-import ExclusiveApi from "./AllSlices/exclusiveApi/exclusive.api";
+import ExclusiveApi from "./AllSlices/exclusiveApi/exclusiveApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,9 +15,15 @@ export const store = configureStore({
     // redux toolkit
     auth: AuthReducer,
     cart: CartReducer,
+    exclusive: ExclusiveApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(ProductApi.middleware, AuthApi.middleware),
+    getDefaultMiddleware().concat(
+      ProductApi.middleware,
+      AuthApi.middleware,
+      ExclusiveApi.middleware,
+      OrderApi.middleware
+    ),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

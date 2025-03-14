@@ -81,7 +81,6 @@ function Navbar() {
   useEffect(() => {
     const res = axiosinstance.get("/auth/verify");
     res.then((res) => {
-      console.log("response of auth", res.data?.data);
       dispatch(login(res.data?.data));
     });
     fetchCartData();

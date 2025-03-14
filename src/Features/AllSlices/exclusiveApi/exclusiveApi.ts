@@ -2,7 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const ExclusiveApi = createApi({
   reducerPath: "exclusiveApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:3000/api/v1",
+    credentials: "include",
+  }),
   endpoints: (builder) => ({
     GetAllBanner: builder.query<any, void>({
       query: () => "/banner",
@@ -38,9 +41,9 @@ const ExclusiveApi = createApi({
         method: "DELETE",
       }),
     }),
-    GetOrder: builder.mutation<any, any>({
+    placeOrder: builder.mutation<any, any>({
       query: (data) => ({
-        url: "/place-order",
+        url: "/order/place-order",
         method: "POST",
         body: data,
       }),
@@ -57,7 +60,7 @@ export const {
   useGetSingleProductQuery,
   useGetCartQuery,
   useRemoveCartMutation,
-  useGetOrderMutation,
+  usePlaceOrderMutation,
 } = ExclusiveApi;
 
 export default ExclusiveApi;

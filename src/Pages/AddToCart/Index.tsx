@@ -2,31 +2,22 @@ import { useEffect, useState } from "react";
 import CartListItem from "../../components/AddToCartComponents/CartListItem";
 import BreadCrumb from "../../components/CommonComponents/BreadCrumb";
 import Button from "../../components/CommonComponents/Button";
-import { axiosinstance } from "../../helper/axios";
-import { cart } from "../../utils/data";
 import { addToCart, filterCart } from "../../Features/Cart/Cart";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetCartQuery } from "../../Features/AllSlices/exclusiveApi/exclusiveApi";
 
 type Props = {};
 
 function AddToCart({}: Props) {
-  const [cart, setCart] = useState<cart[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const cartR = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
-  const fetchCartData = () => {
-    try {
-      axiosinstance.get("/cart").then((res) => {
-        setCart(res.data?.data);
-        dispatch(addToCart(res.data?.data));
-      });
-    } catch (error) {
-      console.log("error in fetching cart data", error);
-    }
-  };
+  const { data, refetch } = useGetCartQuery();
+
   useEffect(() => {
-    fetchCartData();
-  }, []);
+    if (!data) return;
+    dispatch(addToCart(data?.data));
+  }, [data]);
 
   useEffect(() => {
     if (!cartR) return;
@@ -41,7 +32,6 @@ function AddToCart({}: Props) {
           .toFixed(2)
       )
     );
-    console.log("total");
   }, [cartR]);
 
   return (
@@ -101,7 +91,7 @@ function AddToCart({}: Props) {
             BgCss="bg-transparent border-2 border-black text-black "
             navigateTo="/cart"
             textCss="text-black"
-            onClick={fetchCartData}
+            onClick={() => refetch()}
           />
         </div>
       </div>

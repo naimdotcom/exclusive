@@ -16,8 +16,6 @@ function Timer({
   useEffect(() => {
     const parsedDate = new Date(timeToEndOffer).getTime(); // Set your target date here
 
-    console.log(parsedDate);
-
     const worker = new Worker(
       new URL("../../CountDownWorker.ts", import.meta.url)
     );
@@ -33,8 +31,6 @@ function Timer({
         setTimeLeft({ days, hours, minutes, seconds });
       }
     };
-
-    console.log(timeLeft);
     return () => {
       worker.terminate();
     };

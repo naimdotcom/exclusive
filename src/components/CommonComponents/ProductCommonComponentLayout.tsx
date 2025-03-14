@@ -61,9 +61,17 @@ function ProductCommonComponentLayout({
     speed: 500,
     // componentData && componentData?.length >= 5 ? 5 : 2
     slidesToShow:
-      componentData && componentData?.length >= 5 ? 5 : componentData?.length,
+      componentData && componentData?.length >= 5
+        ? 5
+        : componentData?.length
+        ? componentData?.length
+        : 5,
     slidesToScroll:
-      componentData && componentData?.length >= 5 ? 5 : componentData?.length,
+      componentData && componentData?.length >= 5
+        ? 5
+        : componentData?.length
+        ? componentData?.length
+        : 5,
     swipeToSlide: true,
     rows: rows,
   };
