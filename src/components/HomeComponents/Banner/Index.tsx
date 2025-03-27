@@ -13,25 +13,23 @@ import { categoryType } from "../../../utils/data";
 
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
-  const [currentSlide, setcurrentSlide] = useState<number>(0);
-  const { data, isLoading, error } = useGetBannerQuery();
-
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const { data, isLoading } = useGetBannerQuery();
+  const { data: category } = useGetAllCategoryListQuery();
   const [categoryData, setCategoryData] = useState<categoryType[] | null>([]);
-  // const [errorQuery, setErrorQuery] = useState<string | null>();
-  const { data: category, isLoading: isLoadingCategory } =
-    useGetAllCategoryListQuery();
 
   useEffect(() => {
     if (category) {
       setCategoryData(category.data);
     }
+  }, [category]);
 
-    if (error) {
-      console.error("Error in flash sales:", error);
+  useEffect(() => {
+    if (!isLoading) {
+      setBannerData(data?.data || [{ image: bannerImg }]);
     }
-  }, [category, isLoadingCategory]);
+  }, [isLoading]);
 
-  // css for react slick which will be set in <slider .... >
   let settings = {
     dots: true,
     infinite: false,
@@ -41,93 +39,51 @@ function Banner() {
     autoplaySpeed: 3000,
     cssEase: "linear",
     autoplay: true,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     appendDots: (dots: ReactNode) => (
-      <div
-        style={{
-          position: "absolute",
-          bottom: "5%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          borderRadius: "10px",
-          padding: "10px",
-          color: "#000",
-        }}
-      >
-        <ul style={{ margin: "0px" }}> {dots} </ul>
+      <div className="absolute transform -translate-x-1/2 bottom-5 left-1/2">
+        <ul> {dots} </ul>
       </div>
     ),
-    customPaging: (i: number) =>
-      i == currentSlide ? (
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            borderRadius: "50%",
-            background: "#DB4444",
-            border: "3px solid #ffff",
-            marginRight: "12px",
-            cursor: "pointer",
-          }}
-        ></div>
-      ) : (
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            borderRadius: "50%",
-            background: "#ffff",
-            opacity: "0.5",
-            marginRight: "12px",
-            cursor: "pointer",
-          }}
-        ></div>
-      ),
-    afterChange: function (currentSlide: number) {
-      setcurrentSlide(currentSlide);
-    },
+    customPaging: (i: number) => (
+      <div
+        className={cn(
+          "w-4 h-4 rounded-full cursor-pointer border-2",
+          i === currentSlide ? "bg-red-500 border-white" : "bg-white opacity-50"
+        )}
+      ></div>
+    ),
+    afterChange: setCurrentSlide,
   };
 
-  useEffect(() => {
-    if (!isLoading) {
-      setBannerData(data?.data ? data?.data : [{ image: bannerImg }]);
-    }
-  }, [isLoading]);
-
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-12 mt-10">
-        <SideBar data={categoryData ? categoryData : []} classes="col-span-2" />
-        <div className={cn("col-span-10 pl-10 flex justify-center")}>
-          <div className={cn("w-full ")}>
-            <div className="w-full">
-              <Slider {...settings}>
-                {bannerData.map((item: any) => {
-                  return (
-                    <div
-                      className={cn("w-full flex justify-center items-center")}
-                      key={item._id}
-                    >
-                      <a href="/" className="w-full">
-                        <picture>
-                          <img
-                            src={item?.image ? item.image : bannerImg}
-                            alt={bannerImg}
-                            className="object-cover w-full h-full"
-                          />
-                        </picture>
-                      </a>
-                    </div>
-                  );
-                })}
-              </Slider>
-            </div>
+    <div className="container px-4 mx-auto sm:px-2">
+      <div className="grid grid-cols-1 gap-4 mt-10 lg:grid-cols-12">
+        {/* Sidebar - Hidden on small screens */}
+        <div className="hidden lg:block lg:col-span-2">
+          <SideBar data={categoryData || []} />
+        </div>
 
-            {/* <picture>
-              <img src={bannerImg} alt={bannerImg} />
-            </picture> */}
+        {/* Banner Section */}
+        <div className="flex justify-center col-span-1 lg:col-span-10">
+          <div className="w-full aspect-video">
+            <Slider {...settings}>
+              {bannerData.map((item: any) => (
+                <div
+                  className="flex items-center justify-center w-full"
+                  key={item._id}
+                >
+                  <a href="/" className="w-full">
+                    <picture>
+                      <img
+                        src={item?.image || bannerImg}
+                        alt="Banner"
+                        className="object-cover w-full h-auto aspect-video"
+                      />
+                    </picture>
+                  </a>
+                </div>
+              ))}
+            </Slider>
           </div>
         </div>
       </div>
