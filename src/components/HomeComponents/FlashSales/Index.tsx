@@ -11,6 +11,7 @@ function FlashSales() {
     []
   );
   const { data, isLoading, error } = useGetFlashSalesQuery();
+  const time = "2025-04-01T23:59:59";
 
   useEffect(() => {
     if (data) {
@@ -27,7 +28,7 @@ function FlashSales() {
       <ProductCommonComponentLayout
         title="Flash Sale"
         description="Today's"
-        timeToEndOffer={"2025-03-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
+        timeToEndOffer={"2025-06-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
         products={productData}
         componentData={productData.length > 0 ? productData : []}
         cards={ProductCard}

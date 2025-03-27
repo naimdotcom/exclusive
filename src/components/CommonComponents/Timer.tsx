@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
 
-function Timer({
-  timeToEndOffer = "2024-12-31T23:59:59",
-}: {
-  timeToEndOffer?: string | Date;
-}) {
+function Timer({ timeToEndOffer }: { timeToEndOffer?: string | Date }) {
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
@@ -14,7 +10,16 @@ function Timer({
   } | null>(null);
 
   useEffect(() => {
-    const parsedDate = new Date(timeToEndOffer).getTime(); // Set your target date here
+    let targetDate;
+
+    if (!timeToEndOffer) {
+      targetDate = new Date();
+      targetDate.setMonth(targetDate.getMonth() + 1); // Set to one month later
+    } else {
+      targetDate = new Date(timeToEndOffer);
+    }
+
+    const parsedDate = targetDate.getTime();
 
     const worker = new Worker(
       new URL("../../CountDownWorker.ts", import.meta.url)

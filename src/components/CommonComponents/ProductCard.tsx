@@ -57,8 +57,8 @@ function ProductCard({
   };
 
   return (
-    <div key={_id} className={cn(`${className} `)}>
-      <div className="relative px-16 py-16 rounded bg-cs-white_F5F5F5 w-72 h-72 max-w-72 max-h-72 group">
+    <div key={_id} className={cn(`${className} w-full `)}>
+      <div className="relative px-8 py-8 rounded bg-cs-white_F5F5F5 group sm:px-12 sm:py-12 md:px-16 md:py-16 lg:w-72 lg:h-72 lg:max-w-72 lg:max-h-72">
         <div className="px-3 py-[6px] rounded bg-cs-redDB4444 w-fit absolute top-2 left-2">
           <h4 className="text-xs font-normal leading-none text-center text-cs-white_FFFFFF font-poppins">
             -{discount ? discount : 0}%
@@ -69,6 +69,7 @@ function ProductCard({
             <img
               src={images?.[0] ? images?.[0] : productImg2}
               alt={images?.[0] ? images[0] : productImg2}
+              className="object-contain w-full h-full"
             />
           </picture>
         </div>
@@ -78,7 +79,6 @@ function ProductCard({
               <MdOutlineFavoriteBorder className="text-2xl rounded-full " />
             </span>
           </h4>
-          {/* show the product in detail */}
           <h4 className="p-2 bg-white rounded-full ">
             <NavLink to={`/product/${_id}`}>
               <span className="">
@@ -93,7 +93,7 @@ function ProductCard({
 
         <div className="absolute bottom-0 left-0 z-30 w-full space-y-2 text-center duration-500 opacity-0 group-hover:opacity-100">
           <div
-            className="w-full py-3 bg-black rounded-bl rounded-br "
+            className="w-full py-3 bg-black rounded-bl rounded-br cursor-pointer"
             onClick={handleAddToCart}
           >
             <h3 className="text-white text-base font-medium font-['Poppins'] leading-normal">
@@ -102,15 +102,15 @@ function ProductCard({
           </div>
         </div>
       </div>
-      <div className="space-y-2">
-        <h1 className="pt-2 text-base font-medium text-black font-poppins">
+      <div className="mt-4 space-y-2">
+        <h1 className="text-sm font-medium text-black sm:text-base font-poppins">
           {name ? name : ""}
         </h1>
         <h4 className="flex items-start justify-start h-6 gap-3">
-          <span className="text-base font-medium leading-normal text-cs-redDB4444 font-poppins">
+          <span className="text-sm font-medium leading-normal text-cs-redDB4444 sm:text-base font-poppins">
             ${useCalculateDiscount(price, discount).toFixed(2)}
           </span>
-          <span className="text-base font-medium leading-normal text-black line-through opacity-50 font-poppins">
+          <span className="text-sm font-medium leading-normal text-black line-through opacity-50 sm:text-base font-poppins">
             ${price ? price : 0}
           </span>
         </h4>
