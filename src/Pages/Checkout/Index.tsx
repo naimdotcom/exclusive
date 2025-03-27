@@ -239,7 +239,7 @@ const Checkout = ({}: Props) => {
           <div className="py-4">
             <Button
               type="submit"
-              title="Place Order"
+              title={isLoading ? "Loading..." : "Place Order"}
               BgCss="bg-cs-redDB4444 py-2"
               navigateTo=""
             />

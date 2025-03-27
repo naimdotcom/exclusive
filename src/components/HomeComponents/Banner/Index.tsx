@@ -17,7 +17,7 @@ function Banner() {
   const { data, isLoading, error } = useGetBannerQuery();
 
   const [categoryData, setCategoryData] = useState<categoryType[] | null>([]);
-  const [errorQuery, setErrorQuery] = useState<string | null>();
+  // const [errorQuery, setErrorQuery] = useState<string | null>();
   const { data: category, isLoading: isLoadingCategory } =
     useGetAllCategoryListQuery();
 
@@ -25,9 +25,9 @@ function Banner() {
     if (category) {
       setCategoryData(category.data);
     }
+
     if (error) {
-      setErrorQuery("Failed to fetch flash sales. Please try again later.");
-      console.error("Error in flash sales:", errorQuery);
+      console.error("Error in flash sales:", error);
     }
   }, [category, isLoadingCategory]);
 

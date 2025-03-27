@@ -67,8 +67,8 @@ function ProductCard({
         <div className="flex items-center justify-center w-full h-full">
           <picture>
             <img
-              src={images[0] ? images[0] : productImg2}
-              alt={images[0] ? images[0] : productImg2}
+              src={images?.[0] ? images?.[0] : productImg2}
+              alt={images?.[0] ? images[0] : productImg2}
             />
           </picture>
         </div>
@@ -117,7 +117,7 @@ function ProductCard({
         <div className="flex items-center gap-2">
           {rating ? <Star rating={rating} /> : ""}
           <h4 className="w-8 h-5 text-sm font-semibold text-black opacity-50 font-poppins">
-            {review.length > 0 ? `(${review.length})` : 0}
+            {review?.length > 0 ? `(${review?.length})` : 0}
           </h4>
         </div>
       </div>

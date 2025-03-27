@@ -14,7 +14,7 @@ function BestSeller() {
     }
     if (error) {
       setErrorQuery("Failed to fetch flash sales. Please try again later.");
-      console.error("Error in flash sales:", errorQuery);
+      console.error("Error in flash sales:", error);
     }
   }, [data, isLoading]);
 

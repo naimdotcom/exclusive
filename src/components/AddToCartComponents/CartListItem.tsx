@@ -23,7 +23,8 @@ type Props = {
 function CartListItem({ data, setCart }: Props) {
   const [quantity, setQuantity] = useState<number>(1);
   const [totalPrice, setTotalPrice] = useState<number>(
-    data?.product?.price * data?.quantity
+    useCalculateDiscount(data?.product?.price, data?.product?.discount) *
+      data?.quantity
   );
   const quantityChangeHandler = (action: string) => {
     try {
@@ -62,8 +63,12 @@ function CartListItem({ data, setCart }: Props) {
   }, [data]);
 
   useEffect(() => {
-    setTotalPrice(data?.product?.price * quantity);
+    setTotalPrice(
+      useCalculateDiscount(data?.product?.price, data?.product?.discount) *
+        quantity
+    );
   }, [quantity]);
+  console.log();
   return (
     <div>
       <div className="grid grid-cols-12 items-center mx-auto mt-14 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.15)] py-6 px-10 rounded-lg relative">
@@ -85,7 +90,11 @@ function CartListItem({ data, setCart }: Props) {
         </div>
         <div className="col-span-2">
           <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
-            ${useCalculateDiscount(data?.product?.price)}
+            $
+            {useCalculateDiscount(
+              data?.product?.price,
+              data?.product?.discount
+            )}
           </h2>
         </div>
         <div className="flex items-center justify-center col-span-3">

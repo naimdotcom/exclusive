@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";
@@ -9,7 +9,7 @@ import { addToCart } from "../../../Features/Cart/Cart";
 
 type Props = {};
 
-const PaymentSuccess = (props: Props) => {
+const PaymentSuccess = ({}: Props) => {
   const navigate = useNavigate();
   const { data, refetch } = useGetCartQuery();
   const dispatch = useDispatch();
