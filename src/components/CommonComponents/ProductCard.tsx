@@ -57,68 +57,79 @@ function ProductCard({
   };
 
   return (
-    <div key={_id} className={cn(`${className} w-full `)}>
-      <div className="relative px-8 py-8 rounded bg-cs-white_F5F5F5 group sm:px-12 sm:py-12 md:px-16 md:py-16 lg:w-72 lg:h-72 lg:max-w-72 lg:max-h-72">
-        <div className="px-3 py-[6px] rounded bg-cs-redDB4444 w-fit absolute top-2 left-2">
-          <h4 className="text-xs font-normal leading-none text-center text-cs-white_FFFFFF font-poppins">
-            -{discount ? discount : 0}%
-          </h4>
-        </div>
-        <div className="flex items-center justify-center w-full h-full">
+    <div
+      key={_id}
+      className={cn(`${className} w-full max-w-xs mx-auto sm:max-w-none`)}
+    >
+      {/* Product Image Container */}
+      <div className="relative overflow-hidden rounded aspect-square bg-cs-white_F5F5F5 group">
+        {/* Discount Badge */}
+        {discount > 0 && (
+          <div className="absolute z-10 px-2 py-1 rounded bg-cs-redDB4444 w-fit top-2 left-2">
+            <h4 className="text-xs font-normal leading-none text-center text-cs-white_FFFFFF font-poppins">
+              -{discount}%
+            </h4>
+          </div>
+        )}
+
+        {/* Product Image */}
+        <div className="flex items-center justify-center w-full h-full p-4">
           <picture>
             <img
               src={images?.[0] ? images?.[0] : productImg2}
-              alt={images?.[0] ? images[0] : productImg2}
-              className="object-contain w-full h-full"
+              alt={name || "Product image"}
+              className="object-contain w-full h-full transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
             />
           </picture>
         </div>
-        <div className="absolute z-30 space-y-2 top-2 right-2">
-          <h4 className="p-2 bg-white rounded-full ">
-            <span className="">
-              <MdOutlineFavoriteBorder className="text-2xl rounded-full " />
-            </span>
-          </h4>
-          <h4 className="p-2 bg-white rounded-full ">
-            <NavLink to={`/product/${_id}`}>
-              <span className="">
-                <IoEyeOutline
-                  className="text-2xl rounded-full "
-                  onClick={() => {}}
-                />
-              </span>
-            </NavLink>
-          </h4>
+
+        {/* Action Buttons */}
+        <div className="absolute z-30 flex flex-col gap-2 top-2 right-2">
+          <button className="p-2 transition-colors bg-white rounded-full shadow-sm hover:bg-gray-100">
+            <MdOutlineFavoriteBorder className="text-xl sm:text-2xl" />
+          </button>
+          <NavLink
+            to={`/product/${_id}`}
+            className="p-2 transition-colors bg-white rounded-full shadow-sm hover:bg-gray-100"
+          >
+            <IoEyeOutline className="text-xl sm:text-2xl" />
+          </NavLink>
         </div>
 
-        <div className="absolute bottom-0 left-0 z-30 w-full space-y-2 text-center duration-500 opacity-0 group-hover:opacity-100">
-          <div
-            className="w-full py-3 bg-black rounded-bl rounded-br cursor-pointer"
+        {/* Add to Cart Button */}
+        <div className="absolute bottom-0 left-0 z-20 w-full transition-all duration-300 translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
+          <button
             onClick={handleAddToCart}
+            className="w-full py-2 text-sm font-medium text-white transition-colors bg-black sm:text-base font-poppins hover:bg-gray-900"
           >
-            <h3 className="text-white text-base font-medium font-['Poppins'] leading-normal">
-              Add to Cart
-            </h3>{" "}
-          </div>
+            Add to Cart
+          </button>
         </div>
       </div>
-      <div className="mt-4 space-y-2">
-        <h1 className="text-sm font-medium text-black sm:text-base font-poppins">
-          {name ? name : ""}
+
+      {/* Product Info */}
+      <div className="mt-4 space-y-1 sm:space-y-2">
+        <h1 className="text-sm font-medium text-black line-clamp-1 sm:text-base font-poppins">
+          {name || "Product Name"}
         </h1>
-        <h4 className="flex items-start justify-start h-6 gap-3">
-          <span className="text-sm font-medium leading-normal text-cs-redDB4444 sm:text-base font-poppins">
+
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-cs-redDB4444 sm:text-base font-poppins">
             ${useCalculateDiscount(price, discount).toFixed(2)}
           </span>
-          <span className="text-sm font-medium leading-normal text-black line-through opacity-50 sm:text-base font-poppins">
-            ${price ? price : 0}
-          </span>
-        </h4>
+          {discount > 0 && (
+            <span className="text-xs font-medium text-gray-500 line-through sm:text-sm font-poppins">
+              ${price.toFixed(2)}
+            </span>
+          )}
+        </div>
+
         <div className="flex items-center gap-2">
-          {rating ? <Star rating={rating} /> : ""}
-          <h4 className="w-8 h-5 text-sm font-semibold text-black opacity-50 font-poppins">
-            {review?.length > 0 ? `(${review?.length})` : 0}
-          </h4>
+          {rating ? <Star rating={rating} /> : null}
+          <span className="text-xs font-medium text-gray-500 sm:text-sm font-poppins">
+            ({review?.length || 0})
+          </span>
         </div>
       </div>
     </div>
