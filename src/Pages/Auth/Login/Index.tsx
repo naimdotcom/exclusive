@@ -29,7 +29,6 @@ function Login({}: Props) {
     initialValues: loginInfo,
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      console.log(values);
       setLoading(true);
       const response = axiosinstance.post("/auth/login", {
         email: values.emailOrPhone,
@@ -38,8 +37,6 @@ function Login({}: Props) {
 
       response
         .then((res) => {
-          console.log(res.data?.data);
-
           if (res.statusText == "OK") {
             dispath(login(res.data?.data?.user));
             successToast("login successful");
@@ -48,14 +45,11 @@ function Login({}: Props) {
         })
         .catch((err) => {
           errorToast(err.response.data.message);
-          console.log("something went wrong in login:", err);
           if (err.response.data.redirectUrl) {
             const redirectUrl = err.response.data.redirectUrl.split("/");
             const url = `/${redirectUrl[redirectUrl.length - 2]}/${
               redirectUrl[redirectUrl.length - 1]
             }`;
-            console.log(url);
-
             navigate(url);
           }
         })
@@ -65,45 +59,55 @@ function Login({}: Props) {
     },
   });
 
-  console.log(auth);
-
   return (
-    <div className="container pl-0 ml-0 mt-14">
-      <div className="flex items-center gap-28">
-        <div>
+    <div className="container px-4 mx-auto mt-8 md:mt-14">
+      <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-28">
+        {/* Image - Hidden on small screens, shown on medium and up */}
+        <div className="hidden md:block md:flex-1">
           <picture>
-            <img src={loginImg} alt={loginImg} />
+            <img
+              src={loginImg}
+              alt="Login illustration"
+              className="w-full max-w-md mx-auto lg:max-w-none"
+            />
           </picture>
         </div>
-        <div className="w-[27%] space-y-7">
-          <div>
-            <h2 className="text-4xl font-medium leading-loose tracking-wider text-black font-inter">
+
+        {/* Login Form */}
+        <div className="w-full max-w-md p-6 mx-auto space-y-6 bg-white rounded-lg shadow-sm md:p-8 lg:w-[27%] lg:max-w-none lg:shadow-none lg:bg-transparent">
+          <div className="text-center lg:text-left">
+            <h2 className="text-2xl font-medium text-black md:text-3xl lg:text-4xl font-inter">
               Log in to Exclusive
             </h2>
-            <p className="text-base font-normal leading-normal text-black font-poppins">
+            <p className="mt-2 text-base text-gray-600 font-poppins">
               Enter your details below
             </p>
           </div>
-          <form action="" className="space-y-7" onSubmit={formik.handleSubmit}>
+
+          <form onSubmit={formik.handleSubmit} className="space-y-6">
             <div>
               <input
                 type="text"
                 name="emailOrPhone"
                 id="emailOrPhone"
                 className={cn(
-                  "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
-                  "border-b-2 border-black py-3 px-4"
+                  "w-full px-4 py-3 text-base border-b-2 border-gray-300 focus:border-black outline-none transition-colors",
+                  formik.touched.emailOrPhone && formik.errors.emailOrPhone
+                    ? "border-red-500"
+                    : ""
                 )}
                 placeholder="Email or Phone Number"
                 value={formik.values.emailOrPhone}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
               {formik.touched.emailOrPhone && formik.errors.emailOrPhone && (
-                <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
+                <p className="mt-1 text-sm text-red-500 font-poppins">
                   {formik.errors.emailOrPhone}
                 </p>
               )}
             </div>
+
             <div>
               <input
                 name="password"
@@ -111,48 +115,51 @@ function Login({}: Props) {
                 type="password"
                 value={formik.values.password}
                 className={cn(
-                  "text-black/40 text-base w-full font-normal font-poppins  leading-normal",
-                  "border-b-2 border-black py-3 px-4"
+                  "w-full px-4 py-3 text-base border-b-2 border-gray-300 focus:border-black outline-none transition-colors",
+                  formik.touched.password && formik.errors.password
+                    ? "border-red-500"
+                    : ""
                 )}
                 placeholder="Password"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
               {formik.touched.password && formik.errors.password && (
-                <p className="text-sm font-normal leading-normal text-red-500 font-poppins">
+                <p className="mt-1 text-sm text-red-500 font-poppins">
                   {formik.errors.password}
                 </p>
               )}
             </div>
-            <div className="flex items-center justify-between">
-              {loading ? (
-                <Button
-                  type="submit"
-                  title="loading...."
-                  BgCss="bg-cs-redDB4444 py-3"
-                  navigateTo=""
-                />
-              ) : (
-                <Button
-                  type="submit"
-                  title="Log in"
-                  BgCss="bg-cs-redDB4444 py-3"
-                  navigateTo=""
-                />
-              )}
-              <button className="text-base font-normal leading-normal text-cs-redDB4444 font-poppins">
+
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <Button
+                type="submit"
+                title={loading ? "Loading..." : "Log In"}
+                className="w-full py-3 text-white transition-colors bg-cs-redDB4444 hover:bg-red-700 sm:w-auto sm:px-8"
+                disabled={loading}
+                navigateTo=""
+                // onClick={han}
+              />
+              <button
+                type="button"
+                className="text-base text-cs-redDB4444 hover:underline font-poppins"
+                onClick={() => navigate("/forgot-password")}
+              >
                 Forgot Password?
               </button>
             </div>
           </form>
-          <div className="text-base font-light leading-normal text-center font-poppins">
-            <h1>
-              Already have an Account?{" "}
-              <span>
-                <Link to={"/sign-up"} className="font-medium underline">
-                  Sign up
-                </Link>
-              </span>
-            </h1>
+
+          <div className="text-center text-gray-600 font-poppins">
+            <p>
+              Don't have an account?{" "}
+              <Link
+                to="/sign-up"
+                className="font-medium text-cs-redDB4444 hover:underline"
+              >
+                Sign up
+              </Link>
+            </p>
           </div>
         </div>
       </div>

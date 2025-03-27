@@ -6,9 +6,7 @@ import { addToCart, filterCart } from "../../Features/Cart/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetCartQuery } from "../../Features/AllSlices/exclusiveApi/exclusiveApi";
 
-type Props = {};
-
-function AddToCart({}: Props) {
+function AddToCart() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const cartR = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
@@ -17,142 +15,125 @@ function AddToCart({}: Props) {
   useEffect(() => {
     if (!data) return;
     dispatch(addToCart(data?.data));
-  }, [data]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (!cartR) return;
-    setTotalPrice(
-      Number(
-        cartR
-          ?.reduce(
-            (acc: number, item: any) =>
-              acc + item?.product.price * item.quantity,
-            0
-          )
-          .toFixed(2)
-      )
+    const calculatedTotal = cartR?.reduce(
+      (acc: number, item: any) => acc + item?.product.price * item.quantity,
+      0
     );
+    setTotalPrice(Number(calculatedTotal.toFixed(2)));
   }, [cartR]);
 
   return (
-    <div className="container mt-16">
-      <div>
-        <BreadCrumb />
-      </div>
-      <div className="grid grid-cols-12 mx-auto mt-14 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.10)] py-6 px-10 rounded-lg">
-        <div className="col-span-5 ">
-          <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+    <div className="container px-4 mx-auto mt-16">
+      <BreadCrumb />
+
+      {/* Cart Header - Hidden on mobile */}
+      <div className="hidden md:grid grid-cols-12 mx-auto mt-8 shadow-[0px_1px_13px_0px_rgba(0,0,0,0.10)] py-4 px-4 sm:px-6 lg:px-8 rounded-lg">
+        <div className="col-span-5">
+          <h2 className="text-base font-normal text-black font-poppins">
             Product
           </h2>
         </div>
         <div className="col-span-2">
-          <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+          <h2 className="text-base font-normal text-black font-poppins">
             Price
           </h2>
         </div>
         <div className="col-span-3 text-center">
-          <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+          <h2 className="text-base font-normal text-black font-poppins">
             Quantity
           </h2>
         </div>
         <div className="col-span-2 text-center">
-          <h2 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+          <h2 className="text-base font-normal text-black font-poppins">
             Total
           </h2>
         </div>
       </div>
 
-      <div className="max-h-[60vh] overflow-y-scroll my-6 py-4 ">
+      {/* Cart Items */}
+      <div className="max-h-[50vh] md:max-h-[60vh] overflow-y-auto my-4 md:my-6 py-2 space-y-4 md:space-y-0">
         {cartR?.map((item: any) => (
           <CartListItem
             key={item._id}
-            data={{
-              ...item,
-            }}
-            setCart={(e: string) => {
-              dispatch(filterCart(e));
-            }}
+            data={item}
+            setCart={(e: string) => dispatch(filterCart(e))}
           />
         ))}
       </div>
 
-      <div className="flex justify-between mt-14">
-        <div>
-          <Button
-            title="Return to shop"
-            BgCss="bg-transparent border-2 border-black text-black "
-            navigateTo="/products"
-            textCss="text-black"
-          />
-        </div>
-        <div>
-          <Button
-            title="Update Cart"
-            BgCss="bg-transparent border-2 border-black text-black "
-            navigateTo="/cart"
-            textCss="text-black"
-            onClick={() => refetch()}
-          />
-        </div>
+      {/* Action Buttons */}
+      <div className="flex flex-col-reverse gap-4 mt-8 md:flex-row md:justify-between md:mt-14">
+        <Button
+          title="Return to shop"
+          BgCss="text-black bg-transparent border-2 border-black hover:bg-gray-100"
+          navigateTo="/products"
+        />
+        <Button
+          title="Update Cart"
+          BgCss="text-black bg-transparent border-2 border-black hover:bg-gray-100"
+          onClick={() => refetch()}
+        />
       </div>
-      <div className="flex items-start justify-between mt-20">
-        <div className="flex items-center max-w-[50%] gap-4">
-          <div>
+
+      {/* Coupon and Total */}
+      <div className="flex flex-col gap-8 mt-10 lg:flex-row lg:justify-between md:mt-20">
+        {/* Coupon Section */}
+        <div className="w-full lg:max-w-[50%]">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <input
               type="text"
               placeholder="Coupon Code"
-              className="px-4 opacity-50 text-black text-base font-normal font-['Poppins'] leading-normal border-2 border-black py-3  rounded w-96"
+              className="flex-1 px-4 py-3 text-base text-black transition-colors border-2 border-gray-300 rounded focus:border-black focus:outline-none"
             />
-          </div>
-          <div>
             <Button
               title="Apply Coupon"
-              BgCss="bg-cs-redDB4444 py-3"
-              textCss="text-white"
+              className="px-6 py-3 text-white bg-cs-redDB4444 hover:bg-red-700"
             />
           </div>
         </div>
-        <div className="border-2 border-black w-[30%] py-8 px-6">
-          <h2 className="text-black text-xl font-medium font-['Poppins'] leading-7">
+
+        {/* Cart Total */}
+        <div className="w-full lg:w-[30%] border-2 border-gray-200 rounded-lg p-6 space-y-6">
+          <h2 className="text-xl font-medium text-black font-poppins">
             Cart Total
           </h2>
-          <div className="flex flex-col gap-4 mt-6">
+          <div className="space-y-4">
             <div className="flex justify-between">
-              <h3 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+              <h3 className="text-base font-normal text-black font-poppins">
                 Subtotal:
               </h3>
-              <h4 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+              <h4 className="text-base font-normal text-black font-poppins">
                 ${totalPrice}
               </h4>
             </div>
-            <hr />
+            <hr className="border-gray-200" />
             <div className="flex justify-between">
-              <h3 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+              <h3 className="text-base font-normal text-black font-poppins">
                 Shipping:
               </h3>
-              <h4 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+              <h4 className="text-base font-normal text-black font-poppins">
                 Free
               </h4>
             </div>
-            <hr />
+            <hr className="border-gray-200" />
             <div className="flex justify-between">
-              <h3 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+              <h3 className="text-base font-normal text-black font-poppins">
                 Total:
               </h3>
-              <h4 className="text-black text-base font-normal font-['Poppins'] leading-normal">
+              <h4 className="text-base font-normal text-black font-poppins">
                 ${totalPrice}
               </h4>
             </div>
           </div>
-          <div className="justify-self-center mt-7">
-            <Button
-              title="Checkout"
-              type="submit"
-              navigateTo="/checkout"
-              BgCss="bg-cs-redDB4444 py-3"
-              textCss="text-white"
-            />
-          </div>
+          <Button
+            title="Proceed to Checkout"
+            navigateTo="/checkout"
+            className="w-full py-3 text-white bg-cs-redDB4444 hover:bg-red-700"
+          />
         </div>
       </div>
     </div>
