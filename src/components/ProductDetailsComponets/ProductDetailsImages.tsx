@@ -39,9 +39,13 @@ function ProductDetailsImages({
                   src={mainThumbail ? mainThumbail : productData.thumbnail}
                   zoomSrc={mainThumbail ? mainThumbail : productData.thumbnail}
                   hasSpacer={true}
-                  width={mainThumbail == productData.thumbnail ? "650" : ""}
-                  height={mainThumbail == productData.thumbnail ? "800" : ""}
-                  className="w-full bg-cs-white_F5F5F5 rounded-md aspect-[750/800]  object-contain"
+                  width={
+                    mainThumbail == productData.thumbnail ? 650 : undefined
+                  }
+                  height={
+                    mainThumbail == productData.thumbnail ? 800 : undefined
+                  }
+                  className="w-full bg-cs-white_F5F5F5 rounded-md aspect-[750/800] object-contain"
                 />
               )
             }
