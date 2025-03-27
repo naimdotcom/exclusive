@@ -10,8 +10,8 @@ function FlashSales() {
   const [productData, setProductData] = useState<productCardsInfoType[] | []>(
     []
   );
-  const [errorQuery, setErrorQuery] = useState<string | null>(null);
   const { data, isLoading, error } = useGetFlashSalesQuery();
+  const time = "2025-04-01T23:59:59";
 
   useEffect(() => {
     if (data) {
@@ -19,8 +19,7 @@ function FlashSales() {
     }
 
     if (error) {
-      setErrorQuery("Failed to fetch flash sales. Please try again later.");
-      console.error("Error in flash sales:", errorQuery);
+      console.error("Error in flash sales:", error);
     }
   }, [data, isLoading]);
 
@@ -29,7 +28,7 @@ function FlashSales() {
       <ProductCommonComponentLayout
         title="Flash Sale"
         description="Today's"
-        timeToEndOffer={"2025-03-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
+        timeToEndOffer={"2025-06-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
         products={productData}
         componentData={productData.length > 0 ? productData : []}
         cards={ProductCard}

@@ -21,9 +21,9 @@ function ProductPage() {
   }, [data, isLoading]);
 
   return (
-    <div className="container mt-16">
+    <div className="container px-4 mx-auto mt-16">
       <BreadCrumb />
-      <div className="flex mt-6">
+      <div className="flex flex-col mt-6 lg:flex-row">
         <ProductCategories
           data={categoryData ? categoryData : []}
           isLoading={isLoading}

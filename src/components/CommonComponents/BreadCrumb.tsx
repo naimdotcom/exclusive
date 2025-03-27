@@ -5,8 +5,6 @@ function BreadCrumb() {
   const { pathname } = useLocation();
   let BreadCrumbPath = "";
   const pathSlice = pathname.split("/").filter(Boolean);
-  console.log(pathSlice);
-
   return (
     <div className="flex ">
       {pathSlice.map((item, index) => {

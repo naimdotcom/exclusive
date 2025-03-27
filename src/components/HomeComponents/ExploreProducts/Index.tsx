@@ -12,15 +12,13 @@ function ExploreProducts() {
   const [errorQuery, setErrorQuery] = useState<string | null>(null);
   const { data, isLoading, error } = useGetAllProductsQuery();
   useEffect(() => {
-    console.log("explore product", productData);
-
     if (data) {
       setProductData(processApiResponse(data));
     }
 
     if (error) {
       setErrorQuery("Failed to fetch flash sales. Please try again later.");
-      console.error("Error in flash sales:", errorQuery);
+      console.error("Error in flash sales:", error);
     }
   }, [data, isLoading]);
 

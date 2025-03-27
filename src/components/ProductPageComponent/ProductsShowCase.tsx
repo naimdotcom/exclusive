@@ -22,14 +22,11 @@ function ProductsShowCase() {
   const getPageNumbers = () => {
     let pages = [];
     if (totalPages <= maxVisible) {
-      // Show all pages if total is less than max visible
       pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     } else {
-      // Calculate range based on current page
       let start = Math.max(1, page - halfVisible);
       let end = Math.min(totalPages, start + maxVisible - 1);
 
-      // Adjust start if end is at max
       if (end === totalPages) {
         start = Math.max(1, end - maxVisible + 1);
       }
@@ -47,7 +44,6 @@ function ProductsShowCase() {
     if (typeof pageNum === "number") {
       setPage(pageNum);
     } else if (pageNum === "...") {
-      // Handle ellipsis click
       if (page < totalPages / 2) {
         setPage(Math.min(page + maxVisible, totalPages));
       } else {
@@ -55,9 +51,8 @@ function ProductsShowCase() {
       }
     }
   };
-  useEffect(() => {
-    console.log("products page :", data, productData);
 
+  useEffect(() => {
     if (data) {
       setProductData(processApiResponse(data));
     }
@@ -69,43 +64,44 @@ function ProductsShowCase() {
   }, [data, isLoading]);
 
   return (
-    <div className="flex flex-col items-center w-full px-10 space-y-10">
+    <div className="flex flex-col items-center w-full px-2 space-y-6 md:space-y-10 md:px-6 lg:px-10">
       {/* show per page */}
       <div className="flex items-center self-end gap-3">
-        <h2>Show:</h2>
+        <h2 className="text-sm md:text-base">Show:</h2>
         <select
-          className="px-3 border border-gray-300 rounded-md"
+          className="px-2 py-1 text-sm border border-gray-300 rounded-md md:px-3 md:text-base"
           onChange={(e) => setShowPerPage(Number(e.target.value))}
+          value={showPerPage}
         >
-          <option>9</option>
-          <option>18</option>
-          <option>27</option>
-          <option>36</option>
+          <option value={9}>9</option>
+          <option value={18}>18</option>
+          <option value={27}>27</option>
+          <option value={36}>36</option>
         </select>
       </div>
 
       {/* products */}
-      <div className="grid grid-cols-3 gap-x-20 gap-y-12">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:gap-x-20 xl:gap-y-12">
         {isLoading
-          ? Array(9)
+          ? Array(6)
               .fill("")
               .map((_, index) => <ProductSkeleton key={index} />)
           : productData
-              ?.slice(page * 9 - 9, page * showPerPage)
+              ?.slice((page - 1) * showPerPage, page * showPerPage)
               .map((item: any, index: number) => (
                 <ProductCard key={index} {...item} />
               ))}
       </div>
 
       {/* pagination */}
-      <div className="pt-14">
-        <nav aria-label="Page navigation example">
-          <ul className="inline-flex h-10 -space-x-px text-base">
+      <div className="pt-6 md:pt-14">
+        <nav aria-label="Page navigation">
+          <ul className="inline-flex items-center h-8 -space-x-px text-sm md:h-10 md:text-base">
             <li>
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 border-e-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+                className="flex items-center justify-center h-8 px-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 md:h-10 md:px-4"
               >
                 Previous
               </button>
@@ -116,7 +112,7 @@ function ProductsShowCase() {
                 <button
                   onClick={() => handlePageClick(num)}
                   className={cn(
-                    "flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100",
+                    "flex items-center justify-center h-8 px-3 leading-tight border border-gray-300 hover:bg-gray-100 md:h-10 md:px-4",
                     page === num
                       ? "bg-cs-redDB4444 text-cs-white_color"
                       : "bg-white text-gray-500"
@@ -127,42 +123,11 @@ function ProductsShowCase() {
               </li>
             ))}
 
-            {/* {[
-              ...Array(
-                Math.ceil(data?.products?.length / showPerPage) > 5
-                  ? 5
-                  : Math.ceil(data?.products?.length / showPerPage)
-              ),
-            ]?.map((_, index) => (
-              <>
-                {index + 1 >= 5 ? (
-                  <li>
-                    <p
-                      className={cn(
-                        "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                      )}
-                    >
-                      ...
-                    </p>
-                  </li>
-                ) : (
-                  <li>
-                    <p
-                      className={cn(
-                        "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                      )}
-                    >
-                      {index + 1}
-                    </p>
-                  </li>
-                )}
-              </>
-            ))} */}
             <li>
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+                className="flex items-center justify-center h-8 px-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 md:h-10 md:px-4"
               >
                 Next
               </button>
