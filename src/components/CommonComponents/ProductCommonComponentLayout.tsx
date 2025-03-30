@@ -3,7 +3,7 @@ import { categoryType, productCardsInfoType } from "../../utils/data";
 import ItemsTitleAndSubTitle from "./ItemsTitleAndSubTitle";
 import Timer from "./Timer";
 import { IoArrowForward } from "react-icons/io5";
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/cn";
@@ -54,7 +54,7 @@ function ProductCommonComponentLayout({
 }: Props) {
   const slideSlickRef = useRef<Slider | null>(null);
 
-  const settings = {
+  const settings: Settings = {
     dots: componentData && componentData.length >= 5,
     infinite: componentData && componentData.length >= 5,
     speed: 500,
@@ -90,14 +90,16 @@ function ProductCommonComponentLayout({
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
+          rows: 2,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 640,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
+          rows: 3,
         },
       },
     ],

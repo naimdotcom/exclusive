@@ -11,7 +11,7 @@ function FlashSales() {
     []
   );
   const { data, isLoading, error } = useGetFlashSalesQuery();
-  const time = "2025-04-01T23:59:59";
+  // const time = "2025-04-01T23:59:59";
 
   useEffect(() => {
     if (data) {
@@ -22,6 +22,8 @@ function FlashSales() {
       console.error("Error in flash sales:", error);
     }
   }, [data, isLoading]);
+
+  console.log(data);
 
   return (
     <div className="pt-24">
