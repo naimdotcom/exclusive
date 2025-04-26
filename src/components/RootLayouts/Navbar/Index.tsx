@@ -49,6 +49,7 @@ function Navbar() {
   };
 
   const fetchCartData = () => {
+    if (!auth) return;
     try {
       axiosinstance.get("/cart").then((res) => {
         dispatch(addToCart(res.data?.data));
