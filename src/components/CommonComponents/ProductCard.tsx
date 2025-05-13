@@ -18,13 +18,8 @@ export interface productCardWitClass extends productCardsInfoType {
 function ProductCard({
   _id,
   name,
-  description,
   price,
   rating,
-  size,
-  color,
-  category,
-  subcategory,
   discount = 0,
   review,
   images,

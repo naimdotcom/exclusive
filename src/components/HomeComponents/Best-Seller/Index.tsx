@@ -6,14 +6,14 @@ import { productCardsInfoType } from "../../../utils/data";
 
 function BestSeller() {
   const [productData, setProductData] = useState<productCardsInfoType[]>([]);
-  const [errorQuery, setErrorQuery] = useState<string | null>(null);
+  // const [errorQuery, setErrorQuery] = useState<string | null>(null);
   const { data, isLoading, error } = useGetBestSallingProductQuery();
   useEffect(() => {
     if (data) {
       setProductData(data?.data?.product);
     }
     if (error) {
-      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      // setErrorQuery("Failed to fetch flash sales. Please try again later.");
       console.error("Error in flash sales:", error);
     }
   }, [data, isLoading]);
