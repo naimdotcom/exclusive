@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";
 import { errorToast, successToast } from "../../../utils/toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../../Features/Auth/Auth";
 
 type Props = {};
@@ -22,7 +22,6 @@ function Login({}: Props) {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const auth = useSelector((state: any) => state.auth);
   const dispath = useDispatch();
 
   const formik = useFormik({

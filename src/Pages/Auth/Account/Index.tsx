@@ -13,7 +13,7 @@ interface userInfo {
 
 function Account({}: Props) {
   const [userInfo, setuserInfo] = useState<userInfo>();
-  const { data, isLoading, isError } = useGetAuthQuery();
+  const { data } = useGetAuthQuery();
   console.log(userInfo);
   useEffect(() => {
     setuserInfo(data?.data);

@@ -9,7 +9,7 @@ function ExploreProducts() {
   const [productData, setProductData] = useState<productCardsInfoType[] | []>(
     []
   );
-  const [errorQuery, setErrorQuery] = useState<string | null>(null);
+
   const { data, isLoading, error } = useGetAllProductsQuery();
   useEffect(() => {
     if (data) {
@@ -17,7 +17,7 @@ function ExploreProducts() {
     }
 
     if (error) {
-      setErrorQuery("Failed to fetch flash sales. Please try again later.");
+      // setErrorQuery("Failed to fetch flash sales. Please try again later.");
       console.error("Error in flash sales:", error);
     }
   }, [data, isLoading]);
