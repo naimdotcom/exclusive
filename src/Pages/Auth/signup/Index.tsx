@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { SignupSchema } from "../../../validation/Schema/LoginSchema";
+import { SignupSchema } from "../../../validation/Schema";
 import { loginImg } from "../../../utils/assets";
 import { cn } from "../../../utils/cn";
 import Button from "../../../components/CommonComponents/Button";

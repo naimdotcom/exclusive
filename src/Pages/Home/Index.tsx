@@ -6,6 +6,7 @@ import Exprience from "../../components/HomeComponents/Exprience/Index";
 import ExploreProducts from "../../components/HomeComponents/ExploreProducts/Index";
 import NewArrival from "../../components/HomeComponents/NewArrival/Index";
 import Services from "../../components/HomeComponents/Services/Index";
+
 function Home() {
   return (
     <div className="container ">

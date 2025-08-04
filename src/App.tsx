@@ -17,6 +17,7 @@ import Otp from "./Pages/Auth/otp/Otp";
 import Account from "./Pages/Auth/Account/Index";
 import Checkout from "./Pages/Checkout/Index";
 import PaymentSuccess from "./Pages/payment/success/Index";
+import ContactUs from "./Pages/ContactUs/Index";
 
 function App() {
   const router = createBrowserRouter(
@@ -36,6 +37,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/account" element={<Account />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/*" element={<Error />} />
         </Route>
       </>

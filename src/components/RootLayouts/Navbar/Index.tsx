@@ -125,25 +125,29 @@ function Navbar() {
 
           <div className="hidden col-span-2 xl:col-span-4 lg:flex">
             <ul className="flex gap-11">
-              {navigationBar.map((item, index) => {
-                return (
-                  <li
-                    key={item.id || index}
-                    className="text-black cursor-pointer hover:text-cs-text_black7D8184"
-                  >
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-center  font-poppins border-b-[1px] border-b-black"
-                          : "text-center font-poppins"
-                      }
+              {navigationBar
+                .filter(
+                  (item) => !(auth && auth._id && item.title === "Sign up")
+                )
+                .map((item, index) => {
+                  return (
+                    <li
+                      key={item.id || index}
+                      className="text-black cursor-pointer hover:text-cs-text_black7D8184"
                     >
-                      {item.title}{" "}
-                    </NavLink>
-                  </li>
-                );
-              })}
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "text-center  font-poppins border-b-[1px] border-b-black"
+                            : "text-center font-poppins"
+                        }
+                      >
+                        {item.title}{" "}
+                      </NavLink>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
 
@@ -302,16 +306,18 @@ function Navbar() {
             ref={mobileMenuRef}
             className="flex flex-col items-center gap-4 p-4 bg-white shadow-lg lg:hidden"
           >
-            {navigationBar.map((item) => (
-              <li key={item.id} className="text-lg">
-                <NavLink
-                  to={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.title}
-                </NavLink>
-              </li>
-            ))}
+            {navigationBar
+              .filter((item) => !(auth && auth._id && item.title === "Sign up"))
+              .map((item) => (
+                <li key={item.id} className="text-lg">
+                  <NavLink
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.title}
+                  </NavLink>
+                </li>
+              ))}
 
             <div className="flex items-center gap-4 px-2 rounded-md sm:hidden w-fit bg-cs-white_F5F5F5">
               <input

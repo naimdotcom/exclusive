@@ -23,14 +23,13 @@ function FlashSales() {
     }
   }, [data, isLoading]);
 
-  console.log(data);
-
   return (
     <div className="pt-24">
       <ProductCommonComponentLayout
         title="Flash Sale"
         description="Today's"
-        timeToEndOffer={"2025-06-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
+        // todo: add flash sale offer time end in backend
+        timeToEndOffer={"2028-09-01T23:59:59"} // ?Set your target date here. (format of time: YYYY-MM-DDTHH:mm:ss)
         products={productData}
         componentData={productData.length > 0 ? productData : []}
         cards={ProductCard}

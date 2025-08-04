@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../../../components/CommonComponents/Button";
 import { loginImg } from "../../../utils/assets";
 import { cn } from "../../../utils/cn";
-import { LoginSchema } from "../../../validation/Schema/LoginSchema";
+import { LoginSchema } from "../../../validation/Schema";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosinstance } from "../../../helper/axios";

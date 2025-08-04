@@ -32,4 +32,37 @@ const SignupSchema = Yup.object({
   address2: Yup.string().required("address2 is required").min(2).max(50),
 });
 
-export { LoginSchema, SignupSchema };
+const ContactSchema = Yup.object({
+  name: Yup.string().required("Name is required").min(2).max(50),
+  email: Yup.string()
+    .matches(mailFormat, "Email is invalid")
+    .required("Email is required"),
+  phone: Yup.string()
+    .matches(bdPhoneNumberRege, "Phone number is invalid")
+    .required("Phone number is required"),
+  message: Yup.string().required("Message is required").min(5).max(500),
+});
+
+const profileValidationSchema = Yup.object({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  address: Yup.string().required("Address is required"),
+});
+const passwordValidationSchema = Yup.object({
+  currentPassword: Yup.string().required("Current password is required"),
+  newPassword: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .required("New password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "Passwords must match")
+    .required("Confirm password is required"),
+});
+
+export {
+  LoginSchema,
+  SignupSchema,
+  ContactSchema,
+  profileValidationSchema,
+  passwordValidationSchema,
+};

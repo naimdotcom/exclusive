@@ -45,7 +45,7 @@ function SideBar({
             return (
               <li className="flex flex-col" key={item._id}>
                 <div className="flex items-center justify-between w-full">
-                  <a href={item.name}>
+                  <a href={`category/${item.name}`}>
                     <h2>{item.name}</h2>
                   </a>
                   {item.subCategory.length > 0 && (
@@ -66,7 +66,7 @@ function SideBar({
                     {item.subCategory.map((subItem) => (
                       <li key={subItem._id}>
                         <a
-                          href={subItem.name}
+                          href={`category/${subItem.name}`}
                           className="text-sm text-gray-600 hover:text-black"
                         >
                           {subItem.name}
