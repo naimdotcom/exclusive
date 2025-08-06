@@ -72,7 +72,6 @@ function Navbar() {
 
     if (isUserModalOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      console.log("clicked add");
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }

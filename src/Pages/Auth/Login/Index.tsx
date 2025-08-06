@@ -36,7 +36,8 @@ function Login({}: Props) {
 
       response
         .then((res) => {
-          if (res.statusText == "OK") {
+          console.log(res);
+          if (res.statusText == "OK" || res.status == 200) {
             dispath(login(res.data?.data?.user));
             successToast("login successful");
             navigate("/");
