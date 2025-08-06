@@ -29,19 +29,19 @@ function Account({}: Props) {
   });
   const { data } = useGetAuthQuery();
   const [activeSection, setActiveSection] = useState("profile");
-  const sidebarItems = [
-    { id: "profile", label: "My Profile", section: "Manage My Account" },
-    { id: "address", label: "Address Book", section: "Manage My Account" },
-    {
-      id: "payment",
-      label: "My Payment Options",
-      section: "Manage My Account",
-    },
-    { id: "orders", label: "My Orders", section: "My Orders" },
-    { id: "returns", label: "My Returns", section: "My Orders" },
-    { id: "cancellations", label: "My Cancellations", section: "My Orders" },
-    { id: "wishlist", label: "My Wishlist", section: "My Wishlist" },
-  ];
+  // const sidebarItems = [
+  //   { id: "profile", label: "My Profile", section: "Manage My Account" },
+  //   { id: "address", label: "Address Book", section: "Manage My Account" },
+  //   {
+  //     id: "payment",
+  //     label: "My Payment Options",
+  //     section: "Manage My Account",
+  //   },
+  //   { id: "orders", label: "My Orders", section: "My Orders" },
+  //   { id: "returns", label: "My Returns", section: "My Orders" },
+  //   { id: "cancellations", label: "My Cancellations", section: "My Orders" },
+  //   { id: "wishlist", label: "My Wishlist", section: "My Wishlist" },
+  // ];
 
   const handleProfileSubmit = (values: any) => {
     console.log("Profile updated:", values);
@@ -174,7 +174,7 @@ function Account({}: Props) {
                 onSubmit={handleProfileSubmit}
               >
                 {({ isSubmitting }) => (
-                  <div>
+                  <div tabIndex={isSubmitting ? -1 : 0}>
                     <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
                       <div>
                         <label className="block mb-2 text-sm font-medium text-gray-700">
